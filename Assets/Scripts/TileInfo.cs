@@ -24,6 +24,7 @@ public class TileInfo : MonoBehaviour
     public void GetTile(int x, int y)
     {
         tiles = tilemap.GetTile(new Vector3Int(x, y, 0));
+        tilemap.SetTile(new Vector3Int(0, 0, 0), null);
         Debug.Log(tiles);
     }
 }

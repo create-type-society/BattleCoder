@@ -16,6 +16,6 @@ public class TileTest : MonoBehaviour
     void Update()
     {
         TileInfo tileInfo = new TileInfo(tilemap);
-        tileInfo.GetTile(2, 2);
+        tileInfo.GetTile(0, 0);
     }
 }

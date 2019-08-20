@@ -1,96 +1,99 @@
 ﻿using System;
 using Jint;
 using Jint.Runtime.Interop;
+using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 
 #endif
 
-public class TestComponent : MonoBehaviour
+namespace BattleCoder.Test.ScriptEngine.Jint
 {
-    public interface IParson
+    public class TestComponent : MonoBehaviour
     {
-        string Name { get; }
-        int Age { get; }
-    }
-
-    public class Parson : IParson
-    {
-        public Parson(string name, int age)
+        public interface IParson
         {
-            Name = name;
-            Age = age;
+            string Name { get; }
+            int Age { get; }
         }
 
-        public static Parson Create(string name, int age)
+        public class Parson : IParson
         {
-            return new Parson(name, age);
+            public Parson(string name, int age)
+            {
+                Name = name;
+                Age = age;
+            }
+
+            public static Parson Create(string name, int age)
+            {
+                return new Parson(name, age);
+            }
+
+            public string Name { get; private set; }
+            public int Age { get; private set; }
         }
 
-        public string Name { get; private set; }
-        public int Age { get; private set; }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        IParson data = new Parson("", 0);
-
-        try
+        // Start is called before the first frame update
+        void Start()
         {
-            // Parsonクラスを自動でいい感じにjs環境に変数として取り込んでくれる
-            var engine = new Engine().SetValue("gameObjectName", data);
-            // Jsのコードを実行
-            engine.Execute("gameObjectName.Name = 'ScriptEngine'")
-                .Execute("gameObjectName.Age = 25");
+            IParson data = new Parson("", 0);
 
-            // Parsonクラスに自動でバインドしてくれる。
-            Debug.Assert(data.Name == "ScriptEngine");
-            Debug.Assert(data.Age == 25);
+            try
+            {
+                // Parsonクラスを自動でいい感じにjs環境に変数として取り込んでくれる
+                var engine = new Engine().SetValue("gameObjectName", data);
+                // Jsのコードを実行
+                engine.Execute("gameObjectName.Name = 'ScriptEngine'")
+                    .Execute("gameObjectName.Age = 25");
 
-            // エンジンにSystemを登録
-            engine = new Engine(cfg => cfg.AllowClr());
+                // Parsonクラスに自動でバインドしてくれる。
+                Debug.Assert(data.Name == "ScriptEngine");
+                Debug.Assert(data.Age == 25);
 
-            // 関数を変数に格納
-            engine.Execute("var concat = System.String.Concat;");
-            // 実行
-            var val = engine.GetValue("concat").Invoke("test", "abc");
-            Debug.Assert(val.AsString() == "testabc");
+                // エンジンにSystemを登録
+                engine = new Engine(cfg => cfg.AllowClr());
 
-            engine = new Engine();
-            // 型を登録
-            engine.SetValue("Parson", TypeReference.CreateTypeReference(engine, typeof(Parson)));
-            // new でインスタンス作成
-            engine.Execute("var p1 = new Parson('Test', 10)");
-            // 変数を取得
-            var val2 = engine.GetValue("p1").AsObject();
-            Debug.Assert(val2.Get("Name").AsString() == "Test");
-            Debug.Assert((int) val2.Get("Age").AsNumber() == 10);
+                // 関数を変数に格納
+                engine.Execute("var concat = System.String.Concat;");
+                // 実行
+                var val = engine.GetValue("concat").Invoke("test", "abc");
+                Debug.Assert(val.AsString() == "testabc");
 
-            // static関数にアクセス
-            engine.Execute("var p2 = Parson.Create('Bob', 30)");
-            // 変数を取得
-            var val3 = engine.GetValue("p2").AsObject();
-            Debug.Assert(val3.Get("Name").AsString() == "Bob");
-            Debug.Assert((int) val3.Get("Age").AsNumber() == 30);
+                engine = new Engine();
+                // 型を登録
+                engine.SetValue("Parson", TypeReference.CreateTypeReference(engine, typeof(Parson)));
+                // new でインスタンス作成
+                engine.Execute("var p1 = new Parson('Test', 10)");
+                // 変数を取得
+                var val2 = engine.GetValue("p1").AsObject();
+                Debug.Assert(val2.Get("Name").AsString() == "Test");
+                Debug.Assert((int) val2.Get("Age").AsNumber() == 10);
 
-            Debug.Log("Test Clear!");
+                // static関数にアクセス
+                engine.Execute("var p2 = Parson.Create('Bob', 30)");
+                // 変数を取得
+                var val3 = engine.GetValue("p2").AsObject();
+                Debug.Assert(val3.Get("Name").AsString() == "Bob");
+                Debug.Assert((int) val3.Get("Age").AsNumber() == 30);
+
+                Debug.Log("Test Clear!");
 #if UNITY_EDITOR
-            // テストを終了
-            EditorApplication.isPlaying = false;
-            EditorUtility.DisplayDialog("", "テストが完了しました。", "OK");
+                // テストを終了
+                EditorApplication.isPlaying = false;
+                EditorUtility.DisplayDialog("", "テストが完了しました。", "OK");
 #endif
+            }
+            catch (Exception e)
+            {
+                // エラー表示
+                Debug.LogError(e);
+            }
         }
-        catch (Exception e)
-        {
-            // エラー表示
-            Debug.LogError(e);
-        }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
+        }
     }
 }

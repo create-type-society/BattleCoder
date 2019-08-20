@@ -1,7 +1,3 @@
-﻿namespace BattleCoder.GameObject.BotApplication
+﻿public class BotApplication
 {
-    public class BotApplication
-    {
-        
-    }
 }

@@ -4,22 +4,23 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class TileMapInfo : MonoBehaviour
 {
-    private Tilemap tilemap;
+    [SerializeField] private Tilemap tilemap;
     private TileBase tile;
 
-    public GridPosition GetGridPosition(Vector3 worldPos,Tilemap tilemap)
+    
+    public GridPosition GetGridPosition(Vector3 worldPos)
     {
         Vector3Int tilePos = tilemap.WorldToCell(worldPos);
         return new GridPosition(tilePos.x, tilePos.y);
     }
     
-    public TileType GetTileType(Vector3 worldPos,Tilemap tilemap)
+    public TileType GetTileType(Vector3 worldPos)
     {
         Vector3Int tilePos = tilemap.WorldToCell(worldPos);
         tile = tilemap.GetTile(new Vector3Int(tilePos.x,tilePos.y, 0));
         return SearchTileType(tile);
     }
-    public TileType GetTileType(GridPosition pos,Tilemap tilemap)
+    public TileType GetTileType(GridPosition pos)
     {
         this.tilemap = tilemap;
         tile = tilemap.GetTile(new Vector3Int(pos.X,pos.Y, 0));

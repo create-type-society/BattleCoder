@@ -209,50 +209,25 @@ Tilemap:
     type: 3}
   m_PrefabInstance: {fileID: 8567487666959945836}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1881774717
+--- !u!1 &1013496449 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8567487665857107358, guid: 3eea27ad6c0e06e4a8de82f86611ba72,
+    type: 3}
+  m_PrefabInstance: {fileID: 8567487666959945836}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1881774719}
-  - component: {fileID: 1881774718}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1881774718
+--- !u!114 &1013496452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1881774717}
+  m_GameObject: {fileID: 1013496449}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e7402fff7187a8488e7920f95e5bbb0, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b474208f1284d388920204c5b677277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 388095880}
---- !u!4 &1881774719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1881774717}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.18517777, y: -0.065213665, z: -1.5253906}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8567487666959945836
 PrefabInstance:
   m_ObjectHideFlags: 0

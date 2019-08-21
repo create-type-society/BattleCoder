@@ -8,6 +8,7 @@ public class God : MonoBehaviour
     BotEntity botEntityPrefab;
 
     [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
+    [SerializeField] CameraFollower cameraFollower;
 
     BotEntityAnimation botEntityAnimation;
 
@@ -18,6 +19,7 @@ public class God : MonoBehaviour
     {
         Instantiate(tileMapInfoManagerPrefab).Create(StageKind.TestStage);
         var botEntity = Instantiate(botEntityPrefab);
+        cameraFollower.SetPlayerPosition(botEntity.transform);
         botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botApplication = new BotApplication(botEntity, botEntityAnimation);
         javaScriptEngine = new JavaScriptEngine(botApplication);

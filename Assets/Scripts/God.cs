@@ -19,9 +19,14 @@ public class God : MonoBehaviour
         botApplication = new BotApplication(botEntity, botEntityAnimation);
         javaScriptEngine = new JavaScriptEngine(botApplication);
         javaScriptEngine.ExecuteJS(@"
+            var i = 0
             Coroutine(
-                10,
+                60,
                 function(){
+                    if (i++ % 5 == 0){
+                        MoveDir(Math.random()*4);
+                        return;
+                    }
                     Move(
                         Math.floor(Math.random()*4),6,2
                     )

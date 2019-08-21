@@ -8,6 +8,8 @@ public class BotApplication : IBotCommands
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
 
+    private Direction direction;
+
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation)
     {
         this.botEntity = botEntity;
@@ -19,6 +21,8 @@ public class BotApplication : IBotCommands
     {
         var moveCommandObject = new MoveCommandObject(botEntity, botEntityAnimation, direction, speed, gridDistance);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
+
+        this.direction = direction;
     }
 
     //コルーチンコマンドの発行
@@ -26,6 +30,15 @@ public class BotApplication : IBotCommands
     {
         var coroutineCommandObject = new CoroutineCommandObject(frameTime, action);
         commandObjectController.AddCoroutineCommandObject(coroutineCommandObject);
+    }
+
+    //方向転換コマンドの実装
+    public void MoveDirection(Direction direction)
+    {
+        var moveDirectionCommandObject = new MoveDirectionCommandObject(botEntity, botEntityAnimation, direction);
+        commandObjectController.AddMoveDirectionCommandObject(moveDirectionCommandObject);
+
+        this.direction = direction;
     }
 
     //色々な更新

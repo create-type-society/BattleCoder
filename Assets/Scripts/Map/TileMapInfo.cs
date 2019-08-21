@@ -6,7 +6,19 @@ public class TileMapInfo : MonoBehaviour
 {
     private Tilemap tilemap;
     private TileBase tile;
+
+    public GridPosition GetGridPosition(Vector3 worldPos,Tilemap tilemap)
+    {
+        Vector3Int tilePos = tilemap.WorldToCell(worldPos);
+        return new GridPosition(tilePos.x, tilePos.y);
+    }
     
+    public TileType GetTileType(Vector3 worldPos,Tilemap tilemap)
+    {
+        Vector3Int tilePos = tilemap.WorldToCell(worldPos);
+        tile = tilemap.GetTile(new Vector3Int(tilePos.x,tilePos.y, 0));
+        return SearchTileType(tile);
+    }
     public TileType GetTileType(GridPosition pos,Tilemap tilemap)
     {
         this.tilemap = tilemap;

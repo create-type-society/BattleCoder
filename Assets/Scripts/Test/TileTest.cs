@@ -22,6 +22,6 @@ public class TileTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(tileInfo.GetTileType(pos,tilemap));
+        Debug.Log(tileInfo.GetTileType(new Vector3(-7,-5,0), tilemap));
     }
 }

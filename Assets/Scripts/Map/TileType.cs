@@ -2,7 +2,7 @@ namespace BattleCoder.Map
 {
     public enum TileType
     {
-        tanc,
+        tank,
         rock,
         hole,
         empty

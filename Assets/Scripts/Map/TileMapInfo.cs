@@ -6,7 +6,6 @@ public class TileMapInfo : MonoBehaviour
 {
     private Tilemap tilemap;
     private TileBase tile;
-    private GridPosition pos;
     
     public TileType GetTileType(GridPosition pos,Tilemap tilemap)
     {
@@ -18,7 +17,7 @@ public class TileMapInfo : MonoBehaviour
     private TileType SearchTileType(TileBase tile)
     {
         if (tile == null) return TileType.empty;
-        if (tile.name.Contains("tanc")) return TileType.tanc;
+        if (tile.name.Contains("tank")) return TileType.tank;
         if (tile.name.Contains("rock")) return TileType.rock;
         if (tile.name.Contains("hole")) return TileType.hole;
         return TileType.empty;

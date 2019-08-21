@@ -7,13 +7,16 @@ public class God : MonoBehaviour
     [FormerlySerializedAs("botPrefab")] [SerializeField]
     BotEntity botEntityPrefab;
 
+    BotEntityAnimation botEntityAnimation;
+
     BotApplication botApplication;
     JavaScriptEngine javaScriptEngine;
 
     void Awake()
     {
         var botEntity = Instantiate(botEntityPrefab);
-        botApplication = new BotApplication(botEntity);
+        botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
+        botApplication = new BotApplication(botEntity, botEntityAnimation);
         javaScriptEngine = new JavaScriptEngine(botApplication);
         javaScriptEngine.ExecuteJS(@"
             Coroutine(

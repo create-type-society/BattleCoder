@@ -5,17 +5,19 @@ using System;
 public class BotApplication : IBotCommands
 {
     readonly BotEntity botEntity;
+    readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
 
-    public BotApplication(BotEntity botEntity)
+    public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation)
     {
         this.botEntity = botEntity;
+        this.botEntityAnimation = botEntityAnimation;
     }
 
     //移動コマンドの発行
     public void Move(Direction direction, float speed, uint gridDistance)
     {
-        var moveCommandObject = new MoveCommandObject(botEntity, direction, speed, gridDistance);
+        var moveCommandObject = new MoveCommandObject(botEntity, botEntityAnimation, direction, speed, gridDistance);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
     }
 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: m_cave_139
+  m_Name: 2_rock
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -3882940135336348057, guid: e4d86d83fbac1324db3960082eb42e61,
+  m_Sprite: {fileID: 5170114385833618672, guid: e4d86d83fbac1324db3960082eb42e61,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:

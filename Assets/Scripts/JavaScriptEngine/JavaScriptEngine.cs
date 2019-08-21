@@ -22,6 +22,7 @@ public class JavaScriptEngine
             {
                 botCommands.Coroutine(frameTime, () => jsfunc.Invoke());
             }));
+        engine.SetValue("MoveDir", new Action<Direction>(botCommands.MoveDirection));
     }
 
     public void ExecuteJS(string script)

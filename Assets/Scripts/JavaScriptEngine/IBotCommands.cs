@@ -7,4 +7,6 @@ public interface IBotCommands
 
     //コルーチン生成実行コマンド
     void Coroutine(uint frameTime, Action action);
+
+    void MoveDirection(Direction direction);
 }

@@ -8,6 +8,7 @@ public class BotApplication : IBotCommands
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
+    public BotHp Hp { get; private set; }
 
     private Direction direction;
 
@@ -16,6 +17,7 @@ public class BotApplication : IBotCommands
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
+        Hp = new BotHp(10);
 
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
     }

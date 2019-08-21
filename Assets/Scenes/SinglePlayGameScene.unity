@@ -1129,5 +1129,10 @@ PrefabInstance:
       propertyPath: cameraFollower
       value: 
       objectReference: {fileID: 755825718}
+    - target: {fileID: 904407806210637666, guid: d9acd2cfbf0ffe14db9de8142d595d05,
+        type: 3}
+      propertyPath: playerHpPresenter
+      value: 
+      objectReference: {fileID: 1015451715}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9acd2cfbf0ffe14db9de8142d595d05, type: 3}

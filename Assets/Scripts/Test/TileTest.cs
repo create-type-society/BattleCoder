@@ -9,11 +9,10 @@ public class TileTest : MonoBehaviour
 {
     private GridPosition pos = new GridPosition(0,0);
 
-    private TileMapInfo tileInfo;
+    [SerializeField] private TileMapInfo tileInfo;
     // Start is called before the first frame update
     void Start()
     {
-        tileInfo = gameObject.AddComponent<TileMapInfo>();
     }
 
     // Update is called once per frame

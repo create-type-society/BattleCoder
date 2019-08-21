@@ -1,6 +1,6 @@
 ﻿//ボットを外部から簡単に制御できるようにするクラス
 
-public class BotApplication
+public class BotApplication : IBotCommands
 {
     readonly BotEntity botEntity;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
@@ -11,7 +11,7 @@ public class BotApplication
     }
 
     //移動コマンドの発行
-    public void Move(Direction direction, uint speed, uint gridDistance)
+    public void Move(Direction direction, float speed, uint gridDistance)
     {
         var moveCommandObject = new MoveCommandObject(botEntity, direction, speed, gridDistance);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);

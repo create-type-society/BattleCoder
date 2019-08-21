@@ -5,7 +5,7 @@ public class MoveCommandObject : ICommandObject
     readonly BotEntity botEntity;
     private readonly BotEntityAnimation botEntityAnimation;
     int moveCount;
-    private bool dirChenge;
+    private int dirChenge;
     readonly float speed;
     readonly Direction direction;
 
@@ -24,10 +24,10 @@ public class MoveCommandObject : ICommandObject
 
     public void Run()
     {
-        if (!dirChenge)
+        if (dirChenge <= 5)
         {
             botEntityAnimation.MoveAnimation(direction, false);
-            dirChenge = true;
+            dirChenge++;
             return;
         }
 

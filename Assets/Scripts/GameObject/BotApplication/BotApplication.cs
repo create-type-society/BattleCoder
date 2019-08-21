@@ -1,5 +1,7 @@
 ﻿//ボットを外部から簡単に制御できるようにするクラス
 
+using System;
+
 public class BotApplication : IBotCommands
 {
     readonly BotEntity botEntity;
@@ -15,6 +17,13 @@ public class BotApplication : IBotCommands
     {
         var moveCommandObject = new MoveCommandObject(botEntity, direction, speed, gridDistance);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
+    }
+
+    //コルーチンコマンドの発行
+    public void Coroutine(uint frameTime, Action action)
+    {
+        var coroutineCommandObject = new CoroutineCommandObject(frameTime, action);
+        commandObjectController.AddCoroutineCommandObject(coroutineCommandObject);
     }
 
     //色々な更新

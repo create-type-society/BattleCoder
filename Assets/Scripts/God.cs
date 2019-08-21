@@ -9,23 +9,26 @@ public class God : MonoBehaviour
 
     BotApplication botApplication;
     JavaScriptEngine javaScriptEngine;
-    int count = 0;
 
     void Awake()
     {
         var botEntity = Instantiate(botEntityPrefab);
         botApplication = new BotApplication(botEntity);
         javaScriptEngine = new JavaScriptEngine(botApplication);
+        javaScriptEngine.ExecuteJS(@"
+            Coroutine(
+                10,
+                function(){
+                    Move(
+                        Math.floor(Math.random()*4),6,2
+                    )
+                }
+            )
+        ");
     }
 
     void Update()
     {
-        if (count % 60 == 0)
-        {
-            javaScriptEngine.ExecuteJS("Move(Math.floor(Math.random()*4),6,2)");
-        }
-
-        count++;
         botApplication.Update();
     }
 }

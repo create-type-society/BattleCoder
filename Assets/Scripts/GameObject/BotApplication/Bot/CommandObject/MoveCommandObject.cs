@@ -1,4 +1,6 @@
-﻿public class MoveCommandObject : ICommandObject
+﻿//移動をするコマンドオブジェクト
+
+public class MoveCommandObject : ICommandObject
 {
     readonly BotEntity botEntity;
     int moveCount;

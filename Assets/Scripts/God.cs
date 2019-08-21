@@ -8,16 +8,24 @@ public class God : MonoBehaviour
     BotEntity botEntityPrefab;
 
     BotApplication botApplication;
+    JavaScriptEngine javaScriptEngine;
+    int count = 0;
 
     void Awake()
     {
         var botEntity = Instantiate(botEntityPrefab);
         botApplication = new BotApplication(botEntity);
-        botApplication.Move(Direction.Right, 5, 3);
+        javaScriptEngine = new JavaScriptEngine(botApplication);
     }
 
     void Update()
     {
+        if (count % 60 == 0)
+        {
+            javaScriptEngine.ExecuteJS("Move(Math.floor(Math.random()*4),6,2)");
+        }
+
+        count++;
         botApplication.Update();
     }
 }

@@ -3,6 +3,7 @@ using Jint;
 using Jint.Runtime.Interop;
 using UnityEditor;
 using UnityEngine;
+
 #if UNITY_EDITOR
 
 #endif
@@ -32,6 +33,13 @@ namespace BattleCoder.Test.ScriptEngine.Jint
 
             public string Name { get; private set; }
             public int Age { get; private set; }
+        }
+
+        public enum Hoge
+        {
+            Fuga = 88,
+            Poge = 23,
+            Go = 55
         }
 
         // Start is called before the first frame update
@@ -76,6 +84,15 @@ namespace BattleCoder.Test.ScriptEngine.Jint
                 var val3 = engine.GetValue("p2").AsObject();
                 Debug.Assert(val3.Get("Name").AsString() == "Bob");
                 Debug.Assert((int) val3.Get("Age").AsNumber() == 30);
+                
+                // 型を登録
+                engine.SetValue("Hoge", TypeReference.CreateTypeReference(engine, typeof(Hoge)));
+                // new でインスタンス作成
+                engine.Execute("var go = Hoge.Go");
+                // 変数を取得
+                var val4 = engine.GetValue("go").AsNumber();
+                Debug.Assert((Hoge)val4 == Hoge.Go);
+
 
                 Debug.Log("Test Clear!");
 #if UNITY_EDITOR

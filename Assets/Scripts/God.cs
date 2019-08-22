@@ -16,10 +16,10 @@ public class God : MonoBehaviour
 
     void Awake()
     {
-        Instantiate(tileMapInfoManagerPrefab).Create(StageKind.TestStage);
+        var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(StageKind.TestStage);
         var botEntity = Instantiate(botEntityPrefab);
         botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        botApplication = new BotApplication(botEntity, botEntityAnimation);
+        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo);
         javaScriptEngine = new JavaScriptEngine(botApplication);
         javaScriptEngine.ExecuteJS(@"
             var i = 0

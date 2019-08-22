@@ -7,13 +7,17 @@ public class BotApplication : IBotCommands
     readonly BotEntity botEntity;
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
+    readonly TileMapInfo tileMapInfo;
 
     private Direction direction;
 
-    public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation)
+    public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
+        this.tileMapInfo = tileMapInfo;
+
+        botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
     }
 
     //移動コマンドの発行

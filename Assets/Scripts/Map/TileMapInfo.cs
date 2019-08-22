@@ -27,16 +27,14 @@ public class TileMapInfo : MonoBehaviour
         return SearchTileType(tile);
     }
 
-    public GridPosition GetPlayer1Position()
+    public Vector3 GetPlayer1StartPosition()
     {
-        var pos = startPlayerMarker1.gameObject.transform.position;
-        return GetGridPosition(pos);
+        return startPlayerMarker1.gameObject.transform.position;
     }
 
-    public GridPosition GetPlayer2Position()
+    public Vector3 GetPlayer2StartPosition()
     {
-        var pos = startPlayerMarker2.gameObject.transform.position;
-        return GetGridPosition(pos);
+        return startPlayerMarker2.gameObject.transform.position;
     }
 
     private TileType SearchTileType(TileBase tile)

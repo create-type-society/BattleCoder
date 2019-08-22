@@ -7,6 +7,8 @@ public class God : MonoBehaviour
     [FormerlySerializedAs("botPrefab")] [SerializeField]
     BotEntity botEntityPrefab;
 
+    [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
+
     BotEntityAnimation botEntityAnimation;
 
     BotApplication botApplication;
@@ -14,6 +16,7 @@ public class God : MonoBehaviour
 
     void Awake()
     {
+        Instantiate(tileMapInfoManagerPrefab).Create(StageKind.TestStage);
         var botEntity = Instantiate(botEntityPrefab);
         botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botApplication = new BotApplication(botEntity, botEntityAnimation);

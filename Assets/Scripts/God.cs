@@ -10,6 +10,7 @@ public class God : MonoBehaviour
 
     [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
     [SerializeField] CameraFollower cameraFollower;
+    [SerializeField] PlayerHpPresenter playerHpPresenter;
 
     [SerializeField] RunButtonEvent runButtonEvent;
     [SerializeField] ScriptText scriptText;
@@ -34,5 +35,6 @@ public class God : MonoBehaviour
     void Update()
     {
         botApplication.Update();
+        playerHpPresenter.RenderHp(botApplication.Hp);
     }
 }

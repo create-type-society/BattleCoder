@@ -12,17 +12,19 @@ public class MoveCommandObject : ICommandObject
     readonly float speed;
     readonly Direction direction;
     readonly Action directionChangeCallback;
+    readonly TileMapInfo tileMapInfo;
 
     public bool IsFinished { get; private set; } = false;
 
     public MoveCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
-        Action directionChangeCallback, float speed, uint gridDistance)
+        Action directionChangeCallback, float speed, uint gridDistance, TileMapInfo tileMapInfo)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.direction = direction;
         this.directionChangeCallback = directionChangeCallback;
         this.speed = speed;
+        this.tileMapInfo = tileMapInfo;
 
         moveCount = (int) (gridDistance * Global.GridSize / speed);
     }
@@ -54,16 +56,16 @@ public class MoveCommandObject : ICommandObject
         switch (direction)
         {
             case Direction.Up:
-                botEntity.MoveY(speed);
+                botEntity.MoveY(speed, tileMapInfo);
                 break;
             case Direction.Down:
-                botEntity.MoveY(-speed);
+                botEntity.MoveY(-speed, tileMapInfo);
                 break;
             case Direction.Left:
-                botEntity.MoveX(-speed);
+                botEntity.MoveX(-speed, tileMapInfo);
                 break;
             case Direction.Right:
-                botEntity.MoveX(speed);
+                botEntity.MoveX(speed, tileMapInfo);
                 break;
         }
     }

@@ -47,9 +47,9 @@ TagManager:
   - name: bot
     uniqueID: 2225330407
     locked: 0
+  - name: Item
+    uniqueID: 1126779555
+    locked: 0
   - name: Ui
     uniqueID: 3762252223
-    locked: 0
-  - name: New Layer
-    uniqueID: 1126779555
     locked: 0

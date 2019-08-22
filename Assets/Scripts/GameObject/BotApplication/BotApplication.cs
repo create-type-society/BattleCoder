@@ -19,10 +19,10 @@ public class BotApplication : IBotCommands
     //移動コマンドの発行
     public void Move(Direction direction, float speed, uint gridDistance)
     {
-        var moveCommandObject = new MoveCommandObject(botEntity, botEntityAnimation, direction, speed, gridDistance);
+        Action callback = () => { this.direction = direction; };
+        var moveCommandObject =
+            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, speed, gridDistance);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
-
-        this.direction = direction;
     }
 
     //コルーチンコマンドの発行
@@ -35,10 +35,10 @@ public class BotApplication : IBotCommands
     //方向転換コマンドの実装
     public void MoveDirection(Direction direction)
     {
-        var moveDirectionCommandObject = new MoveDirectionCommandObject(botEntity, botEntityAnimation, direction);
+        Action callback = () => { this.direction = direction; };
+        var moveDirectionCommandObject =
+            new MoveDirectionCommandObject(botEntity, botEntityAnimation, direction, callback);
         commandObjectController.AddMoveTypeCommandObject(moveDirectionCommandObject);
-
-        this.direction = direction;
     }
 
     //色々な更新

@@ -36,7 +36,7 @@ public class BotApplication : IBotCommands
     public void MoveDirection(Direction direction)
     {
         var moveDirectionCommandObject = new MoveDirectionCommandObject(botEntity, botEntityAnimation, direction);
-        commandObjectController.AddMoveDirectionCommandObject(moveDirectionCommandObject);
+        commandObjectController.AddMoveTypeCommandObject(moveDirectionCommandObject);
 
         this.direction = direction;
     }

@@ -1,22 +1,27 @@
 ﻿//移動をするコマンドオブジェクト
 
+using System;
+
 public class MoveCommandObject : ICommandObject
 {
     readonly BotEntity botEntity;
     private readonly BotEntityAnimation botEntityAnimation;
     int moveCount;
-    private int dirChenge;
+    int dirChenge;
+    bool useCallback;
     readonly float speed;
     readonly Direction direction;
+    readonly Action directionChangeCallback;
 
     public bool IsFinished { get; private set; } = false;
 
     public MoveCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
-        float speed, uint gridDistance)
+        Action directionChangeCallback, float speed, uint gridDistance)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.direction = direction;
+        this.directionChangeCallback = directionChangeCallback;
         this.speed = speed;
 
         moveCount = (int) (gridDistance * Global.GridSize / speed);
@@ -37,6 +42,12 @@ public class MoveCommandObject : ICommandObject
             botEntityAnimation.ResetAnimation();
             IsFinished = true;
             return;
+        }
+
+        if (useCallback)
+        {
+            useCallback = true;
+            directionChangeCallback();
         }
 
         botEntityAnimation.MoveAnimation(direction, true);

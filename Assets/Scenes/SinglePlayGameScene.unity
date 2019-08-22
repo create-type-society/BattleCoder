@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 984667034}
   - component: {fileID: 984667033}
   - component: {fileID: 984667032}
+  - component: {fileID: 984667035}
   m_Layer: 5
   m_Name: ScriptInputField
   m_TagString: Untagged
@@ -763,6 +764,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984667030}
   m_CullTransparentMesh: 0
+--- !u!114 &984667035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984667030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8cc0fcce09448deb8ffa3f12d8f5ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptEditor: {fileID: 816392197}
 --- !u!1 &1015451711
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +882,7 @@ GameObject:
   - component: {fileID: 1148430735}
   - component: {fileID: 1148430734}
   - component: {fileID: 1148430733}
+  - component: {fileID: 1148430736}
   m_Layer: 5
   m_Name: RunButton
   m_TagString: Untagged
@@ -978,6 +993,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148430731}
   m_CullTransparentMesh: 0
+--- !u!114 &1148430736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148430731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2980bb9f0f5e461aaa192ce8c728fd22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runButton: {fileID: 1148430733}
 --- !u!1 &1173218587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,5 +1157,15 @@ PrefabInstance:
       propertyPath: cameraFollower
       value: 
       objectReference: {fileID: 755825718}
+    - target: {fileID: 904407806210637666, guid: d9acd2cfbf0ffe14db9de8142d595d05,
+        type: 3}
+      propertyPath: runButtonEvent
+      value: 
+      objectReference: {fileID: 1148430736}
+    - target: {fileID: 904407806210637666, guid: d9acd2cfbf0ffe14db9de8142d595d05,
+        type: 3}
+      propertyPath: scriptText
+      value: 
+      objectReference: {fileID: 984667035}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9acd2cfbf0ffe14db9de8142d595d05, type: 3}

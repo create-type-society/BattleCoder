@@ -11,8 +11,8 @@ public class CameraFollower : MonoBehaviour
         this.targetTransform = targetTransform;
 
         var position = transform.position;
-        offset.x = position.x - targetTransform.position.x;
-        offset.y = position.y - targetTransform.position.y;
+        offset.x = (1280 / 2 - 854 / 2) / 2;
+        offset.y = 0;
     }
 
     void LateUpdate()

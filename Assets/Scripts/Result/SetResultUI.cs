@@ -14,7 +14,6 @@ public class SetResultUI : MonoBehaviour
     {
         string text;
         Color color;
-        ResultInfo.SetResult(true);
         if (ResultInfo.GetResult())
         {
             color = Color.red;

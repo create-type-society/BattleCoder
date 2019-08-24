@@ -27,7 +27,7 @@ public class BotApplication : IBotCommands
     {
         Action callback = () => { this.direction = direction; };
         var moveCommandObject =
-            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, speed, gridDistance);
+            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, speed, gridDistance, tileMapInfo);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
     }
 

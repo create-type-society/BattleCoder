@@ -14,7 +14,7 @@ public class JavaScriptEngine
     public JavaScriptEngine(IBotCommands botCommands)
     {
         this.botCommands = botCommands;
-        engine = new Engine();
+        engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMilliseconds(1000.0)));
         engine.SetValue("Direction", TypeReference.CreateTypeReference(engine, typeof(Direction)));
         engine.SetValue("Move", new Action<Direction, float, uint>(botCommands.Move));
         engine.SetValue("Coroutine",

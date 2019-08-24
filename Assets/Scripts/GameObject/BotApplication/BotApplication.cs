@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using BattleCoder.Map;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -12,8 +14,10 @@ public class BotApplication : IBotCommands
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
-    readonly List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
     readonly BulletEntity bulletPrefab;
+    
+    List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
+
     public BotHp Hp { get; private set; }
 
     private Direction direction;
@@ -71,6 +75,11 @@ public class BotApplication : IBotCommands
     {
         commandObjectController.RunCommandObjects();
         bulletApplicationList.ForEach(x => x.Update());
+        bulletApplicationList = bulletApplicationList.Where(x =>
+        {
+            if (x.DeleteFlag) x.Delete();
+            return x.DeleteFlag == false;
+        }).ToList();
     }
 
     private void CheckHole()

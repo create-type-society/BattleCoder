@@ -14,4 +14,9 @@ public struct BotHp
     {
         return new BotHp(hp - damage);
     }
+
+    public bool IsDeath()
+    {
+        return hp <= 0;
+    }
 }

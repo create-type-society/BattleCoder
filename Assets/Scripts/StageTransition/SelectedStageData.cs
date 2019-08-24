@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 //選択したステージの種別を保存する
 public static class SelectedStageData
@@ -16,6 +17,7 @@ public static class SelectedStageData
     {
         if (selectedStageKind.HasValue)
             return selectedStageKind.Value;
-        throw new NullReferenceException();
+        Debug.Log("Stageが設定されませんでしたので、TestStageを設定します");
+        return StageKind.TestStage;
     }
 }

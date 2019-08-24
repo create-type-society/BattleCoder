@@ -6,6 +6,6 @@ public class StageSelectButton : MonoBehaviour
 
     public void OnClicked()
     {
-        Debug.Log(stageKind);
+        SceneChangeManager.ChangePlayScene(stageKind);
     }
 }

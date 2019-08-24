@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using BattleCoder.Map;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -15,7 +14,7 @@ public class BotApplication : IBotCommands
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
     readonly BulletEntity bulletPrefab;
-    
+
     List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
 
     public BotHp Hp { get; private set; }
@@ -66,6 +65,11 @@ public class BotApplication : IBotCommands
         Action callback = () => { this.shotRotation = rotation; };
         var moveShotRotationCommandObject = new MoveShotRotationCommandObject(callback);
         commandObjectController.AddMoveShotRotationCommandObject(moveShotRotationCommandObject);
+    }
+
+    public GridPosition GetMyPosition()
+    {
+        return tileMapInfo.GetGridPosition(botEntity.transform.position);
     }
 
     //射撃する

@@ -1,4 +1,5 @@
 ﻿using System;
+using BattleCoder.Map;
 
 public interface IBotCommands
 {
@@ -11,4 +12,6 @@ public interface IBotCommands
     void MoveDirection(Direction direction);
 
     void MoveShotRotation(float rotation);
+
+    GridPosition GetMyPosition();
 }

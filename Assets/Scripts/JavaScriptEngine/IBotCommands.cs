@@ -16,4 +16,6 @@ public interface IBotCommands
     GridPosition GetMyPosition();
 
     float GetPositionRadian(GridPosition position);
+
+    TileType GetTileType(GridPosition position);
 }

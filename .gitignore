@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 # .idea
 /.idea/
+
+# jetbrainPlugin
+/Editor/JetBrains/

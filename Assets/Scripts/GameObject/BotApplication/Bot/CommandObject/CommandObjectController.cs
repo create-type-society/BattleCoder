@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CommandObjectController
 {
     ICommandObject moveTypeCommandObject;
+    MoveShotRotationCommandObject _moveShotRotationCommandObject;
     List<CoroutineCommandObject> coroutineCommandObjects = new List<CoroutineCommandObject>();
 
     //移動系のコマンドを登録する
@@ -20,6 +21,12 @@ public class CommandObjectController
         coroutineCommandObjects.Add(commandObject);
     }
 
+    public void AddMoveShotRotationCommandObject(MoveShotRotationCommandObject commandObject)
+    {
+        if (_moveShotRotationCommandObject == null)
+            _moveShotRotationCommandObject = commandObject;
+    }
+
     //持っているコマンドオブジェクトを全部実行する
     public void RunCommandObjects()
     {
@@ -30,6 +37,13 @@ public class CommandObjectController
             moveTypeCommandObject.Run();
             if (moveTypeCommandObject.IsFinished)
                 moveTypeCommandObject = null;
+        }
+
+        if (_moveShotRotationCommandObject != null)
+        {
+            _moveShotRotationCommandObject.Run();
+            if (_moveShotRotationCommandObject.IsFinished)
+                _moveShotRotationCommandObject = null;
         }
     }
 }

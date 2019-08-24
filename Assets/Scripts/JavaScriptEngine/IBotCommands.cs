@@ -18,4 +18,6 @@ public interface IBotCommands
     float GetPositionRadian(GridPosition position);
 
     TileType GetTileType(GridPosition position);
+
+    void Shot();
 }

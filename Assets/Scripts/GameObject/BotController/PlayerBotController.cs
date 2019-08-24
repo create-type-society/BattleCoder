@@ -1,4 +1,5 @@
 ﻿using System;
+using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
@@ -20,7 +21,8 @@ public class PlayerBotController
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab, soundManager);
+        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
+            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")), soundManager);
         userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
 
         var javaScriptEngine = new JavaScriptEngine(botApplication);

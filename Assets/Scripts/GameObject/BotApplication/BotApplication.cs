@@ -13,7 +13,7 @@ public class BotApplication : IBotCommands
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
-    readonly BulletEntity bulletPrefab;
+    readonly IBulletEntityCreator bulletEntityCreator;
     readonly SoundManager soundManager;
 
     List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
@@ -24,13 +24,13 @@ public class BotApplication : IBotCommands
     private float shotRotation;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        BulletEntity bulletPrefab,SoundManager soundManager)
+        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager)
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
-        this.bulletPrefab = bulletPrefab;
+        this.bulletEntityCreator = bulletEntityCreator;
         Hp = new BotHp(10);
     }
 
@@ -76,7 +76,7 @@ public class BotApplication : IBotCommands
     public void Shot()
     {
         soundManager.MakeFiringSound();
-        var bulletEntity = Object.Instantiate(bulletPrefab);
+        var bulletEntity = bulletEntityCreator.Create();
         bulletEntity.transform.position = botEntity.transform.position;
         bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
         var bulletApplication = new BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
@@ -117,5 +117,4 @@ public class BotApplication : IBotCommands
     {
         return Mathf.PI / 180f * angle;
     }
-    
 }

@@ -17,6 +17,7 @@ public class PlayerBotController
         var botEntity = Object.Instantiate(botEntityPrefab);
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
+        botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
         userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
 

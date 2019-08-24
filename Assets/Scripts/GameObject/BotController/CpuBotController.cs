@@ -8,6 +8,7 @@ public class CpuBotController
     public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab)
     {
         var botEntity = Object.Instantiate(botEntityPrefab);
+        botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
     }

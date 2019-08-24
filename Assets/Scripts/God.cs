@@ -1,9 +1,6 @@
-﻿using System;
-using BattleCoder.GamePlayUi;
+﻿using BattleCoder.GamePlayUi;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 //天地創造をする全てを支配する全知全能の神
 public class God : MonoBehaviour
@@ -19,6 +16,7 @@ public class God : MonoBehaviour
     [SerializeField] ScriptText scriptText;
     [SerializeField] BulletEntity bulletPrefab;
     [SerializeField] ErrorMsg errorMsg;
+    [SerializeField] SoundManager soundManager;
 
 
     PlayerBotController playerBotController;
@@ -29,8 +27,8 @@ public class God : MonoBehaviour
     {
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
         playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
-            playerHpPresenter, runButtonEvent, scriptText, errorMsg);
-        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab);
+            playerHpPresenter, runButtonEvent, scriptText, errorMsg, soundManager);
+        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab, soundManager);
     }
 
     void Update()

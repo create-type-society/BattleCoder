@@ -5,12 +5,13 @@ public class CpuBotController
 {
     readonly BotApplication botApplication;
 
-    public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab)
+    public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
+        SoundManager soundManager)
     {
         var botEntity = Object.Instantiate(botEntityPrefab);
         botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
+        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab, soundManager);
     }
 
     public void Update()

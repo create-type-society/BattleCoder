@@ -19,47 +19,26 @@ public class God : MonoBehaviour
     [SerializeField] BulletEntity bulletPrefab;
     [SerializeField] ErrorMsg errorMsg;
 
-    BotEntityAnimation botEntityAnimation;
 
-    BotApplication botApplication;
-
+    PlayerBotController playerBotController;
     JavaScriptEngine javaScriptEngine;
-    IUserInput userInput = new KeyController();
 
     void Awake()
     {
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
-        var botEntity = Instantiate(botEntityPrefab);
-        cameraFollower.SetPlayerPosition(botEntity.transform);
-        botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
-        javaScriptEngine = new JavaScriptEngine(botApplication);
-        runButtonEvent.AddClickEvent(() =>
-        {
-            try
-            {
-                javaScriptEngine.ExecuteJS(scriptText.GetScriptText());
-            }
-            catch (Exception e)
-            {
-                errorMsg.SetText(e.ToString());
-            }
-        });
-        userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
+        playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
+            playerHpPresenter, runButtonEvent, scriptText, errorMsg);
     }
 
     void Update()
     {
-        botApplication.Update();
-        playerHpPresenter.RenderHp(botApplication.Hp);
-        userInput.Update();
-
+        playerBotController.Update();
         CheckDeath();
     }
 
     private void CheckDeath()
     {
-        if (botApplication.Hp.IsDeath())
+        if (playerBotController.IsDeath())
         {
             SceneChangeManager.ChangeResultScene(false);
         }

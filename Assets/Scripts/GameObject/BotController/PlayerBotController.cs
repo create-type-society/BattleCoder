@@ -17,6 +17,7 @@ public class PlayerBotController
     {
         this.playerHpPresenter = playerHpPresenter;
         var botEntity = Object.Instantiate(botEntityPrefab);
+        tileMapInfo.PlayerTankTransform = botEntity.transform;
         botEntity.gameObject.layer = LayerMask.NameToLayer("PlayerBot");
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();

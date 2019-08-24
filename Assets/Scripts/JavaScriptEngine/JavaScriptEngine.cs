@@ -16,8 +16,8 @@ public class JavaScriptEngine
     {
         this.botCommands = botCommands;
         engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMilliseconds(1000.0)));
-        engine.SetValue("Direction", TypeReference.CreateTypeReference(engine, typeof(Direction)));
-        engine.SetValue("Position", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
+        engine.SetValue("Dir", TypeReference.CreateTypeReference(engine, typeof(Direction)));
+        engine.SetValue("Pos", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
         engine.SetValue("Move", new Action<Direction, float, uint>(botCommands.Move));
         engine.SetValue("Coroutine",
             new Action<uint, JsValue>((frameTime, jsfunc) =>

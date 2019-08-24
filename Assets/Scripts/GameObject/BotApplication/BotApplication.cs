@@ -14,6 +14,7 @@ public class BotApplication : IBotCommands
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
     readonly BulletEntity bulletPrefab;
+    readonly SoundManager soundManager;
 
     List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
 
@@ -23,8 +24,9 @@ public class BotApplication : IBotCommands
     private float shotRotation;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        BulletEntity bulletPrefab)
+        BulletEntity bulletPrefab,SoundManager soundManager)
     {
+        this.soundManager = soundManager;
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
@@ -75,6 +77,7 @@ public class BotApplication : IBotCommands
     //射撃する
     public void Shot()
     {
+        soundManager.MakeFiringSound();
         var bulletEntity = Object.Instantiate(bulletPrefab);
         bulletEntity.transform.position = botEntity.transform.position;
         bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
@@ -116,4 +119,5 @@ public class BotApplication : IBotCommands
     {
         return Mathf.PI / 180f * angle;
     }
+    
 }

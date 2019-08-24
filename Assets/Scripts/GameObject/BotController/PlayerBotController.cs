@@ -8,16 +8,15 @@ public class PlayerBotController
     readonly IUserInput userInput = new KeyController();
     readonly BotApplication botApplication;
     readonly PlayerHpPresenter playerHpPresenter;
-
     public PlayerBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
         CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
-        ScriptText scriptText, ErrorMsg errorMsg)
+        ScriptText scriptText, ErrorMsg errorMsg,SoundManager soundManager)
     {
         this.playerHpPresenter = playerHpPresenter;
         var botEntity = Object.Instantiate(botEntityPrefab);
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
+        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab,soundManager);
         userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
 
         var javaScriptEngine = new JavaScriptEngine(botApplication);

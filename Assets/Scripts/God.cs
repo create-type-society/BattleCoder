@@ -18,6 +18,7 @@ public class God : MonoBehaviour
     [SerializeField] ScriptText scriptText;
     [SerializeField] BulletEntity bulletPrefab;
     [SerializeField] ErrorMsg errorMsg;
+    [SerializeField] SoundManager soundManager;
 
 
     PlayerBotController playerBotController;
@@ -27,7 +28,7 @@ public class God : MonoBehaviour
     {
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
         playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
-            playerHpPresenter, runButtonEvent, scriptText, errorMsg);
+            playerHpPresenter, runButtonEvent, scriptText, errorMsg,soundManager);
     }
 
     void Update()

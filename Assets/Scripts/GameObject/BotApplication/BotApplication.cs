@@ -71,8 +71,6 @@ public class BotApplication : IBotCommands
     {
         commandObjectController.RunCommandObjects();
         bulletApplicationList.ForEach(x => x.Update());
-
-        CheckDeath();
     }
 
     private void CheckHole()
@@ -81,14 +79,6 @@ public class BotApplication : IBotCommands
         if (tileType == TileType.hole)
         {
             Hp = new BotHp(0);
-        }
-    }
-
-    private void CheckDeath()
-    {
-        if (Hp.IsDeath())
-        {
-            SceneChangeManager.ChangeResultScene(false);
         }
     }
 }

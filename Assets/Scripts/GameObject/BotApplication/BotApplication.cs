@@ -24,7 +24,7 @@ public class BotApplication : IBotCommands
     private float shotRotation;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        BulletEntity bulletPrefab,SoundManager soundManager)
+        BulletEntity bulletPrefab, SoundManager soundManager)
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;
@@ -72,6 +72,15 @@ public class BotApplication : IBotCommands
         return tileMapInfo.GetGridPosition(botEntity.transform.position);
     }
 
+    public float GetPositionRadian(GridPosition position)
+    {
+        var pos = tileMapInfo.GetGridPosition(botEntity.transform.position);
+        var x = position.X - pos.X;
+        var y = position.Y - pos.Y;
+
+        return -Mathf.Atan2(x, y) * 180f / Mathf.PI;
+    }
+
     //射撃する
     public void Shot()
     {
@@ -117,5 +126,4 @@ public class BotApplication : IBotCommands
     {
         return Mathf.PI / 180f * angle;
     }
-    
 }

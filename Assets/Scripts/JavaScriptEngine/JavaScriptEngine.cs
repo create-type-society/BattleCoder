@@ -27,7 +27,8 @@ public class JavaScriptEngine
         engine.SetValue("MoveDir", new Action<Direction>(botCommands.MoveDirection));
         engine.SetValue("ShotDir", new Action<float>(botCommands.MoveShotRotation));
         engine.SetValue("GetMyPos", new Func<GridPosition>(botCommands.GetMyPosition));
-        engine.SetValue("Print", new Action<GridPosition>((pos) => { Debug.Log($"{pos.X}:{pos.Y}"); }));
+        engine.SetValue("GetPosRad", new Func<GridPosition, float>(botCommands.GetPositionRadian));
+        engine.SetValue("Print", new Action<object>(Debug.Log));
     }
 
     public void ExecuteJS(string script)

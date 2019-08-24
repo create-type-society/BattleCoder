@@ -1,6 +1,7 @@
 ﻿using System;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -21,6 +22,7 @@ public class God : MonoBehaviour
 
 
     PlayerBotController playerBotController;
+    CpuBotController cpuBotController;
     JavaScriptEngine javaScriptEngine;
 
     void Awake()
@@ -28,11 +30,13 @@ public class God : MonoBehaviour
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
         playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
             playerHpPresenter, runButtonEvent, scriptText, errorMsg);
+        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab);
     }
 
     void Update()
     {
         playerBotController.Update();
+        cpuBotController.Update();
         CheckDeath();
     }
 
@@ -41,6 +45,11 @@ public class God : MonoBehaviour
         if (playerBotController.IsDeath())
         {
             SceneChangeManager.ChangeResultScene(false);
+        }
+
+        if (cpuBotController.ISDeath())
+        {
+            SceneChangeManager.ChangeResultScene(true);
         }
     }
 }

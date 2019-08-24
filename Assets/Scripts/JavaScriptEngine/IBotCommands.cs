@@ -14,4 +14,8 @@ public interface IBotCommands
     void MoveShotRotation(float rotation);
 
     GridPosition GetMyPosition();
+
+    float GetPositionRadian(GridPosition position);
+
+    TileType GetTileType(GridPosition position);
 }

@@ -73,6 +73,20 @@ public class BotApplication : IBotCommands
         return tileMapInfo.GetGridPosition(botEntity.transform.position);
     }
 
+    public float GetPositionRadian(GridPosition position)
+    {
+        var pos = tileMapInfo.GetGridPosition(botEntity.transform.position);
+        var x = position.X - pos.X;
+        var y = position.Y - pos.Y;
+
+        return -Mathf.Atan2(x, y) * 180f / Mathf.PI;
+    }
+
+    public TileType GetTileType(GridPosition position)
+    {
+        return tileMapInfo.GetTileType(position);
+    }
+
     //射撃する
     public void Shot()
     {

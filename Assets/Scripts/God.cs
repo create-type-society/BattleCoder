@@ -28,7 +28,7 @@ public class God : MonoBehaviour
 
     void Awake()
     {
-        var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(StageKind.TestStage);
+        var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
         var botEntity = Instantiate(botEntityPrefab);
         cameraFollower.SetPlayerPosition(botEntity.transform);
         botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();

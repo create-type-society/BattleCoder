@@ -19,9 +19,10 @@ public static class SceneChangeManager
     }
 
     //ゲーム画面へ移動する
-    public static void ChangePlayScene()
+    public static void ChangePlayScene(StageKind stageKind)
     {
-        throw new NotImplementedException();
+        SelectedStageData.SetSelectedStageKind(stageKind);
+        SceneManager.LoadScene("SinglePlayGameScene");
     }
 
     //タイトル画面へ遷移する

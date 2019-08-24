@@ -17,6 +17,7 @@ public class BotApplication : IBotCommands
     public BotHp Hp { get; private set; }
 
     private Direction direction;
+    private float shotRotation;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
         BulletEntity bulletPrefab)
@@ -56,12 +57,20 @@ public class BotApplication : IBotCommands
         commandObjectController.AddMoveTypeCommandObject(moveDirectionCommandObject);
     }
 
+    public void MoveShotRotation(float rotation)
+    {
+        Action callback = () => { this.shotRotation = rotation; };
+        var moveShotRotationCommandObject = new MoveShotRotationCommandObject(callback);
+        commandObjectController.AddMoveShotRotationCommandObject(moveShotRotationCommandObject);
+    }
+
     //射撃する
     public void Shot()
     {
         var bulletEntity = Object.Instantiate(bulletPrefab);
         bulletEntity.transform.position = botEntity.transform.position;
-        var bulletApplication = new BulletApplication(bulletEntity, new Vector3(0, 8));
+        bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
+        var bulletApplication = new BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
         bulletApplicationList.Add(bulletApplication);
     }
 
@@ -80,5 +89,18 @@ public class BotApplication : IBotCommands
         {
             Hp = new BotHp(0);
         }
+    }
+
+    private Vector3 CalcRotationVector(BulletEntity bulletEntity, float speed)
+    {
+        var r = bulletEntity.transform.rotation.eulerAngles.z;
+        var x = -Mathf.Sin(ToRadians(r));
+        var y = Mathf.Cos(ToRadians(r));
+        return new Vector3(x, y) * speed;
+    }
+
+    private float ToRadians(float angle)
+    {
+        return Mathf.PI / 180f * angle;
     }
 }

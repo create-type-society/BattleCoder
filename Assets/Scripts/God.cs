@@ -1,8 +1,6 @@
-﻿using System;
-using BattleCoder.GamePlayUi;
+﻿using BattleCoder.GamePlayUi;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 //天地創造をする全てを支配する全知全能の神
 public class God : MonoBehaviour
@@ -22,18 +20,21 @@ public class God : MonoBehaviour
 
 
     PlayerBotController playerBotController;
+    CpuBotController cpuBotController;
     JavaScriptEngine javaScriptEngine;
 
     void Awake()
     {
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
         playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
-            playerHpPresenter, runButtonEvent, scriptText, errorMsg,soundManager);
+            playerHpPresenter, runButtonEvent, scriptText, errorMsg, soundManager);
+        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab, soundManager);
     }
 
     void Update()
     {
         playerBotController.Update();
+        cpuBotController.Update();
         CheckDeath();
     }
 
@@ -42,6 +43,11 @@ public class God : MonoBehaviour
         if (playerBotController.IsDeath())
         {
             SceneChangeManager.ChangeResultScene(false);
+        }
+
+        if (cpuBotController.ISDeath())
+        {
+            SceneChangeManager.ChangeResultScene(true);
         }
     }
 }

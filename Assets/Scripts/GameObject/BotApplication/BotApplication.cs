@@ -32,8 +32,6 @@ public class BotApplication : IBotCommands
         this.tileMapInfo = tileMapInfo;
         this.bulletPrefab = bulletPrefab;
         Hp = new BotHp(10);
-
-        botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
     }
 
     //移動コマンドの発行

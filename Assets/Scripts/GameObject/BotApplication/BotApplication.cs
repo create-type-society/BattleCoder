@@ -58,7 +58,7 @@ public class BotApplication : IBotCommands
     {
         var bulletEntity = UnityEngine.Object.Instantiate(bulletPrefab);
         bulletEntity.transform.position = botEntity.transform.position;
-        var bulletApplication = new BulletApplication(bulletEntity, new Vector3(0, 1));
+        var bulletApplication = new BulletApplication(bulletEntity, new Vector3(0, 8));
         bulletApplicationList.Add(bulletApplication);
     }
 

@@ -4,7 +4,6 @@ using System;
 using Jint;
 using Jint.Native;
 using Jint.Runtime.Interop;
-using UnityEngine;
 
 public class JavaScriptEngine
 {
@@ -23,6 +22,7 @@ public class JavaScriptEngine
                 botCommands.Coroutine(frameTime, () => jsfunc.Invoke());
             }));
         engine.SetValue("MoveDir", new Action<Direction>(botCommands.MoveDirection));
+        engine.SetValue("ShotDir", new Action<float>(botCommands.MoveShotRotation));
     }
 
     public void ExecuteJS(string script)

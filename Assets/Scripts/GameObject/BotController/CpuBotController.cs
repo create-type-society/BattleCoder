@@ -9,7 +9,9 @@ public class CpuBotController
     public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
         SoundManager soundManager)
     {
+        
         var botEntity = Object.Instantiate(botEntityPrefab);
+        tileMapInfo.EnemyTankTransform = botEntity.transform;
         botEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBot");
         botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();

@@ -15,6 +15,7 @@ namespace BattleCoder.Test.Map
             Debug.Assert(_info.GetTileType(p1) == TileType.rock);
             Debug.Assert(_info.GetTileType(_info.GetGridPosition(_info.GetPlayer1StartPosition())) == TileType.empty);
             Debug.Assert(_info.GetTileType(_info.GetGridPosition(_info.GetPlayer2StartPosition())) == TileType.empty);
+            Debug.Log(_info.GetTileType(new GridPosition(0, 0)));
         }
     }
 }

@@ -18,6 +18,7 @@ public class JavaScriptEngine
         engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMilliseconds(1000.0)));
         engine.SetValue("Dir", TypeReference.CreateTypeReference(engine, typeof(Direction)));
         engine.SetValue("Pos", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
+        engine.SetValue("TileType", TypeReference.CreateTypeReference(engine, typeof(TileType)));
         engine.SetValue("Move", new Action<Direction, float, uint>(botCommands.Move));
         engine.SetValue("Coroutine",
             new Action<uint, JsValue>((frameTime, jsfunc) =>
@@ -28,6 +29,7 @@ public class JavaScriptEngine
         engine.SetValue("ShotDir", new Action<float>(botCommands.MoveShotRotation));
         engine.SetValue("GetMyPos", new Func<GridPosition>(botCommands.GetMyPosition));
         engine.SetValue("GetPosRad", new Func<GridPosition, float>(botCommands.GetPositionRadian));
+        engine.SetValue("GetTileType", new Func<GridPosition, TileType>(botCommands.GetTileType));
         engine.SetValue("Print", new Action<object>(Debug.Log));
     }
 

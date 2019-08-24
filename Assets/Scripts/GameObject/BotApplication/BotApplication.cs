@@ -83,6 +83,11 @@ public class BotApplication : IBotCommands
         return -Mathf.Atan2(x, y) * 180f / Mathf.PI;
     }
 
+    public TileType GetTileType(GridPosition position)
+    {
+        return tileMapInfo.GetTileType(position);
+    }
+
     //射撃する
     public void Shot()
     {

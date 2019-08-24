@@ -1,6 +1,7 @@
 ﻿//ボットを外部から簡単に制御できるようにするクラス
 
 using System;
+using BattleCoder.Map;
 
 public class BotApplication : IBotCommands
 {
@@ -27,7 +28,8 @@ public class BotApplication : IBotCommands
     {
         Action callback = () => { this.direction = direction; };
         var moveCommandObject =
-            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, speed, gridDistance, tileMapInfo);
+            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, speed, gridDistance, tileMapInfo,
+                CheckHole);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
     }
 
@@ -52,5 +54,14 @@ public class BotApplication : IBotCommands
     public void Update()
     {
         commandObjectController.RunCommandObjects();
+    }
+
+    private void CheckHole()
+    {
+        var tileType = tileMapInfo.GetTileType(botEntity.transform.position);
+        if (tileType == TileType.hole)
+        {
+            Hp = new BotHp(0);
+        }
     }
 }

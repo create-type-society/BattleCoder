@@ -1172,5 +1172,11 @@ PrefabInstance:
       propertyPath: playerHpPresenter
       value: 
       objectReference: {fileID: 1015451715}
+    - target: {fileID: 904407806210637666, guid: d9acd2cfbf0ffe14db9de8142d595d05,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: -9139090472797058095, guid: c975c3bebe42e7140a0b9b7243f54b55,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9acd2cfbf0ffe14db9de8142d595d05, type: 3}

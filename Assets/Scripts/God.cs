@@ -40,5 +40,15 @@ public class God : MonoBehaviour
         botApplication.Update();
         playerHpPresenter.RenderHp(botApplication.Hp);
         userInput.Update();
+
+        CheckDeath();
+    }
+
+    private void CheckDeath()
+    {
+        if (botApplication.Hp.IsDeath())
+        {
+            SceneChangeManager.ChangeResultScene(false);
+        }
     }
 }

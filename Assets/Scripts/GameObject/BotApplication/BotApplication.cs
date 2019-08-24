@@ -2,8 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using BattleCoder.Map;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class BotApplication : IBotCommands
 {
@@ -58,7 +59,7 @@ public class BotApplication : IBotCommands
     //射撃する
     public void Shot()
     {
-        var bulletEntity = UnityEngine.Object.Instantiate(bulletPrefab);
+        var bulletEntity = Object.Instantiate(bulletPrefab);
         bulletEntity.transform.position = botEntity.transform.position;
         var bulletApplication = new BulletApplication(bulletEntity, new Vector3(0, 8));
         bulletApplicationList.Add(bulletApplication);

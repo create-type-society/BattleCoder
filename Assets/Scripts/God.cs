@@ -21,6 +21,7 @@ public class God : MonoBehaviour
     BotApplication botApplication;
 
     JavaScriptEngine javaScriptEngine;
+    IUserInput userInput = new KeyController();
 
     void Awake()
     {
@@ -31,11 +32,13 @@ public class God : MonoBehaviour
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
         javaScriptEngine = new JavaScriptEngine(botApplication);
         runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });
+        userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
     }
 
     void Update()
     {
         botApplication.Update();
         playerHpPresenter.RenderHp(botApplication.Hp);
+        userInput.Update();
     }
 }

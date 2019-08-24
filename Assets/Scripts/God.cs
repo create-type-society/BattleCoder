@@ -14,6 +14,7 @@ public class God : MonoBehaviour
 
     [SerializeField] RunButtonEvent runButtonEvent;
     [SerializeField] ScriptText scriptText;
+    [SerializeField] BulletEntity bulletPrefab;
 
     BotEntityAnimation botEntityAnimation;
 
@@ -27,7 +28,7 @@ public class God : MonoBehaviour
         var botEntity = Instantiate(botEntityPrefab);
         cameraFollower.SetPlayerPosition(botEntity.transform);
         botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo);
+        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo, bulletPrefab);
         javaScriptEngine = new JavaScriptEngine(botApplication);
         runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });
     }

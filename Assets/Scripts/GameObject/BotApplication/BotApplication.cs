@@ -1,6 +1,8 @@
 ﻿//ボットを外部から簡単に制御できるようにするクラス
 
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class BotApplication : IBotCommands
 {
@@ -8,15 +10,19 @@ public class BotApplication : IBotCommands
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
+    readonly List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
+    readonly BulletEntity bulletPrefab;
     public BotHp Hp { get; private set; }
 
     private Direction direction;
 
-    public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo)
+    public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
+        BulletEntity bulletPrefab)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
+        this.bulletPrefab = bulletPrefab;
         Hp = new BotHp(10);
 
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
@@ -47,10 +53,20 @@ public class BotApplication : IBotCommands
         commandObjectController.AddMoveTypeCommandObject(moveDirectionCommandObject);
     }
 
+    //射撃する
+    public void Shot()
+    {
+        var bulletEntity = UnityEngine.Object.Instantiate(bulletPrefab);
+        bulletEntity.transform.position = botEntity.transform.position;
+        var bulletApplication = new BulletApplication(bulletEntity, new Vector3(0, 1));
+        bulletApplicationList.Add(bulletApplication);
+    }
+
     //色々な更新
     //毎フレーム1回だけ呼んでください
     public void Update()
     {
         commandObjectController.RunCommandObjects();
+        bulletApplicationList.ForEach(x => x.Update());
     }
 }

@@ -7,10 +7,10 @@ public class SoundManager : MonoBehaviour
     
     public void MakeFiringSound()
     {
-        firingSound.Play();
+        firingSound.PlayOneShot(firingSound.clip);
     }
     public void MakeMeleeSound()
     {
-        meleeSound.Play();
+        meleeSound.PlayOneShot(meleeSound.clip);
     }
 }

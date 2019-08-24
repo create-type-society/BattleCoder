@@ -1,9 +1,11 @@
 ﻿//javaScriptのインタプリタエンジン
 
 using System;
+using BattleCoder.Map;
 using Jint;
 using Jint.Native;
 using Jint.Runtime.Interop;
+using UnityEngine;
 
 public class JavaScriptEngine
 {
@@ -15,6 +17,7 @@ public class JavaScriptEngine
         this.botCommands = botCommands;
         engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMilliseconds(1000.0)));
         engine.SetValue("Direction", TypeReference.CreateTypeReference(engine, typeof(Direction)));
+        engine.SetValue("Position", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
         engine.SetValue("Move", new Action<Direction, float, uint>(botCommands.Move));
         engine.SetValue("Coroutine",
             new Action<uint, JsValue>((frameTime, jsfunc) =>
@@ -23,6 +26,8 @@ public class JavaScriptEngine
             }));
         engine.SetValue("MoveDir", new Action<Direction>(botCommands.MoveDirection));
         engine.SetValue("ShotDir", new Action<float>(botCommands.MoveShotRotation));
+        engine.SetValue("GetMyPos", new Func<GridPosition>(botCommands.GetMyPosition));
+        engine.SetValue("Print", new Action<GridPosition>((pos) => { Debug.Log($"{pos.X}:{pos.Y}"); }));
     }
 
     public void ExecuteJS(string script)

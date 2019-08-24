@@ -28,6 +28,7 @@ public class BotApplication : IBotCommands
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;
+        botEntity.HitBulletEvent += (sender, e) => Hp = Hp.DamageHp(1);
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
         this.bulletEntityCreator = bulletEntityCreator;

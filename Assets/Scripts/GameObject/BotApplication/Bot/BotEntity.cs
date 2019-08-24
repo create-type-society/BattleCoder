@@ -1,8 +1,12 @@
-﻿using BattleCoder.Map;
+﻿using System;
+using BattleCoder.Map;
 using UnityEngine;
 
 public class BotEntity : MonoBehaviour
 {
+    // 弾当たった時ののイベント
+    public event EventHandler<EventArgs> HitBulletEvent;
+
     //横に移動する(岩があったら停止してfalse返す)
     public bool MoveX(float x, TileMapInfo tileMapInfo)
     {
@@ -29,5 +33,10 @@ public class BotEntity : MonoBehaviour
         y = y > 0 ? y + gridSizeHalf : y < 0 ? y - gridSizeHalf : y;
         var tileType = tileMapInfo.GetTileType(transform.position + new Vector3(x, y, 0));
         return tileType == TileType.rock;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        HitBulletEvent.Invoke(this, EventArgs.Empty);
     }
 }

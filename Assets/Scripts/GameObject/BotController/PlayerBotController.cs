@@ -1,5 +1,6 @@
 ﻿using System;
 using BattleCoder.GamePlayUi;
+using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
 using Object = UnityEngine.Object;
 
@@ -15,6 +16,7 @@ public class PlayerBotController
     {
         this.playerHpPresenter = playerHpPresenter;
         var botEntity = Object.Instantiate(botEntityPrefab);
+        botEntity.gameObject.layer = LayerMask.NameToLayer("PlayerBot");
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();

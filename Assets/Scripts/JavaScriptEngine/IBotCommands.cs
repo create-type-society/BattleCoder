@@ -4,7 +4,7 @@ using BattleCoder.Map;
 public interface IBotCommands
 {
     //移動コマンド
-    void Move(Direction direction, float speed, uint gridDistance);
+    void Move(Direction direction, uint gridDistance);
 
     //コルーチン生成実行コマンド
     void Coroutine(uint frameTime, Action action);

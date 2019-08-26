@@ -19,7 +19,7 @@ public class JavaScriptEngine
         engine.SetValue("Dir", TypeReference.CreateTypeReference(engine, typeof(Direction)));
         engine.SetValue("Pos", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
         engine.SetValue("TileType", TypeReference.CreateTypeReference(engine, typeof(TileType)));
-        engine.SetValue("Move", new Action<Direction, float, uint>(botCommands.Move));
+        engine.SetValue("Move", new Action<Direction, uint>(botCommands.Move));
         engine.SetValue("Coroutine",
             new Action<uint, JsValue>((frameTime, jsfunc) =>
             {

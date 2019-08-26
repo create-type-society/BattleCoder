@@ -9,7 +9,7 @@ public class MoveCommandObject : ICommandObject
     int moveCount;
     int dirChenge;
     bool useCallback;
-    readonly float speed;
+    readonly float speed = 1;
     readonly Direction direction;
     readonly Action directionChangeCallback;
     readonly TileMapInfo tileMapInfo;
@@ -18,14 +18,13 @@ public class MoveCommandObject : ICommandObject
     public bool IsFinished { get; private set; } = false;
 
     public MoveCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
-        Action directionChangeCallback, float speed, uint gridDistance, TileMapInfo tileMapInfo,
+        Action directionChangeCallback, uint gridDistance, TileMapInfo tileMapInfo,
         Action movingCallback)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.direction = direction;
         this.directionChangeCallback = directionChangeCallback;
-        this.speed = speed;
         this.tileMapInfo = tileMapInfo;
         this.movingCallback = movingCallback;
 

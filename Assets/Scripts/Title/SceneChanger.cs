@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Scene移動 : MonoBehaviour
+public class SceneChanger : MonoBehaviour
 {
 
     // ボタンをクリックするとBattleSceneに移動します

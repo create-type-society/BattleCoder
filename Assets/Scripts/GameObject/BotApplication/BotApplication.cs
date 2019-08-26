@@ -36,11 +36,11 @@ public class BotApplication : IBotCommands
     }
 
     //移動コマンドの発行
-    public void Move(Direction direction, float speed, uint gridDistance)
+    public void Move(Direction direction, uint gridDistance)
     {
         Action callback = () => { this.direction = direction; };
         var moveCommandObject =
-            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, speed, gridDistance, tileMapInfo,
+            new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, gridDistance, tileMapInfo,
                 CheckHole);
         commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
     }

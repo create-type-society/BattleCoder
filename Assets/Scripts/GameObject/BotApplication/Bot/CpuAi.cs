@@ -17,7 +17,7 @@ public class CpuAi
         var tileType =
             botCommands.GetTileType(new GridPosition((int) (myPosition.X + addvec.x), (int) (myPosition.Y + addvec.y)));
         if (tileType != TileType.hole)
-            botCommands.Move(direction, 1, 1);
+            botCommands.Move(direction, 1);
 
 
         if (Random.Range(0, 100) == 50)

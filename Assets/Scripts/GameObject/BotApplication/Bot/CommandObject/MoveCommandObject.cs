@@ -1,23 +1,33 @@
 ﻿//移動をするコマンドオブジェクト
 
+using System;
+
 public class MoveCommandObject : ICommandObject
 {
     readonly BotEntity botEntity;
     private readonly BotEntityAnimation botEntityAnimation;
     int moveCount;
-    private int dirChenge;
+    int dirChenge;
+    bool useCallback;
     readonly float speed;
     readonly Direction direction;
+    readonly Action directionChangeCallback;
+    readonly TileMapInfo tileMapInfo;
+    readonly Action movingCallback;
 
     public bool IsFinished { get; private set; } = false;
 
     public MoveCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
-        float speed, uint gridDistance)
+        Action directionChangeCallback, float speed, uint gridDistance, TileMapInfo tileMapInfo,
+        Action movingCallback)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
         this.direction = direction;
+        this.directionChangeCallback = directionChangeCallback;
         this.speed = speed;
+        this.tileMapInfo = tileMapInfo;
+        this.movingCallback = movingCallback;
 
         moveCount = (int) (gridDistance * Global.GridSize / speed);
     }
@@ -39,21 +49,29 @@ public class MoveCommandObject : ICommandObject
             return;
         }
 
+        if (useCallback)
+        {
+            useCallback = true;
+            directionChangeCallback();
+        }
+
         botEntityAnimation.MoveAnimation(direction, true);
         switch (direction)
         {
             case Direction.Up:
-                botEntity.MoveY(speed);
+                botEntity.MoveY(speed, tileMapInfo);
                 break;
             case Direction.Down:
-                botEntity.MoveY(-speed);
+                botEntity.MoveY(-speed, tileMapInfo);
                 break;
             case Direction.Left:
-                botEntity.MoveX(-speed);
+                botEntity.MoveX(-speed, tileMapInfo);
                 break;
             case Direction.Right:
-                botEntity.MoveX(speed);
+                botEntity.MoveX(speed, tileMapInfo);
                 break;
         }
+
+        movingCallback();
     }
 }

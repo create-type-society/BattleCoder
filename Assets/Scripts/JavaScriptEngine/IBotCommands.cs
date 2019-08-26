@@ -1,4 +1,5 @@
 ﻿using System;
+using BattleCoder.Map;
 
 public interface IBotCommands
 {
@@ -9,4 +10,14 @@ public interface IBotCommands
     void Coroutine(uint frameTime, Action action);
 
     void MoveDirection(Direction direction);
+
+    void MoveShotRotation(float rotation);
+
+    GridPosition GetMyPosition();
+
+    float GetPositionRadian(GridPosition position);
+
+    TileType GetTileType(GridPosition position);
+
+    void Shot();
 }

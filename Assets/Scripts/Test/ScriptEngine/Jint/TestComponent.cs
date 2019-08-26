@@ -84,17 +84,27 @@ namespace BattleCoder.Test.ScriptEngine.Jint
                 var val3 = engine.GetValue("p2").AsObject();
                 Debug.Assert(val3.Get("Name").AsString() == "Bob");
                 Debug.Assert((int) val3.Get("Age").AsNumber() == 30);
-                
+
                 // 型を登録
                 engine.SetValue("Hoge", TypeReference.CreateTypeReference(engine, typeof(Hoge)));
                 // new でインスタンス作成
                 engine.Execute("var go = Hoge.Go");
                 // 変数を取得
                 var val4 = engine.GetValue("go").AsNumber();
-                Debug.Assert((Hoge)val4 == Hoge.Go);
+                Debug.Assert((Hoge) val4 == Hoge.Go);
 
+                try
+                {
+                    engine = new Engine(new Action<Options>(options => options.TimeoutInterval(new TimeSpan(0, 0, 5))));
+                    engine.Execute("while(true);");
 
-                Debug.Log("Test Clear!");
+                    Debug.LogError("Test Error!");
+                }
+                catch (TimeoutException e)
+                {
+                    Debug.Log("Test Clear!");
+                }
+
 #if UNITY_EDITOR
                 // テストを終了
                 EditorApplication.isPlaying = false;

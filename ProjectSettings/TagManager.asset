@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - EnemyBullet
+  - PlayerBot
+  - EnemyBot
+  - Rock
   - 
   - 
   - 
@@ -40,6 +40,21 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ground
+    uniqueID: 3060327185
+    locked: 0
+  - name: bot
+    uniqueID: 2225330407
+    locked: 0
+  - name: Item
+    uniqueID: 1126779555
+    locked: 0
+  - name: bullet
+    uniqueID: 3248496697
+    locked: 0
+  - name: Ui
+    uniqueID: 3762252223
     locked: 0
   - name: button
     uniqueID: 2803438563

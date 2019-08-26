@@ -1,37 +1,77 @@
-﻿using System.Text.RegularExpressions;
-using BattleCoder.Map;
+﻿using BattleCoder.Map;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
+
 public class TileMapInfo : MonoBehaviour
 {
-    [SerializeField] private Tilemap tilemap;
-    
+    [FormerlySerializedAs("tilemap")] [SerializeField]
+    private Tilemap rockTilemap;
 
-    
+    [FormerlySerializedAs("tilemap")] [SerializeField]
+    private Tilemap holeTilemap;
+
+    [SerializeField] private GameObject startPlayerMarker1;
+    [SerializeField] private GameObject startPlayerMarker2;
+
+    public Transform EnemyTankTransform { private get; set; }
+    public Transform PlayerTankTransform { private get; set; }
+
     public GridPosition GetGridPosition(Vector3 worldPos)
     {
-        Vector3Int tilePos = tilemap.WorldToCell(worldPos);
+        Vector3Int tilePos = rockTilemap.WorldToCell(worldPos);
         return new GridPosition(tilePos.x, tilePos.y);
     }
-    
+
     public TileType GetTileType(Vector3 worldPos)
     {
-        Vector3Int tilePos = tilemap.WorldToCell(worldPos);
-        TileBase tile = tilemap.GetTile(new Vector3Int(tilePos.x,tilePos.y, 0));
-        return SearchTileType(tile);
-    }
-    public TileType GetTileType(GridPosition pos)
-    {
-        TileBase　tile = tilemap.GetTile(new Vector3Int(pos.X,pos.Y, 0));
-        return SearchTileType(tile);
+        GridPosition tilePos = GetGridPosition(worldPos);
+        TileBase rockTile = rockTilemap.GetTile(new Vector3Int(tilePos.X, tilePos.Y, 0));
+        TileBase holeTile = holeTilemap.GetTile(new Vector3Int(tilePos.X, tilePos.Y, 0));
+        GridPosition enemyPos = GetGridPosition(EnemyTankTransform.position);
+        GridPosition playerPos = GetGridPosition(PlayerTankTransform.position);
+        return SearchTileType(rockTile, holeTile, enemyPos, playerPos, tilePos);
     }
 
-    private TileType SearchTileType(TileBase tile)
+    public TileType GetTileType(GridPosition tilePos)
     {
-        if (tile == null) return TileType.empty;
-        if (tile.name.Contains("tank")) return TileType.tank;
-        if (tile.name.Contains("rock")) return TileType.rock;
-        if (tile.name.Contains("hole")) return TileType.hole;
+        TileBase rockTile = rockTilemap.GetTile(new Vector3Int(tilePos.X, tilePos.Y, 0));
+        TileBase holeTile = holeTilemap.GetTile(new Vector3Int(tilePos.X, tilePos.Y, 0));
+        GridPosition enemyPos = GetGridPosition(EnemyTankTransform.position);
+        GridPosition playerPos = GetGridPosition(PlayerTankTransform.position);
+        return SearchTileType(rockTile, holeTile, enemyPos, playerPos, tilePos);
+    }
+
+    public Vector3 GetPlayer1StartPosition()
+    {
+        return startPlayerMarker1.gameObject.transform.position;
+    }
+
+    public Vector3 GetPlayer2StartPosition()
+    {
+        return startPlayerMarker2.gameObject.transform.position;
+    }
+
+    private TileType SearchTileType(TileBase rockTile, TileBase holeTile, GridPosition enemyPos, GridPosition playerPos,
+        GridPosition tilePos)
+    {
+        if (rockTile != null || holeTile != null)
+        {
+            if (rockTile == null)
+            {
+                if (holeTile.name.Contains("rock")) return TileType.rock;
+                if (holeTile.name.Contains("hole")) return TileType.hole;
+            }
+            else
+            {
+                if (rockTile.name.Contains("rock")) return TileType.rock;
+                if (rockTile.name.Contains("hole")) return TileType.hole;
+            }
+        }
+
+        if (enemyPos.X == tilePos.X && enemyPos.Y == tilePos.Y) return TileType.tank;
+        if (playerPos.X == tilePos.X && playerPos.Y == tilePos.Y) return TileType.tank;
+
         return TileType.empty;
     }
 }

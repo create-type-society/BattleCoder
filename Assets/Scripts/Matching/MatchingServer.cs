@@ -6,7 +6,7 @@ public class MatchingServer
     MyTcpClient myTcpClient;
 
     //マッチ成功した時に呼ばれる時に呼ばれる処理
-    public event Action Matched;
+    public event Action<MatchType> Matched;
 
     public MatchingServer(MyTcpClient myTcpClient)
     {
@@ -19,7 +19,8 @@ public class MatchingServer
         {
             var result = myTcpClient.ReadData();
             if (result.isOk == false) return;
-            if (result.data == "match") Matched?.Invoke();
+            if (result.data == "match_host") Matched?.Invoke(MatchType.Host);
+            else if (result.data == "match_client") Matched?.Invoke(MatchType.Client);
         }
     }
 }

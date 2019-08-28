@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public static class SceneChangeManager
 {
+    //マッチング画面へ遷移する
+    public static void ChangeMatchingScene()
+    {
+        SceneManager.LoadScene("MatchingScene");
+    }
+    
     //リザルト画面へ遷移する
     public static void ChangeResultScene(bool result)
     {

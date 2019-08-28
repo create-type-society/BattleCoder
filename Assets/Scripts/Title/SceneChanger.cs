@@ -6,8 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-    public void ButtonClicked()
+    // ボタンをクリックするとBattleSceneに移動します
+    public void SingleButtonClicked()
     {
         SceneChangeManager.ChangeStageSelect();
+    }
+    
+    public void MultiButtonClicked()
+    {
+        SceneChangeManager.ChangeMatchingScene();
     }
 }

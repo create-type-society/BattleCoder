@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 namespace BattleCoder.Matching
 {
     public static class MatchingInfo

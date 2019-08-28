@@ -21,6 +21,8 @@ namespace BattleCoder.Test.Tcp
             var result = client.ReadData();
             if (result.isOk)
                 Debug.Log(result.data);
+            if(count>600)
+                client.DisConnect();
         }
     }
 }

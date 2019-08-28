@@ -10,11 +10,11 @@ public class SceneChanger : MonoBehaviour
     // ボタンをクリックするとBattleSceneに移動します
     public void SingleButtonClicked()
     {
-        SceneManager.LoadScene("SinglePlayGameScene");
+        SceneChangeManager.ChangeStageSelect();
     }
     
     public void MultiButtonClicked()
     {
-        SceneManager.LoadScene("MatchingScene");
+        SceneChangeManager.ChangeMatchingScene();
     }
 }

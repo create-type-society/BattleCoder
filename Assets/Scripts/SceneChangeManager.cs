@@ -15,7 +15,7 @@ public static class SceneChangeManager
     //ステージ選択画面へ移動する
     public static void ChangeStageSelect()
     {
-        throw new NotImplementedException();
+        SceneManager.LoadScene("StageSelectScene");
     }
 
     //ゲーム画面へ移動する

@@ -13,7 +13,6 @@ public class PlayerHpPresenter : MonoBehaviour
     //Hpを描画する
     public void RenderHp(BotHp botHp)
     {
-        //text.text = "HP:" + botHp.hp;
         if (heartObjects.Count > botHp.hp)
         {
             GameObject disHeart = heartObjects.Pop();

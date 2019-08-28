@@ -4,7 +4,7 @@ namespace BattleCoder.Test.Tcp
 {
     public class TcpTestComponent : MonoBehaviour
     {
-        readonly MyTcpClient client = new MyTcpClient("localhost", 3000);
+        readonly MyTcpClient client = new MyTcpClient("192.168.179.4", 3000);
 
         MatchingServer matchingServer;
         int count = 0;

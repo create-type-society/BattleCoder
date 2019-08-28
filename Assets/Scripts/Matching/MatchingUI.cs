@@ -15,6 +15,7 @@ public class MatchingUI : MonoBehaviour
     int count = 0;
     IEnumerator title;
     IEnumerator selectStage;
+    MatchType? type;
     private void Start()
     {
         title = WaitTitle();
@@ -25,6 +26,7 @@ public class MatchingUI : MonoBehaviour
         matchingServer = new MatchingServer(client);
         matchingServer.Matched += (matchType) =>
         {
+            type = matchType;
             MatchingInfo.Result = true;
         };
     }
@@ -37,13 +39,26 @@ public class MatchingUI : MonoBehaviour
         {
             MatchingInfo.Result = false;
             matchingText.text = "マッチしました。";
-            StartCoroutine(selectStage);
+            count = 0;
+            if (type == MatchType.Host) StartCoroutine(selectStage);
+            else
+            { 
+                matchingText.text = "Hostがステージを選択中です。";
+            }
         }
-        if (count == 600)
+        
+        if (count == 600 )
         {
-            matchingText.text = "マッチできませんでした。";
+            if (type == null) matchingText.text = "マッチできませんでした。";
+            else matchingText.text = "ステージが一定時間選択されなかったため切断します。";
             client.DisConnect();
             StartCoroutine(title);
+        }
+
+        if (MatchingInfo.StageSlected)
+        {
+            matchingText.text = "ステージが決定されました。ゲームを開始します。";
+            StartCoroutine(selectStage);
         }
     }
 

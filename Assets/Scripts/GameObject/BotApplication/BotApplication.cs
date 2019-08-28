@@ -32,7 +32,7 @@ public class BotApplication : IBotCommands
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
         this.bulletEntityCreator = bulletEntityCreator;
-        Hp = new BotHp(10);
+        Hp = new BotHp(3);
     }
 
     //移動コマンドの発行

@@ -8,14 +8,19 @@ public class MatchingUI : MonoBehaviour
     [SerializeField]private Text matchingText;
     MatchingServer matchingServer;
     readonly MyTcpClient client = new MyTcpClient("192.168.179.4", 3000);
+    [SerializeField]MatchingCancel cancel;
     string text = "Matching Now...";
-    int count = 0;
-    IEnumerator title;
     IEnumerator selectStage;
     MatchType? type;
+    
     private void Start()
     {
-        title = WaitTitle();
+        cancel.MatchingCancelEvent += (sender, args) =>
+        {
+            client.DisConnect();
+            SceneChangeManager.ChangeTitleScene();
+        };
+        
         selectStage = WaitStageSelect();
 
         matchingText.text = text;
@@ -31,25 +36,15 @@ public class MatchingUI : MonoBehaviour
     private void Update()
     {
         matchingServer.Update();
-        count++;
         if (MatchingInfo.Result)
         {
             MatchingInfo.Result = false;
             matchingText.text = "マッチしました。";
-            count = 0;
             if (type == MatchType.Host) StartCoroutine(selectStage);
             else
             { 
                 matchingText.text = "Hostがステージを選択中です。";
             }
-        }
-        
-        if (count == 600 )
-        {
-            if (type == null) matchingText.text = "マッチできませんでした。";
-            else matchingText.text = "ステージが一定時間選択されなかったため切断します。";
-            client.DisConnect();
-            StartCoroutine(title);
         }
 
         if (MatchingInfo.StageSlected)
@@ -64,11 +59,4 @@ public class MatchingUI : MonoBehaviour
         yield return new WaitForSeconds (2.0f);  
         SceneChangeManager.ChangeStageSelect();
     }
-    
-    private IEnumerator WaitTitle()
-    {
-        yield return new WaitForSeconds(2.0f);
-        SceneChangeManager.ChangeTitleScene();
-    }
-    
 }

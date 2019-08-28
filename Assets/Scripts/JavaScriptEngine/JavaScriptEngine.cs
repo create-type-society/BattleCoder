@@ -15,7 +15,7 @@ public class JavaScriptEngine
     public JavaScriptEngine(IBotCommands botCommands)
     {
         this.botCommands = botCommands;
-        engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMilliseconds(1000.0)));
+        engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromMilliseconds(20000.0)));
         engine.SetValue("Dir", TypeReference.CreateTypeReference(engine, typeof(Direction)));
         engine.SetValue("Pos", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
         engine.SetValue("TileType", TypeReference.CreateTypeReference(engine, typeof(TileType)));

@@ -42,7 +42,6 @@ public class BotEntity : MonoBehaviour
         y = y > 0 ? y + gridSizeHalf : y < 0 ? y - gridSizeHalf : y;
         GridPosition movePos = tileMapInfo.GetGridPosition(transform.position + new Vector3(x, y, 0));
         var tileType = tileMapInfo.GetTileType(transform.position + new Vector3(x, y, 0));
-        Debug.Log(tileType);
         if (tileType == TileType.tank)
         {
             GridPosition myPos = tileMapInfo.GetGridPosition(transform.position);

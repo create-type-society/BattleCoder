@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-
     // ボタンをクリックするとBattleSceneに移動します
     public void SingleButtonClicked()
     {

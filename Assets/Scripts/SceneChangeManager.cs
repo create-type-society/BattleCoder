@@ -28,6 +28,6 @@ public static class SceneChangeManager
     //タイトル画面へ遷移する
     public static void ChangeTitleScene()
     {
-        throw new NotImplementedException();
+        SceneManager.LoadScene("Title");
     }
 }

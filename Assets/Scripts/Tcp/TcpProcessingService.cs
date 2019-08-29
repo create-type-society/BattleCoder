@@ -48,7 +48,7 @@ namespace BattleCoder.Tcp
                         string data = "empty\0";
                         if (result.isOk)
                             data = result.data;
-                        var sendBytes = enc.GetBytes(data + '\n');
+                        var sendBytes = enc.GetBytes(data);
                         ns.Write(sendBytes, 0, sendBytes.Length);
                         Thread.Sleep(10);
                     }

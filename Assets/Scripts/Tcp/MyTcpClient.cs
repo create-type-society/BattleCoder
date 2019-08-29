@@ -28,7 +28,6 @@ public class MyTcpClient
         if (client != null) throw new Exception("clientは既に存在しています");
         client = new TcpClient(host, port);
         networkStream = client.GetStream();
-        networkStream.ReadTimeout = 10000;
         networkStream.WriteTimeout = 10000;
         TcpProcessingService.CreateReceiveTask(networkStream, readQueue).ContinueWith((_) => DisConnect());
         TcpProcessingService.CreateWriteTask(networkStream, writeQueue).ContinueWith((_) => DisConnect());

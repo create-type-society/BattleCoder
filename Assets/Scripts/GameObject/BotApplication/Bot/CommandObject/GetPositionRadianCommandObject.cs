@@ -6,20 +6,20 @@ namespace BattleCoder.GameObject.BotApplication.Bot.CommandObject
     public class GetPositionRadianCommandObject : BaseCommandObject<float>
     {
         readonly TileMapInfo tileMapInfo;
-        readonly Vector2 selfPos;
+        readonly BotEntity botEntity;
         readonly GridPosition targetGridPos;
 
-        public GetPositionRadianCommandObject(TileMapInfo tileMapInfo, Vector2 selfPos, GridPosition targetGridPos)
+        public GetPositionRadianCommandObject(TileMapInfo tileMapInfo, BotEntity botEntity, GridPosition targetGridPos)
         {
             this.tileMapInfo = tileMapInfo;
-            this.selfPos = selfPos;
+            this.botEntity = botEntity;
             this.targetGridPos = targetGridPos;
         }
 
 
         public override void Run()
         {
-            var pos = tileMapInfo.GetGridPosition(selfPos);
+            var pos = tileMapInfo.GetGridPosition(botEntity.transform.position);
             var x = targetGridPos.X - pos.X;
             var y = targetGridPos.Y - pos.Y;
 

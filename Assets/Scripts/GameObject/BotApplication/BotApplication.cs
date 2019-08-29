@@ -73,14 +73,14 @@ public class BotApplication : IBotCommands
     public Task<GridPosition> GetMyPosition()
     {
         return commandObjectController.AddPosGetCommandObject(
-            new GetMyPositionCommandObject(tileMapInfo, botEntity.transform.position)
+            new GetMyPositionCommandObject(tileMapInfo, botEntity)
         );
     }
 
     public Task<float> GetPositionRadian(GridPosition position)
     {
         return commandObjectController.AddRadGetCommandObject(
-            new GetPositionRadianCommandObject(tileMapInfo, botEntity.transform.position, position)
+            new GetPositionRadianCommandObject(tileMapInfo, botEntity, position)
         );
     }
 

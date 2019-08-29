@@ -1,22 +1,21 @@
 ﻿using BattleCoder.Map;
-using UnityEngine;
 
 namespace BattleCoder.GameObject.BotApplication.Bot.CommandObject
 {
     public class GetMyPositionCommandObject : BaseCommandObject<GridPosition>
     {
         readonly TileMapInfo tileMapInfo;
-        readonly Vector2 position;
+        readonly BotEntity botEntity;
 
-        public GetMyPositionCommandObject(TileMapInfo tileMapInfo, Vector2 position)
+        public GetMyPositionCommandObject(TileMapInfo tileMapInfo, BotEntity botEntity)
         {
             this.tileMapInfo = tileMapInfo;
-            this.position = position;
+            this.botEntity = botEntity;
         }
 
         public override void Run()
         {
-            result = tileMapInfo.GetGridPosition(position);
+            result = tileMapInfo.GetGridPosition(botEntity.transform.position);
             Finished();
         }
     }

@@ -17,12 +17,16 @@ public class CommandObjectQueue<T>
     //コマンドオブジェクトを実行する
     public void Update()
     {
-        if (runningCommandObject != null)
-            runningCommandObject.Run();
-        else if (runningCommandObject == null)
-            if (commandObjectQueue.TryDequeue(out runningCommandObject))
+        while (true)
+        {
+            if (runningCommandObject != null)
                 runningCommandObject.Run();
-        if (runningCommandObject != null && runningCommandObject.IsFinished)
+            else if (runningCommandObject == null)
+                if (commandObjectQueue.TryDequeue(out runningCommandObject))
+                    runningCommandObject.Run();
+            if (runningCommandObject == null || runningCommandObject.IsFinished == false)
+                return;
             runningCommandObject = null;
+        }
     }
 }

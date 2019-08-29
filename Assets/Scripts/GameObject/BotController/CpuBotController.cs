@@ -17,12 +17,12 @@ public class CpuBotController
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
             new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager);
+        cpuAi.Start(botApplication);
     }
 
     public void Update()
     {
         botApplication.Update();
-        cpuAi.Update(botApplication);
     }
 
     public bool ISDeath()

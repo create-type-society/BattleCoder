@@ -2,7 +2,7 @@
 
 using System;
 
-public class MoveCommandObject : ICommandObject
+public class MoveCommandObject : BaseCommandObject<Void>
 {
     readonly BotEntity botEntity;
     private readonly BotEntityAnimation botEntityAnimation;
@@ -14,8 +14,6 @@ public class MoveCommandObject : ICommandObject
     readonly Action directionChangeCallback;
     readonly TileMapInfo tileMapInfo;
     readonly Action movingCallback;
-
-    public bool IsFinished { get; private set; } = false;
 
     public MoveCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
         Action directionChangeCallback, uint gridDistance, TileMapInfo tileMapInfo,
@@ -31,7 +29,7 @@ public class MoveCommandObject : ICommandObject
         moveCount = (int) (gridDistance * Global.GridSize / speed);
     }
 
-    public void Run()
+    public override void Run()
     {
         if (dirChenge <= 5)
         {
@@ -44,7 +42,7 @@ public class MoveCommandObject : ICommandObject
         if (moveCount < 0)
         {
             botEntityAnimation.ResetAnimation();
-            IsFinished = true;
+            Finished();
             return;
         }
 

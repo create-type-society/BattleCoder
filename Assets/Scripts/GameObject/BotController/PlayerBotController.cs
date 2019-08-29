@@ -10,11 +10,14 @@ public class PlayerBotController
     readonly IUserInput userInput = new KeyController();
     readonly BotApplication botApplication;
     readonly PlayerHpPresenter playerHpPresenter;
+    readonly JavaScriptEngine javaScriptEngine;
+    readonly ErrorMsg errorMsg;
 
     public PlayerBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
         CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
         ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager)
     {
+        this.errorMsg = errorMsg;
         this.playerHpPresenter = playerHpPresenter;
         var botEntity = Object.Instantiate(botEntityPrefab);
         tileMapInfo.PlayerTankTransform = botEntity.transform;
@@ -26,18 +29,8 @@ public class PlayerBotController
             new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")), soundManager);
         userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
 
-        var javaScriptEngine = new JavaScriptEngine(botApplication);
-        runButtonEvent.AddClickEvent(() =>
-        {
-            try
-            {
-                javaScriptEngine.ExecuteJS(scriptText.GetScriptText());
-            }
-            catch (Exception e)
-            {
-                errorMsg.SetText(e.ToString());
-            }
-        });
+        javaScriptEngine = new JavaScriptEngine(botApplication);
+        runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });
     }
 
     public void Update()
@@ -45,6 +38,9 @@ public class PlayerBotController
         botApplication.Update();
         userInput.Update();
         playerHpPresenter.RenderHp(botApplication.Hp);
+        var errorText = javaScriptEngine.GetErrorText();
+        if (errorText != "")
+            errorMsg.SetText(errorText);
     }
 
     public bool IsDeath()

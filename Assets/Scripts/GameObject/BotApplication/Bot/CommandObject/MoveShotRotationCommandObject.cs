@@ -1,9 +1,7 @@
 using System;
 
-public class MoveShotRotationCommandObject : ICommandObject
+public class MoveShotRotationCommandObject : BaseCommandObject<Void>
 {
-    public bool IsFinished { get; private set; }
-
     readonly Action changeRotationCallback;
 
     public MoveShotRotationCommandObject(Action changeRotationCallback)
@@ -11,9 +9,9 @@ public class MoveShotRotationCommandObject : ICommandObject
         this.changeRotationCallback = changeRotationCallback;
     }
 
-    public void Run()
+    public override void Run()
     {
         changeRotationCallback();
-        IsFinished = true;
+        Finished();
     }
 }

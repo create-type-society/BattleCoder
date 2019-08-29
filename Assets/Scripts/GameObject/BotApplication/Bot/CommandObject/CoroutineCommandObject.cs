@@ -2,12 +2,11 @@
 
 
 //毎フレーム任意の関数を呼び出すコマンドオブジェクト
-public class CoroutineCommandObject : ICommandObject
+public class CoroutineCommandObject : BaseCommandObject<Void>
 {
     readonly Action action;
     readonly uint frameTime;
     uint count = 0;
-    public bool IsFinished { get; } = false;
 
     public CoroutineCommandObject(uint frameTime, Action action)
     {
@@ -15,7 +14,7 @@ public class CoroutineCommandObject : ICommandObject
         this.frameTime = frameTime;
     }
 
-    public void Run()
+    public override void Run()
     {
         count++;
         if (frameTime == count)

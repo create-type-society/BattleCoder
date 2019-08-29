@@ -3,6 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using BattleCoder.GameObject.BotApplication.Bot.CommandObject;
 using BattleCoder.Map;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -36,13 +38,13 @@ public class BotApplication : IBotCommands
     }
 
     //移動コマンドの発行
-    public void Move(Direction direction, uint gridDistance)
+    public Task<Void> Move(Direction direction, uint gridDistance)
     {
         Action callback = () => { this.direction = direction; };
         var moveCommandObject =
             new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, gridDistance, tileMapInfo,
                 CheckHole);
-        commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
+        return commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
     }
 
     //コルーチンコマンドの発行
@@ -53,38 +55,40 @@ public class BotApplication : IBotCommands
     }
 
     //方向転換コマンドの実装
-    public void MoveDirection(Direction direction)
+    public Task<Void> MoveDirection(Direction direction)
     {
         Action callback = () => { this.direction = direction; };
         var moveDirectionCommandObject =
             new MoveDirectionCommandObject(botEntity, botEntityAnimation, direction, callback);
-        commandObjectController.AddMoveTypeCommandObject(moveDirectionCommandObject);
+        return commandObjectController.AddMoveTypeCommandObject(moveDirectionCommandObject);
     }
 
-    public void MoveShotRotation(float rotation)
+    public Task<Void> MoveShotRotation(float rotation)
     {
         Action callback = () => { this.shotRotation = rotation; };
         var moveShotRotationCommandObject = new MoveShotRotationCommandObject(callback);
-        commandObjectController.AddMoveShotRotationCommandObject(moveShotRotationCommandObject);
+        return commandObjectController.AddMoveShotRotationCommandObject(moveShotRotationCommandObject);
     }
 
-    public GridPosition GetMyPosition()
+    public Task<GridPosition> GetMyPosition()
     {
-        return tileMapInfo.GetGridPosition(botEntity.transform.position);
+        return commandObjectController.AddPosGetCommandObject(
+            new GetMyPositionCommandObject(tileMapInfo, botEntity)
+        );
     }
 
-    public float GetPositionRadian(GridPosition position)
+    public Task<float> GetPositionRadian(GridPosition position)
     {
-        var pos = tileMapInfo.GetGridPosition(botEntity.transform.position);
-        var x = position.X - pos.X;
-        var y = position.Y - pos.Y;
-
-        return -Mathf.Atan2(x, y) * 180f / Mathf.PI;
+        return commandObjectController.AddRadGetCommandObject(
+            new GetPositionRadianCommandObject(tileMapInfo, botEntity, position)
+        );
     }
 
-    public TileType GetTileType(GridPosition position)
+    public Task<TileType> GetTileType(GridPosition position)
     {
-        return tileMapInfo.GetTileType(position);
+        return commandObjectController.AddTileTypeGetCommandObject(
+            new GetTileTypeCommandObject(tileMapInfo, position)
+        );
     }
 
     //射撃する

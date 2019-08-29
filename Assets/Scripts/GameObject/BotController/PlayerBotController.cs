@@ -1,13 +1,11 @@
-﻿using System;
-using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
+﻿using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
+using BattleCoder.GameObject.Input;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
-using Object = UnityEngine.Object;
 
 public class PlayerBotController
 {
-    readonly IUserInput userInput = new KeyController();
+    readonly IUserInput userInput = new DeviceController();
     readonly BotApplication botApplication;
     readonly PlayerHpPresenter playerHpPresenter;
     readonly JavaScriptEngine javaScriptEngine;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 //対戦する時のデータのやり取りをするクライアント側のクラス
 
-public class GameSignalingClient
+public class GameSignalingClient : IDisposable
 {
     readonly MyTcpClient myTcpClient;
     public event Action<ClientReceiveSignalData> ReceivedClientReceiveSignalData;
@@ -21,13 +21,29 @@ public class GameSignalingClient
 
     public void Update()
     {
-        var result = myTcpClient.ReadData();
-        if (result.isOk)
+        while (true)
         {
-            
-            ReceivedClientReceiveSignalData?.Invoke(
-                JsonConvert.DeserializeObject<ClientReceiveSignalData>(result.data)
-            );
+            var result = myTcpClient.ReadData();
+            if (result.isOk)
+            {
+                try
+                {
+                    ReceivedClientReceiveSignalData?.Invoke(
+                        JsonConvert.DeserializeObject<ClientReceiveSignalData>(result.data)
+                    );
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Raw Json String " + result.data);
+                    throw e;
+                }
+            }
+            else return;
         }
+    }
+
+    public void Dispose()
+    {
+        myTcpClient.DisConnect();
     }
 }

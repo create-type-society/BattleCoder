@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace BattleCoder.Test.Tcp
@@ -11,7 +13,6 @@ namespace BattleCoder.Test.Tcp
         MatchingServer matchingServer2;
         bool matchedHostFlag = false;
         bool matchedClientFlag = false;
-
         int count = 0;
 
         void Awake()
@@ -36,8 +37,8 @@ namespace BattleCoder.Test.Tcp
                 gameSignalingClient = new GameSignalingClient(myTcpClient);
                 gameSignalingClient.ReceivedClientReceiveSignalData += (obj) =>
                 {
-                    Debug.Log("ClientReceived:" + Enum.GetName(typeof(BattleResult), obj.battleResult));
-                    Debug.Log("ClientReceived:" + Enum.GetName(typeof(CommandKind), obj.commandData.kind));
+                    //   Debug.Log("ClientReceived:" + Enum.GetName(typeof(BattleResult), obj.battleResult));
+                    //   Debug.Log("ClientReceived:" + Enum.GetName(typeof(CommandKind), obj.commandData.kind));
                 };
             }
             else
@@ -46,7 +47,7 @@ namespace BattleCoder.Test.Tcp
                 gameSignalingHost = new GameSignalingHost(myTcpClient);
                 gameSignalingHost.ReceivedHostReceiveSignalData += (obj) =>
                 {
-                    Debug.Log("HostReceived:" + Enum.GetName(typeof(CommandKind), obj.commandData.kind));
+                    //  Debug.Log("HostReceived:" + Enum.GetName(typeof(CommandKind), obj.clientCommandData.kind));
                 };
             }
         }
@@ -55,25 +56,35 @@ namespace BattleCoder.Test.Tcp
         {
             if (matchedClientFlag && matchedHostFlag)
             {
+                count++;
+                gameSignalingHost.SendData(new ClientReceiveSignalData(
+                    BattleResult.Wait,
+                    new CommandData(CommandKind.Move, count, new object[] {Direction.Down, 5}))
+                );
+                gameSignalingClient.SendData(new HostReceiveSignalData(
+                    new CommandData(CommandKind.Move, count, new object[] {Direction.Up, 1}))
+                );
+                gameSignalingClient.SendData(new HostReceiveSignalData(
+                    new CommandData(CommandKind.Move, count, new object[] {Direction.Up, 1}))
+                );
+                gameSignalingHost.SendData(new ClientReceiveSignalData(
+                    BattleResult.Wait,
+                    new CommandData(CommandKind.Move, count, new object[] {Direction.Down, 5}))
+                );
                 gameSignalingClient.Update();
                 gameSignalingHost.Update();
-
-                count++;
-                if (count % 60 == 0)
-                    gameSignalingClient.SendData(new HostReceiveSignalData(
-                        new CommandData(CommandKind.Move, new object[] {Direction.Up, 1}))
-                    );
-                if (count % 120 == 0)
-                    gameSignalingHost.SendData(new ClientReceiveSignalData(
-                        BattleResult.Wait,
-                        new CommandData(CommandKind.Move, new object[] {Direction.Down, 5}))
-                    );
             }
             else
             {
                 matchingServer1.Update();
                 matchingServer2.Update();
             }
+        }
+
+        void OnDestroy()
+        {
+            gameSignalingClient.Dispose();
+            gameSignalingHost.Dispose();
         }
     }
 }

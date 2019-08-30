@@ -2,6 +2,8 @@
 
 public abstract class BaseCommandObject<T> : ICommandObject<T>
 {
+    SemaphoreSlim finisheSemaphore = new SemaphoreSlim(0, 1);
+
     protected T result;
 
     public bool IsFinished { get; private set; }
@@ -11,11 +13,12 @@ public abstract class BaseCommandObject<T> : ICommandObject<T>
     public void Finished()
     {
         IsFinished = true;
+        finisheSemaphore.Release();
     }
 
     public T WaitFinished()
     {
-        while (!IsFinished) ;
+        finisheSemaphore.Wait();
         return result;
     }
 }

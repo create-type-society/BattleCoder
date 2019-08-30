@@ -15,11 +15,11 @@ public struct ClientReceiveSignalData
 //ホストが受け取るデータの型
 public struct HostReceiveSignalData
 {
-    readonly public CommandData commandData;
+    readonly public CommandData clientCommandData;
 
-    public HostReceiveSignalData(CommandData commandData)
+    public HostReceiveSignalData(CommandData clientCommandData)
     {
-        this.commandData = commandData;
+        this.clientCommandData = clientCommandData;
     }
 }
 
@@ -35,11 +35,13 @@ public enum BattleResult
 public struct CommandData
 {
     readonly public CommandKind kind;
+    readonly public int frameCount;
     readonly public object[] parameters;
 
-    public CommandData(CommandKind kind, object[] parameters)
+    public CommandData(CommandKind kind, int frameCount, object[] parameters)
     {
         this.kind = kind;
+        this.frameCount = frameCount;
         this.parameters = parameters;
     }
 }

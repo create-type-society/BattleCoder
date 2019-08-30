@@ -29,8 +29,9 @@ public class MyTcpClient
         client = new TcpClient(host, port);
         networkStream = client.GetStream();
         networkStream.WriteTimeout = 10000;
-        TcpProcessingService.CreateReceiveTask(networkStream, readQueue).ContinueWith((_) => DisConnect());
-        TcpProcessingService.CreateWriteTask(networkStream, writeQueue).ContinueWith((_) => DisConnect());
+        networkStream.ReadTimeout = 10000;
+        new TcpReadWriteService().CreateReadWriteTask(networkStream, readQueue, writeQueue)
+            .ContinueWith((_) => DisConnect());
     }
 
     //切断する
@@ -47,7 +48,7 @@ public class MyTcpClient
 
     public void WriteData(string str)
     {
-        writeQueue.EnQueue(str + "\0");
+        writeQueue.EnQueue(str + "\n");
     }
 
     //データの読み取り

@@ -19,8 +19,16 @@ public class MatchingServer
         {
             var result = myTcpClient.ReadData();
             if (result.isOk == false) return;
-            if (result.data == "match_host") Matched?.Invoke(MatchType.Host);
-            else if (result.data == "match_client") Matched?.Invoke(MatchType.Client);
+            if (result.data == "match_host")
+            {
+                Matched?.Invoke(MatchType.Host);
+                return;
+            }
+            else if (result.data == "match_client")
+            {
+                Matched?.Invoke(MatchType.Client);
+                return;
+            }
         }
     }
 }

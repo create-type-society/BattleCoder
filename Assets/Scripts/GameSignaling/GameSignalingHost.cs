@@ -1,7 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
+using UnityEngine;
 
-public class GameSignalingHost
+public class GameSignalingHost : IDisposable
 {
     readonly MyTcpClient myTcpClient;
     public event Action<HostReceiveSignalData> ReceivedHostReceiveSignalData;
@@ -18,10 +19,29 @@ public class GameSignalingHost
 
     public void Update()
     {
-        var result = myTcpClient.ReadData();
-        if (result.isOk)
-            ReceivedHostReceiveSignalData?.Invoke(
-                JsonConvert.DeserializeObject<HostReceiveSignalData>(result.data)
-            );
+        while (true)
+        {
+            var result = myTcpClient.ReadData();
+            if (result.isOk)
+            {
+                try
+                {
+                    ReceivedHostReceiveSignalData?.Invoke(
+                        JsonConvert.DeserializeObject<HostReceiveSignalData>(result.data)
+                    );
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Raw Json String " + result.data);
+                    throw e;
+                }
+            }
+            else return;
+        }
+    }
+
+    public void Dispose()
+    {
+        myTcpClient.DisConnect();
     }
 }

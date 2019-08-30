@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MatchingUI : MonoBehaviour
 {
     [SerializeField]private Text matchingText;
-    MatchingServer matchingServer;
+    MatchingClient matchingClient;
     readonly MyTcpClient client = new MyTcpClient("192.168.179.4", 3000);
     [SerializeField]MatchingCancel cancel;
     string text = "Matching Now...";
@@ -25,8 +25,8 @@ public class MatchingUI : MonoBehaviour
 
         matchingText.text = text;
         client.Connect();
-        matchingServer = new MatchingServer(client);
-        matchingServer.Matched += (matchType) =>
+        matchingClient = new MatchingClient(client);
+        matchingClient.Matched += (matchType) =>
         {
             type = matchType;
             MatchingInfo.Result = true;
@@ -35,7 +35,7 @@ public class MatchingUI : MonoBehaviour
 
     private void Update()
     {
-        matchingServer.Update();
+        matchingClient.Update();
         if (MatchingInfo.Result)
         {
             MatchingInfo.Result = false;

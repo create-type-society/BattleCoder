@@ -1,14 +1,14 @@
 ﻿using System;
 
 
-public class MatchingServer
+public class MatchingClient
 {
     MyTcpClient myTcpClient;
 
     //マッチ成功した時に呼ばれる時に呼ばれる処理
     public event Action<MatchType> Matched;
 
-    public MatchingServer(MyTcpClient myTcpClient)
+    public MatchingClient(MyTcpClient myTcpClient)
     {
         this.myTcpClient = myTcpClient;
     }

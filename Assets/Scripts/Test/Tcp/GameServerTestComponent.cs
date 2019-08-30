@@ -9,8 +9,8 @@ namespace BattleCoder.Test.Tcp
     {
         GameSignalingClient gameSignalingClient;
         GameSignalingHost gameSignalingHost;
-        MatchingServer matchingServer1;
-        MatchingServer matchingServer2;
+        MatchingClient matchingServer1;
+        MatchingClient matchingServer2;
         bool matchedHostFlag = false;
         bool matchedClientFlag = false;
         int count = 0;
@@ -22,8 +22,8 @@ namespace BattleCoder.Test.Tcp
             myTcpClient1.Connect();
             myTcpClient2.Connect();
 
-            matchingServer1 = new MatchingServer(myTcpClient1);
-            matchingServer2 = new MatchingServer(myTcpClient2);
+            matchingServer1 = new MatchingClient(myTcpClient1);
+            matchingServer2 = new MatchingClient(myTcpClient2);
 
             matchingServer1.Matched += (matchType) => { CreateGameSignaling(myTcpClient1, matchType); };
             matchingServer2.Matched += (matchType) => { CreateGameSignaling(myTcpClient2, matchType); };

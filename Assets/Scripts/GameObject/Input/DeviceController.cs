@@ -1,31 +1,66 @@
 using System;
-using UnityEngine;
+using System.IO;
 
-namespace BattleCoder.GameObject.Input
+public class DeviceController : IUserInput
 {
-    public class DeviceController : IUserInput
+    public event EventHandler<EventArgs> MeleeAttackEvent;
+    public event EventHandler<EventArgs> ShootingAttackEvent;
+
+    private DeviceClientListener _listener = new DeviceClientListener();
+
+    public DeviceController()
     {
-        public event EventHandler<EventArgs> MeleeAttackEvent;
-        public event EventHandler<EventArgs> ShootingAttackEvent;
+        _listener.AcceptClient();
+    }
 
-        private DeviceClientListener _listener = new DeviceClientListener();
+    ~DeviceController()
+    {
+        _listener.Close();
+    }
 
-        public DeviceController()
+    public void Update()
+    {
+        if (_listener.IsAccept)
         {
-            _listener.AcceptClient();
+            ListenPacket();
+        }
+    }
+
+    private async void ListenPacket()
+    {
+        var packet = await _listener.ReadPacket();
+        DecodePacket(packet);
+    }
+
+    private void DecodePacket(PacketData packet)
+    {
+        var stream = new MemoryStream(packet.Data);
+        var br = new BinaryReader(stream);
+        if (packet.Type == PacketType.InputDeviceData)
+        {
+            DecodeInputDeviceData(br);
         }
 
-        ~DeviceController()
-        {
-            _listener.Close();
-        }
+        br.Close();
+        stream.Close();
+    }
 
-        public void Update()
+    private void DecodeInputDeviceData(BinaryReader br)
+    {
+        var deviceVal = br.ReadSingle();
+        if (deviceVal >= 3)
         {
-            if (_listener.IsAccept)
-            {
-                Debug.Log("接続完了");
-            }
+            OnMeleeAttackEvent(this, EventArgs.Empty);
         }
+    }
+
+    private void OnMeleeAttackEvent(object sender, EventArgs args)
+    {
+        MeleeAttackEvent?.Invoke(sender, args);
+    }
+
+    private void OnShootingAttack(object sender, EventArgs args)
+    {
+        ShootingAttackEvent?.Invoke(sender, args);
     }
 }

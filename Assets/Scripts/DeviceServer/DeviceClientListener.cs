@@ -35,4 +35,20 @@ public class DeviceClientListener
         {
         }
     }
+
+    public async Task<PacketData> ReadPacket()
+    {
+        var stream = _client.GetStream();
+        var len = new byte[1];
+        await stream.ReadAsync(len, 0, 1);
+        if (len[0] >= 1)
+        {
+            byte[] buf = new byte[len[0]];
+            await stream.ReadAsync(buf, 0, len[0]);
+
+            return PacketData.CreatePacketData(buf);
+        }
+
+        return new PacketData(PacketType.InputDeviceData, new byte[4]);
+    }
 }

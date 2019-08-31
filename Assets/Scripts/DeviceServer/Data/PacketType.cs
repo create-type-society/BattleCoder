@@ -1,4 +1,5 @@
 public enum PacketType
 {
-    InputDeviceData
+    InputDeviceData,
+    InputDeviceButtonData
 }

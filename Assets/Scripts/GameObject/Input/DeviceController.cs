@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using UnityEngine;
 
 public class DeviceController : IUserInput
 {
@@ -11,11 +12,7 @@ public class DeviceController : IUserInput
     public DeviceController()
     {
         _listener.AcceptClient();
-    }
-
-    ~DeviceController()
-    {
-        _listener.Close();
+        Application.quitting += () => { _listener.Close(); };
     }
 
     public void Update()

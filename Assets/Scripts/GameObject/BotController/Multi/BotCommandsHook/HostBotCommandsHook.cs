@@ -66,7 +66,6 @@ public class HostBotCommandsHook : IBotCommands
     void SendCommandData(CommandData commandData)
     {
         gameSignalingHost.SendData(new ClientReceiveSignalData(
-            BattleResult.Wait,
             commandData,
             MatchType.Host
         ));

@@ -66,7 +66,6 @@ namespace BattleCoder.Test.Tcp
             {
                 count++;
                 gameSignalingHost.SendData(new ClientReceiveSignalData(
-                        BattleResult.Wait,
                         new CommandData(1, CommandKind.Move, count, new object[] {Direction.Down, 5}),
                         MatchType.Client
                     )
@@ -78,7 +77,6 @@ namespace BattleCoder.Test.Tcp
                     new CommandData(1, CommandKind.Move, count, new object[] {Direction.Up, 1}))
                 );
                 gameSignalingHost.SendData(new ClientReceiveSignalData(
-                        BattleResult.Wait,
                         new CommandData(1, CommandKind.Move, count, new object[] {Direction.Down, 5}),
                         MatchType.Client
                     )

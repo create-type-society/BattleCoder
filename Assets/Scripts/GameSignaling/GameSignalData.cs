@@ -2,13 +2,11 @@
 
 public struct ClientReceiveSignalData
 {
-    readonly public BattleResult battleResult;
     readonly public CommandData commandData;
     readonly public MatchType commandApplyTarget;
 
-    public ClientReceiveSignalData(BattleResult battleResult, CommandData commandData, MatchType commandApplyTarget)
+    public ClientReceiveSignalData(CommandData commandData, MatchType commandApplyTarget)
     {
-        this.battleResult = battleResult;
         this.commandData = commandData;
         this.commandApplyTarget = commandApplyTarget;
     }
@@ -30,7 +28,6 @@ public enum BattleResult
 {
     YouWin,
     YouLose,
-    Wait
 }
 
 //コマンドデータ

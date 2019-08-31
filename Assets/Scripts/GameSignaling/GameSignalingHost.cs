@@ -18,6 +18,11 @@ public class GameSignalingHost : IDisposable
         myTcpClient.WriteData(JsonConvert.SerializeObject(data));
     }
 
+    public void SendBattleResult(BattleResult battleResult)
+    {
+        myTcpClient.WriteData(battleResult.ToString());
+    }
+
     public void Update()
     {
         while (true)

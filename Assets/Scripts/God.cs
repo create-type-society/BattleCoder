@@ -25,7 +25,7 @@ public class God : MonoBehaviour
     void Awake()
     {
         if (StartGameInfo.IsSinglePlay == false)
-            playGame = new MultiPlayGame(GetPlayGameInitData());
+            playGame = MultiPlayGameFactory.CreateMultiPlayGame(GetPlayGameInitData());
         else
             playGame = new SinglePlayGame(GetPlayGameInitData());
     }

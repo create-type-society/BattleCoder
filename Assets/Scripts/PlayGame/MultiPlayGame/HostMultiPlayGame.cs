@@ -25,11 +25,12 @@ public class HostMultiPlayGame : IPlayGame
             gameSignalingHost,
             Object.Instantiate(playGameInitData.meleeAttackPrefab)
         );
-        enemyBotController = new CpuBotController(
+        enemyBotController = new RemoteClientBotController(
             playGameInitData.botEntityPrefab,
             playGameInitData.tileMapInfo,
             playGameInitData.bulletPrefab,
             playGameInitData.soundManager,
+            gameSignalingHost,
             Object.Instantiate(playGameInitData.meleeAttackPrefab)
         );
     }

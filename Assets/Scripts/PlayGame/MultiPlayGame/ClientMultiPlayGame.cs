@@ -11,7 +11,7 @@ public class ClientMultiPlayGame : IPlayGame
         gameSignalingClient = new GameSignalingClient(multiGameInfo.myTcpClient);
         gameSignalingClient.ReceivedBattleResult += CheckDeath;
 
-        playerBotController = new PlayerBotController(
+        playerBotController = new ClientBotController(
             playGameInitData.botEntityPrefab,
             playGameInitData.tileMapInfo,
             playGameInitData.bulletPrefab,
@@ -21,6 +21,7 @@ public class ClientMultiPlayGame : IPlayGame
             playGameInitData.scriptText,
             playGameInitData.errorMsg,
             playGameInitData.soundManager,
+            gameSignalingClient,
             Object.Instantiate(playGameInitData.meleeAttackPrefab)
         );
         enemyBotController = new RemoteHostBotController(

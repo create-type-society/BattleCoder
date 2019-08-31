@@ -23,11 +23,12 @@ public class BotApplication : IBotCommands
 
     public BotHp Hp { get; private set; }
 
-    private Direction direction;
-    private float shotRotation;
+    private Direction direction = Direction.Down;
+    private float shotRotation = 180;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager, MeleeAttackApplication meleeAttackApplication)
+        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager,
+        MeleeAttackApplication meleeAttackApplication)
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;

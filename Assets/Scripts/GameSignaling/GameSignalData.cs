@@ -4,11 +4,13 @@ public struct ClientReceiveSignalData
 {
     readonly public BattleResult battleResult;
     readonly public CommandData commandData;
+    readonly public MatchType commandApplyTarget;
 
-    public ClientReceiveSignalData(BattleResult battleResult, CommandData commandData)
+    public ClientReceiveSignalData(BattleResult battleResult, CommandData commandData, MatchType commandApplyTarget)
     {
         this.battleResult = battleResult;
         this.commandData = commandData;
+        this.commandApplyTarget = commandApplyTarget;
     }
 }
 
@@ -34,12 +36,14 @@ public enum BattleResult
 //コマンドデータ
 public struct CommandData
 {
+    readonly public int id;
     readonly public CommandKind kind;
     readonly public int frameCount;
     readonly public object[] parameters;
 
-    public CommandData(CommandKind kind, int frameCount, object[] parameters)
+    public CommandData(int id, CommandKind kind, int frameCount, object[] parameters)
     {
+        this.id = id;
         this.kind = kind;
         this.frameCount = frameCount;
         this.parameters = parameters;

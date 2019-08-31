@@ -17,6 +17,7 @@ public class God : MonoBehaviour
     [SerializeField] BulletEntity bulletPrefab;
     [SerializeField] ErrorMsg errorMsg;
     [SerializeField] SoundManager soundManager;
+    [SerializeField] MeleeAttackEntity meleeAttackPrefab;
 
 
     PlayerBotController playerBotController;
@@ -27,8 +28,8 @@ public class God : MonoBehaviour
     {
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
         playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
-            playerHpPresenter, runButtonEvent, scriptText, errorMsg, soundManager);
-        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab, soundManager);
+            playerHpPresenter, runButtonEvent, scriptText, errorMsg, soundManager, Instantiate(meleeAttackPrefab));
+        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab, soundManager, Instantiate(meleeAttackPrefab));
     }
 
     void Update()

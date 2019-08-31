@@ -47,3 +47,12 @@ MonoBehaviour:
     type: 3}
   tileMapInfoManagerPrefab: {fileID: 742703707148701537, guid: 04b2a665a96da2349b862a695320f3f9,
     type: 3}
+  cameraFollower: {fileID: 0}
+  playerHpPresenter: {fileID: 0}
+  runButtonEvent: {fileID: 0}
+  scriptText: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  errorMsg: {fileID: 0}
+  soundManager: {fileID: 0}
+  meleeAttackPrefab: {fileID: -2338550708994733017, guid: 00e81f663f06fd54abf83afd60c347e1,
+    type: 3}

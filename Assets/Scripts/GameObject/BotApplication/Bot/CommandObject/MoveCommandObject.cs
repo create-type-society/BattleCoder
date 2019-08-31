@@ -8,7 +8,7 @@ public class MoveCommandObject : BaseCommandObject<Void>
     private readonly BotEntityAnimation botEntityAnimation;
     int moveCount;
     int dirChenge;
-    bool useCallback;
+    bool useCallback = true;
     readonly float speed = 1;
     readonly Direction direction;
     readonly Action directionChangeCallback;
@@ -48,7 +48,7 @@ public class MoveCommandObject : BaseCommandObject<Void>
 
         if (useCallback)
         {
-            useCallback = true;
+            useCallback = false;
             directionChangeCallback();
         }
 

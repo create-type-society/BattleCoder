@@ -29,7 +29,6 @@ public class MyTcpClient
         client = new TcpClient(host, port);
         networkStream = client.GetStream();
         networkStream.WriteTimeout = 10000;
-        networkStream.ReadTimeout = 10000;
         new TcpReadWriteService().CreateReadWriteTask(networkStream, readQueue, writeQueue)
             .ContinueWith((_) => DisConnect());
     }

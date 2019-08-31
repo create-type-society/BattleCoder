@@ -1,8 +1,7 @@
 ﻿using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
-public class CpuBotController
+public class CpuBotController : IBotController
 {
     readonly BotApplication botApplication;
     readonly CpuAi cpuAi = new CpuAi();
@@ -18,9 +17,9 @@ public class CpuBotController
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
             new BulletEntityCreator(
-                bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), 
-                soundManager, meleeAttackApplication
-            );
+                bulletPrefab, LayerMask.NameToLayer("EnemyBullet")),
+            soundManager, meleeAttackApplication
+        );
         cpuAi.Start(botApplication);
     }
 
@@ -29,7 +28,7 @@ public class CpuBotController
         botApplication.Update();
     }
 
-    public bool ISDeath()
+    public bool IsDeath()
     {
         return botApplication.Hp.IsDeath();
     }

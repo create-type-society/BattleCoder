@@ -9,13 +9,14 @@ namespace DefaultNamespace
             switch (commandData.kind)
             {
                 case CommandKind.Move:
-                    botCommands.Move((Direction) commandData.parameters[0], (uint) commandData.parameters[1]);
+                    botCommands.Move((Direction) (Int64) commandData.parameters[0],
+                        (uint) (Int64) commandData.parameters[1]);
                     break;
                 case CommandKind.MoveDirection:
-                    botCommands.MoveDirection((Direction) commandData.parameters[0]);
+                    botCommands.MoveDirection((Direction) (Int64) commandData.parameters[0]);
                     break;
                 case CommandKind.MoveShotRotation:
-                    botCommands.MoveShotRotation((float) commandData.parameters[0]);
+                    botCommands.MoveShotRotation((float) (double) commandData.parameters[0]);
                     break;
                 case CommandKind.Shot:
                     botCommands.Shot();

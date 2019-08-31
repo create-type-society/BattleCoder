@@ -7,9 +7,10 @@ public class GameSignalingHost : IDisposable
     readonly MyTcpClient myTcpClient;
     public event Action<HostReceiveSignalData> ReceivedHostReceiveSignalData;
 
-    public GameSignalingHost(MyTcpClient myTcpClient)
+    public GameSignalingHost(MyTcpClient myTcpClient, StageKind stageKind)
     {
         this.myTcpClient = myTcpClient;
+        myTcpClient.WriteData("stage_kind:" + (int) stageKind);
     }
 
     public void SendData(ClientReceiveSignalData data)

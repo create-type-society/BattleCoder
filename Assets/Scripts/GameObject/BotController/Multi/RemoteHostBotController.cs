@@ -2,7 +2,7 @@
 using DefaultNamespace;
 using UnityEngine;
 
-public class RemoteHostBotController
+public class RemoteHostBotController : IBotController
 {
     readonly BotApplication botApplication;
 
@@ -17,7 +17,8 @@ public class RemoteHostBotController
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
-            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager,meleeAttackApplication);
+            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager,
+            meleeAttackApplication);
 
         gameSignalingClient.ReceivedClientReceiveSignalData += data =>
         {
@@ -31,7 +32,7 @@ public class RemoteHostBotController
         botApplication.Update();
     }
 
-    public bool ISDeath()
+    public bool IsDeath()
     {
         return botApplication.Hp.IsDeath();
     }

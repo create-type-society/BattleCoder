@@ -2,7 +2,7 @@
 using BattleCoder.GamePlayUi;
 using UnityEngine;
 
-public class HostBotController
+public class HostBotController : IBotController
 {
     readonly IUserInput userInput = new KeyController();
     readonly BotApplication botApplication;

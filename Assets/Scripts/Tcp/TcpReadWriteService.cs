@@ -9,38 +9,50 @@ namespace BattleCoder.Tcp
     public class TcpReadWriteService
     {
         readonly Encoding enc = Encoding.UTF8;
-        readonly byte[] resBytes = new byte[4 * 1024];
 
         public Task CreateReadWriteTask(NetworkStream ns, DataQueue readDataQueue, DataQueue writeDataQueue)
         {
+            var sr = new StreamReader(ns, enc);
+            return Task.WhenAll(Read(sr, readDataQueue), Write(ns, writeDataQueue));
+        }
+
+        Task Read(StreamReader sr, DataQueue readDataQueue)
+        {
             return Task.Run(() =>
             {
-                var sr = new StreamReader(ns, enc);
                 while (true)
                 {
-                    WriteEmpty(ns);
-                    Write(ns, writeDataQueue);
-                    Read(sr, readDataQueue);
+                    var resMsg = sr.ReadLine().TrimEnd('\n');
+                    readDataQueue.EnQueue(resMsg);
                 }
             });
         }
 
-        public void Read(StreamReader sr, DataQueue readDataQueue)
+        Task Write(NetworkStream ns, DataQueue writeDataQueue)
         {
-            var resMsg = sr.ReadLine().TrimEnd('\n');
-            if (resMsg != "empty")
-                readDataQueue.EnQueue(resMsg);
+            return Task.Run(() =>
+            {
+                var count = 0;
+                while (true)
+                {
+                    var result = writeDataQueue.DeQueue();
+                    if (result.isOk == false)
+                    {
+                        count++;
+                        if (count != 10000) continue;
+                        WriteEmpty(ns);
+                        count = 0;
+                        continue;
+                    }
+
+                    count = 0;
+                    var sendBytes = enc.GetBytes(result.data);
+                    ns.Write(sendBytes, 0, sendBytes.Length);
+                }
+            });
         }
 
-        public void Write(NetworkStream ns, DataQueue writeDataQueue)
-        {
-            var result = writeDataQueue.DeQueue();
-            if (result.isOk == false) return;
-            var sendBytes = enc.GetBytes(result.data);
-            ns.Write(sendBytes, 0, sendBytes.Length);
-        }
-
-        public void WriteEmpty(NetworkStream ns)
+        void WriteEmpty(NetworkStream ns)
         {
             var sendBytes = enc.GetBytes("empty\n");
             ns.Write(sendBytes, 0, sendBytes.Length);

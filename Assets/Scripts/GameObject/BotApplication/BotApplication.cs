@@ -27,7 +27,8 @@ public class BotApplication : IBotCommands
     private float shotRotation;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager, MeleeAttackApplication meleeAttackApplication)
+        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager,
+        MeleeAttackApplication meleeAttackApplication)
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;

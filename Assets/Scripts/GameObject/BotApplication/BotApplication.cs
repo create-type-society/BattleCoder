@@ -11,6 +11,7 @@ using Object = UnityEngine.Object;
 
 public class BotApplication : IBotCommands
 {
+    [SerializeField] MeleeAttackApplication meleeAttackApplication;
     readonly BotEntity botEntity;
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
@@ -26,7 +27,7 @@ public class BotApplication : IBotCommands
     private float shotRotation;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager)
+        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager, MeleeAttackApplication meleeAttackApplication)
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;
@@ -35,6 +36,7 @@ public class BotApplication : IBotCommands
         this.tileMapInfo = tileMapInfo;
         this.bulletEntityCreator = bulletEntityCreator;
         Hp = new BotHp(3);
+        this.meleeAttackApplication = meleeAttackApplication;
     }
 
     //移動コマンドの発行
@@ -100,6 +102,12 @@ public class BotApplication : IBotCommands
         bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
         var bulletApplication = new BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
         bulletApplicationList.Add(bulletApplication);
+    }
+
+    //近接攻撃
+    public void MeleeAttack()
+    {
+        meleeAttackApplication.MeleeAttack(botEntity.transform.position, direction);
     }
 
     //色々な更新

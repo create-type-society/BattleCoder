@@ -15,7 +15,7 @@ public class PlayerBotController
 
     public PlayerBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
         CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
-        ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager)
+        ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager, MeleeAttackEntity meleeAttackEntity)
     {
         this.errorMsg = errorMsg;
         this.playerHpPresenter = playerHpPresenter;
@@ -25,9 +25,14 @@ public class PlayerBotController
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
-            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")), soundManager);
+        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
+        botApplication = new BotApplication(
+            botEntity, botEntityAnimation, tileMapInfo,
+                new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")), 
+                soundManager, meleeAttackApplication
+            );
         userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
+        userInput.MeleeAttackEvent += (sender, e) => { botApplication.MeleeAttack(); };
 
         javaScriptEngine = new JavaScriptEngine(botApplication);
         runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });

@@ -18,6 +18,25 @@ public class JavaScriptEngine
     {
         this.botCommands = botCommands;
         engine = new Engine();
+        engine.SetValue("KeyCode", TypeReference.CreateTypeReference(engine, typeof(KeyCode)));
+        engine.SetValue("GetKey", new Func<KeyCode, bool>(code =>
+        {
+            var task = botCommands.BoolUnityFunc(() => Input.GetKey(code));
+            task.Wait();
+            return task.Result;
+        }));
+        engine.SetValue("GetKeyDown", new Func<KeyCode, bool>(code =>
+        {
+            var task = botCommands.BoolUnityFunc(() => Input.GetKeyDown(code));
+            task.Wait();
+            return task.Result;
+        }));
+        engine.SetValue("GetKeyUp", new Func<KeyCode, bool>(code =>
+        {
+            var task = botCommands.BoolUnityFunc(() => Input.GetKeyUp(code));
+            task.Wait();
+            return task.Result;
+        }));
         engine.SetValue("Dir", TypeReference.CreateTypeReference(engine, typeof(Direction)));
         engine.SetValue("Pos", TypeReference.CreateTypeReference(engine, typeof(GridPosition)));
         engine.SetValue("TileType", TypeReference.CreateTypeReference(engine, typeof(TileType)));

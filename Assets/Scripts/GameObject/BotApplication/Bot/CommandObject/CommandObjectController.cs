@@ -6,6 +6,7 @@ using BattleCoder.Map;
 
 public class CommandObjectController
 {
+    readonly CommandObjectQueue<bool> boolUnityFuncCommandObjectQueue = new CommandObjectQueue<bool>();
     readonly CommandObjectQueue<Void> moveTypeCommandObjectQueue = new CommandObjectQueue<Void>();
     readonly CommandObjectQueue<Void> moveShotRotationCommandObjectQueue = new CommandObjectQueue<Void>();
     readonly CommandObjectQueue<GridPosition> posGetCommandObjectQueue = new CommandObjectQueue<GridPosition>();
@@ -33,6 +34,10 @@ public class CommandObjectController
     public Task<TileType> AddTileTypeGetCommandObject(ICommandObject<TileType> commandObject)
         => tileTypeGetCommandObjectQueue.Run(commandObject);
 
+    //タイルタイプ取得系のコマンドを登録する
+    public Task<bool> AddUnityFuncCommandObject(UnityFunctionCommandObject<bool> commandObject)
+        => boolUnityFuncCommandObjectQueue.Run(commandObject);
+
     //コルーチンコマンドを登録する
     public void AddCoroutineCommandObject(CoroutineCommandObject commandObject)
     {
@@ -44,6 +49,7 @@ public class CommandObjectController
     public void RunCommandObjects()
     {
         coroutineCommandObjects.ForEach(x => x.Run());
+        boolUnityFuncCommandObjectQueue.Update();
         moveTypeCommandObjectQueue.Update();
         moveShotRotationCommandObjectQueue.Update();
         posGetCommandObjectQueue.Update();

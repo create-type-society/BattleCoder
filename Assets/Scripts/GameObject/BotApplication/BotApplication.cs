@@ -111,6 +111,13 @@ public class BotApplication : IBotCommands
         meleeAttackApplication.MeleeAttack(botEntity.transform.position, direction);
     }
 
+
+    //boolを返す任意の関数をメインスレッドで実行する
+    public Task<bool> BoolUnityFunc(Func<bool> f)
+    {
+        return commandObjectController.AddUnityFuncCommandObject(new UnityFunctionCommandObject<bool>(f));
+    }
+
     //色々な更新
     //毎フレーム1回だけ呼んでください
     public void Update()

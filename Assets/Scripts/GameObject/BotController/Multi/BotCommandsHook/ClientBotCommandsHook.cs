@@ -73,6 +73,11 @@ public class ClientBotCommandsHook : IBotCommands
         botCommands.MeleeAttack();
     }
 
+    public Task<bool> BoolUnityFunc(Func<bool> f)
+    {
+        return botCommands.BoolUnityFunc(f);
+    }
+
     Task SendCommandData(CommandKind commandKind, object[] parameters)
     {
         var id = Interlocked.Increment(ref currentId);

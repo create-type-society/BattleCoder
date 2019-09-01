@@ -48,7 +48,7 @@ public class DeviceController : IUserInput
 
     private void DecodeInputDeviceData(BinaryReader br)
     {
-        if (br.BaseStream.Length <= 0)
+        if (br.BaseStream.Length <= 4)
             return;
 
         var deviceVal = br.ReadSingle();

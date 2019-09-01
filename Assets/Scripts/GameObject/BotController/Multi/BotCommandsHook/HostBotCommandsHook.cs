@@ -69,6 +69,11 @@ public class HostBotCommandsHook : IBotCommands
         botCommands.MeleeAttack();
     }
 
+    public Task<bool> BoolUnityFunc(Func<bool> f)
+    {
+        return botCommands.BoolUnityFunc(f);
+    }
+
     void SendCommandData(CommandData commandData)
     {
         gameSignalingHost.SendData(new ClientReceiveSignalData(

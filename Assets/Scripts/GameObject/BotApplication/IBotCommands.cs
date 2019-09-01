@@ -23,4 +23,6 @@ public interface IBotCommands
     void Shot();
 
     void MeleeAttack();
+
+    Task<bool> BoolUnityFunc(Func<bool> f);
 }

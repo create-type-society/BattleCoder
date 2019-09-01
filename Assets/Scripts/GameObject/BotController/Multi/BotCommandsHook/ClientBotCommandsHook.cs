@@ -67,6 +67,12 @@ public class ClientBotCommandsHook : IBotCommands
         botCommands.Shot();
     }
 
+    public async void MeleeAttack()
+    {
+        await SendCommandData(CommandKind.MeleeAttack, new object[] { });
+        botCommands.MeleeAttack();
+    }
+
     Task SendCommandData(CommandKind commandKind, object[] parameters)
     {
         var id = Interlocked.Increment(ref currentId);

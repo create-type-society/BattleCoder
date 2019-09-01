@@ -21,6 +21,9 @@ namespace DefaultNamespace
                 case CommandKind.Shot:
                     botCommands.Shot();
                     break;
+                case CommandKind.MeleeAttack:
+                    botCommands.MeleeAttack();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

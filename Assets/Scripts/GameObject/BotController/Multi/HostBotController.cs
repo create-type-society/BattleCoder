@@ -29,6 +29,7 @@ public class HostBotController : IBotController
             meleeAttackApplication);
         var hookBotApplication = new HostBotCommandsHook(botApplication, gameSignalingHost);
         userInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
+        userInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };
 
         javaScriptEngine = new JavaScriptEngine(hookBotApplication);
         runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });

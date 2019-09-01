@@ -21,4 +21,6 @@ public interface IBotCommands
     Task<TileType> GetTileType(GridPosition position);
 
     void Shot();
+
+    void MeleeAttack();
 }

@@ -54,4 +54,5 @@ public enum CommandKind
     MoveDirection,
     MoveShotRotation,
     Shot,
+    MeleeAttack
 }

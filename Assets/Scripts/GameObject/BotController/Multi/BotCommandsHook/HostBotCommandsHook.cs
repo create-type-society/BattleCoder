@@ -63,6 +63,12 @@ public class HostBotCommandsHook : IBotCommands
         botCommands.Shot();
     }
 
+    public void MeleeAttack()
+    {
+        SendCommandData(new CommandData(0, CommandKind.MeleeAttack, 0, new object[] { }));
+        botCommands.MeleeAttack();
+    }
+
     void SendCommandData(CommandData commandData)
     {
         gameSignalingHost.SendData(new ClientReceiveSignalData(

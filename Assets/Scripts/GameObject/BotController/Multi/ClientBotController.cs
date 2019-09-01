@@ -1,4 +1,5 @@
-﻿using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
+﻿using System.Threading;
+using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class ClientBotController : IBotController
     public ClientBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
         CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
         ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager, GameSignalingClient gameSignalingClient,
-        MeleeAttackEntity meleeAttackEntity)
+        MeleeAttackEntity meleeAttackEntity, ProcessScrollViewPresenter processScrollViewPresenter)
     {
         this.errorMsg = errorMsg;
         this.playerHpPresenter = playerHpPresenter;
@@ -32,7 +33,17 @@ public class ClientBotController : IBotController
         userInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };
 
         javaScriptEngine = new JavaScriptEngine(hookBotApplication);
-        runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });
+        runButtonEvent.AddClickEvent(async () =>
+        {
+            var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
+            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token);
+            var panel =
+                processScrollViewPresenter.AddProcessPanel(
+                    () => tokenSource.Cancel(true));
+            await task;
+            panel.Dispose();
+        });
     }
 
     public void Update()

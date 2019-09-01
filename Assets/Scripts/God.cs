@@ -18,6 +18,7 @@ public class God : MonoBehaviour
     [SerializeField] ErrorMsg errorMsg;
     [SerializeField] SoundManager soundManager;
     [SerializeField] MeleeAttackEntity meleeAttackPrefab;
+    [SerializeField] ProcessScrollViewPresenter processScrollViewPresenter;
 
 
     IPlayGame playGame;
@@ -43,7 +44,8 @@ public class God : MonoBehaviour
             botEntityPrefab, cameraFollower,
             playerHpPresenter, tileMapInfo,
             runButtonEvent, scriptText, bulletPrefab,
-            errorMsg, soundManager, meleeAttackPrefab
+            errorMsg, soundManager, meleeAttackPrefab,
+            processScrollViewPresenter
         );
     }
 }

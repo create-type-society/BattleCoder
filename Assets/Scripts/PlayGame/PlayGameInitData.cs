@@ -12,6 +12,7 @@ public struct PlayGameInitData
     public readonly ErrorMsg errorMsg;
     public readonly SoundManager soundManager;
     public readonly MeleeAttackEntity meleeAttackPrefab;
+    public readonly ProcessScrollViewPresenter processScrollViewPresenter;
 
     public PlayGameInitData(
         BotEntity botEntityPrefab,
@@ -23,7 +24,8 @@ public struct PlayGameInitData
         BulletEntity bulletPrefab,
         ErrorMsg errorMsg,
         SoundManager soundManager,
-        MeleeAttackEntity meleeAttackPrefab)
+        MeleeAttackEntity meleeAttackPrefab,
+        ProcessScrollViewPresenter processScrollViewPresenter)
     {
         this.botEntityPrefab = botEntityPrefab;
         this.cameraFollower = cameraFollower;
@@ -35,5 +37,6 @@ public struct PlayGameInitData
         this.errorMsg = errorMsg;
         this.soundManager = soundManager;
         this.meleeAttackPrefab = meleeAttackPrefab;
+        this.processScrollViewPresenter = processScrollViewPresenter;
     }
 }

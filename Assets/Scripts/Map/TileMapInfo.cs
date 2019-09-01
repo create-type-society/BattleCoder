@@ -59,19 +59,19 @@ public class TileMapInfo : MonoBehaviour
         {
             if (rockTile == null)
             {
-                if (holeTile.name.Contains("rock")) return TileType.rock;
-                if (holeTile.name.Contains("hole")) return TileType.hole;
+                if (holeTile.name.Contains("rock")) return TileType.Rock;
+                if (holeTile.name.Contains("hole")) return TileType.Hole;
             }
             else
             {
-                if (rockTile.name.Contains("rock")) return TileType.rock;
-                if (rockTile.name.Contains("hole")) return TileType.hole;
+                if (rockTile.name.Contains("rock")) return TileType.Rock;
+                if (rockTile.name.Contains("hole")) return TileType.Hole;
             }
         }
 
-        if (enemyPos.X == tilePos.X && enemyPos.Y == tilePos.Y) return TileType.tank;
-        if (playerPos.X == tilePos.X && playerPos.Y == tilePos.Y) return TileType.tank;
+        if (enemyPos.X == tilePos.X && enemyPos.Y == tilePos.Y) return TileType.Tank;
+        if (playerPos.X == tilePos.X && playerPos.Y == tilePos.Y) return TileType.Tank;
 
-        return TileType.empty;
+        return TileType.Empty;
     }
 }

@@ -6,15 +6,15 @@ namespace BattleCoder.Test.Tcp
     {
         readonly MyTcpClient client = new MyTcpClient("192.168.179.4", 3000);
 
-        MatchingServer matchingServer;
+        MatchingClient matchingClient;
         int count = 0;
 
         void Start()
         {
             client.Connect();
             client.DisConnected += () => Debug.Log("TCP切断");
-            matchingServer = new MatchingServer(client);
-            matchingServer.Matched += (matchType) =>
+            matchingClient = new MatchingClient(client);
+            matchingClient.Matched += (matchType) =>
             {
                 Debug.Log("マッチ");
                 Debug.Log(matchType);
@@ -23,7 +23,7 @@ namespace BattleCoder.Test.Tcp
 
         void Update()
         {
-            matchingServer.Update();
+            matchingClient.Update();
             count++;
             if (count % 60 == 0)
                 client.WriteData("ほげ");

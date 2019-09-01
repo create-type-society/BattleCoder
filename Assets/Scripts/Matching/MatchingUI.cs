@@ -19,6 +19,7 @@ public class MatchingUI : MonoBehaviour
             SceneChangeManager.ChangeTitleScene();
         };
 
+        Application.quitting += client.DisConnect;
 
         matchingText.text = text;
         client.Connect();

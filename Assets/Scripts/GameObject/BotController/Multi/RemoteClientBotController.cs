@@ -1,13 +1,14 @@
 ﻿using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
+using DefaultNamespace;
 using UnityEngine;
 
-public class CpuBotController : IBotController
+public class RemoteClientBotController : IBotController
 {
     readonly BotApplication botApplication;
-    readonly CpuAi cpuAi = new CpuAi();
 
-    public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
-        SoundManager soundManager, MeleeAttackEntity meleeAttackEntity)
+    public RemoteClientBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
+        SoundManager soundManager, GameSignalingHost gameSignalingHost,
+        MeleeAttackEntity meleeAttackEntity)
     {
         var botEntity = Object.Instantiate(botEntityPrefab);
         tileMapInfo.EnemyTankTransform = botEntity.transform;
@@ -16,11 +17,14 @@ public class CpuBotController : IBotController
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
-            new BulletEntityCreator(
-                bulletPrefab, LayerMask.NameToLayer("EnemyBullet")),
-            soundManager, meleeAttackApplication
-        );
-        cpuAi.Start(botApplication);
+            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager,
+            meleeAttackApplication);
+
+        gameSignalingHost.ReceivedHostReceiveSignalData += data =>
+        {
+            new BotCommandsTransformerService().FromCommandData(data.clientCommandData, botApplication);
+            gameSignalingHost.SendData(new ClientReceiveSignalData(data.clientCommandData,MatchType.Client));
+        };
     }
 
     public void Update()

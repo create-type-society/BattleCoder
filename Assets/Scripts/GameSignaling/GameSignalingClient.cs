@@ -8,6 +8,7 @@ public class GameSignalingClient : IDisposable
 {
     readonly MyTcpClient myTcpClient;
     public event Action<ClientReceiveSignalData> ReceivedClientReceiveSignalData;
+    public event Action<BattleResult> ReceivedBattleResult;
 
     public GameSignalingClient(MyTcpClient myTcpClient)
     {
@@ -25,20 +26,30 @@ public class GameSignalingClient : IDisposable
         {
             var result = myTcpClient.ReadData();
             if (result.isOk)
-            {
-                try
-                {
-                    ReceivedClientReceiveSignalData?.Invoke(
-                        JsonConvert.DeserializeObject<ClientReceiveSignalData>(result.data)
-                    );
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Raw Json String " + result.data);
-                    throw e;
-                }
-            }
+                Receive(result.data);
             else return;
+        }
+    }
+
+    void Receive(string s)
+    {
+        if (s == BattleResult.YouLose.ToString())
+            ReceivedBattleResult?.Invoke(BattleResult.YouLose);
+        else if (s == BattleResult.YouWin.ToString())
+            ReceivedBattleResult?.Invoke(BattleResult.YouWin);
+        else
+        {
+            try
+            {
+                ReceivedClientReceiveSignalData?.Invoke(
+                    JsonConvert.DeserializeObject<ClientReceiveSignalData>(s)
+                );
+            }
+            catch (Exception e)
+            {
+                Debug.Log("Raw Json String " + s);
+                throw e;
+            }
         }
     }
 

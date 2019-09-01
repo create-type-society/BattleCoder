@@ -20,35 +20,30 @@ public class God : MonoBehaviour
     [SerializeField] MeleeAttackEntity meleeAttackPrefab;
 
 
-    PlayerBotController playerBotController;
-    CpuBotController cpuBotController;
-    JavaScriptEngine javaScriptEngine;
+    IPlayGame playGame;
 
     void Awake()
     {
-        var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
-        playerBotController = new PlayerBotController(botEntityPrefab, tileMapInfo, bulletPrefab, cameraFollower,
-            playerHpPresenter, runButtonEvent, scriptText, errorMsg, soundManager, Instantiate(meleeAttackPrefab));
-        cpuBotController = new CpuBotController(botEntityPrefab, tileMapInfo, bulletPrefab, soundManager, Instantiate(meleeAttackPrefab));
+        if (StartGameInfo.IsSinglePlay == false)
+            playGame = MultiPlayGameFactory.CreateMultiPlayGame(GetPlayGameInitData());
+        else
+            playGame = new SinglePlayGame(GetPlayGameInitData());
     }
 
     void Update()
     {
-        playerBotController.Update();
-        cpuBotController.Update();
-        CheckDeath();
+        playGame.Update();
     }
 
-    private void CheckDeath()
+    PlayGameInitData GetPlayGameInitData()
     {
-        if (playerBotController.IsDeath())
-        {
-            SceneChangeManager.ChangeResultScene(false);
-        }
+        var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
 
-        if (cpuBotController.ISDeath())
-        {
-            SceneChangeManager.ChangeResultScene(true);
-        }
+        return new PlayGameInitData(
+            botEntityPrefab, cameraFollower,
+            playerHpPresenter, tileMapInfo,
+            runButtonEvent, scriptText, bulletPrefab,
+            errorMsg, soundManager, meleeAttackPrefab
+        );
     }
 }

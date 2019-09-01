@@ -9,8 +9,8 @@ namespace BattleCoder.Test.Tcp
     {
         GameSignalingClient gameSignalingClient;
         GameSignalingHost gameSignalingHost;
-        MatchingServer matchingServer1;
-        MatchingServer matchingServer2;
+        MatchingClient matchingServer1;
+        MatchingClient matchingServer2;
         bool matchedHostFlag = false;
         bool matchedClientFlag = false;
         int count = 0;
@@ -22,11 +22,19 @@ namespace BattleCoder.Test.Tcp
             myTcpClient1.Connect();
             myTcpClient2.Connect();
 
-            matchingServer1 = new MatchingServer(myTcpClient1);
-            matchingServer2 = new MatchingServer(myTcpClient2);
+            matchingServer1 = new MatchingClient(myTcpClient1);
+            matchingServer2 = new MatchingClient(myTcpClient2);
 
-            matchingServer1.Matched += (matchType) => { CreateGameSignaling(myTcpClient1, matchType); };
-            matchingServer2.Matched += (matchType) => { CreateGameSignaling(myTcpClient2, matchType); };
+            matchingServer1.Matched += (matchType) =>
+            {
+                if (matchType == MatchType.Host) CreateGameSignaling(myTcpClient1, matchType);
+            };
+            matchingServer2.Matched += (matchType) =>
+            {
+                if (matchType == MatchType.Host) CreateGameSignaling(myTcpClient2, matchType);
+            };
+            matchingServer1.StageDetermined += (_) => { CreateGameSignaling(myTcpClient1, MatchType.Client); };
+            matchingServer2.StageDetermined += (_) => { CreateGameSignaling(myTcpClient2, MatchType.Client); };
         }
 
         void CreateGameSignaling(MyTcpClient myTcpClient, MatchType matchType)
@@ -44,7 +52,7 @@ namespace BattleCoder.Test.Tcp
             else
             {
                 matchedHostFlag = true;
-                gameSignalingHost = new GameSignalingHost(myTcpClient);
+                gameSignalingHost = new GameSignalingHost(myTcpClient, StageKind.Stage1);
                 gameSignalingHost.ReceivedHostReceiveSignalData += (obj) =>
                 {
                     //  Debug.Log("HostReceived:" + Enum.GetName(typeof(CommandKind), obj.clientCommandData.kind));
@@ -58,18 +66,20 @@ namespace BattleCoder.Test.Tcp
             {
                 count++;
                 gameSignalingHost.SendData(new ClientReceiveSignalData(
-                    BattleResult.Wait,
-                    new CommandData(CommandKind.Move, count, new object[] {Direction.Down, 5}))
+                        new CommandData(1, CommandKind.Move, count, new object[] {Direction.Down, 5}),
+                        MatchType.Client
+                    )
                 );
                 gameSignalingClient.SendData(new HostReceiveSignalData(
-                    new CommandData(CommandKind.Move, count, new object[] {Direction.Up, 1}))
+                    new CommandData(1, CommandKind.Move, count, new object[] {Direction.Up, 1}))
                 );
                 gameSignalingClient.SendData(new HostReceiveSignalData(
-                    new CommandData(CommandKind.Move, count, new object[] {Direction.Up, 1}))
+                    new CommandData(1, CommandKind.Move, count, new object[] {Direction.Up, 1}))
                 );
                 gameSignalingHost.SendData(new ClientReceiveSignalData(
-                    BattleResult.Wait,
-                    new CommandData(CommandKind.Move, count, new object[] {Direction.Down, 5}))
+                        new CommandData(1, CommandKind.Move, count, new object[] {Direction.Down, 5}),
+                        MatchType.Client
+                    )
                 );
                 gameSignalingClient.Update();
                 gameSignalingHost.Update();

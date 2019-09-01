@@ -1,9 +1,8 @@
 ﻿using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-public class PlayerBotController : IBotController
+public class ClientBotController : IBotController
 {
     readonly IUserInput userInput = new KeyController();
     readonly BotApplication botApplication;
@@ -11,9 +10,10 @@ public class PlayerBotController : IBotController
     readonly JavaScriptEngine javaScriptEngine;
     readonly ErrorMsg errorMsg;
 
-    public PlayerBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
+    public ClientBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
         CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
-        ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager, MeleeAttackEntity meleeAttackEntity)
+        ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager, GameSignalingClient gameSignalingClient,
+        MeleeAttackEntity meleeAttackEntity)
     {
         this.errorMsg = errorMsg;
         this.playerHpPresenter = playerHpPresenter;
@@ -22,17 +22,15 @@ public class PlayerBotController : IBotController
         botEntity.gameObject.layer = LayerMask.NameToLayer("PlayerBot");
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
+        botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
-        botApplication = new BotApplication(
-            botEntity, botEntityAnimation, tileMapInfo,
-            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")),
-            soundManager, meleeAttackApplication
-        );
-        userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
-        userInput.MeleeAttackEvent += (sender, e) => { botApplication.MeleeAttack(); };
+        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
+            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")), soundManager,
+            meleeAttackApplication);
+        var hookBotApplication = new ClientBotCommandsHook(botApplication, gameSignalingClient);
+        userInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
 
-        javaScriptEngine = new JavaScriptEngine(botApplication);
+        javaScriptEngine = new JavaScriptEngine(hookBotApplication);
         runButtonEvent.AddClickEvent(() => { javaScriptEngine.ExecuteJS(scriptText.GetScriptText()); });
     }
 

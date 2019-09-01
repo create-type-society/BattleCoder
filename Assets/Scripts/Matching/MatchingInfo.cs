@@ -1,8 +1,8 @@
 namespace BattleCoder.Matching
 {
-    public static class MatchingInfo
+    public class MatchingInfo
     {
-        public static bool Result { get; set; } = false;
-        public static bool StageSlected { get; set; } = false;
+        public bool Result { get; set; } = false;
+        public bool StageSlected { get; set; } = false;
     }
 }

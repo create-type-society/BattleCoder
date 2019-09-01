@@ -5,7 +5,7 @@ using Object = UnityEngine.Object;
 
 public class PlayerBotController : IBotController
 {
-    readonly IUserInput userInput = new KeyController();
+    readonly IUserInput userInput = new DeviceController();
     readonly BotApplication botApplication;
     readonly PlayerHpPresenter playerHpPresenter;
     readonly JavaScriptEngine javaScriptEngine;

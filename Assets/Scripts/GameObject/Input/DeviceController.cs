@@ -37,6 +37,10 @@ public class DeviceController : IUserInput
         {
             DecodeInputDeviceData(br);
         }
+        else if (packet.Type == PacketType.InputDeviceButtonData)
+        {
+            DecodeInputDeviceButtonData(br);
+        }
 
         br.Close();
         stream.Close();
@@ -44,11 +48,19 @@ public class DeviceController : IUserInput
 
     private void DecodeInputDeviceData(BinaryReader br)
     {
+        if (br.BaseStream.Length <= 0)
+            return;
+
         var deviceVal = br.ReadSingle();
         if (deviceVal >= 3)
         {
             OnMeleeAttackEvent(this, EventArgs.Empty);
         }
+    }
+
+    private void DecodeInputDeviceButtonData(BinaryReader br)
+    {
+        OnShootingAttack(this, EventArgs.Empty);
     }
 
     private void OnMeleeAttackEvent(object sender, EventArgs args)

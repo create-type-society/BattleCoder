@@ -59,7 +59,7 @@ public class MatchingUI : MonoBehaviour
 
     IEnumerator WaitGamePlay(StageKind stageKind, MatchType matchType)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.5f);
         SceneChangeManager.ChangeClientMultiPlayScene(stageKind, new MultiGameInfo(client, matchType));
     }
 }

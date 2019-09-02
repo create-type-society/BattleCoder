@@ -26,7 +26,7 @@ public class PlayerBotController : IBotController
         cameraFollower.SetPlayerPosition(botEntity.transform);
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
-        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
+        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
         botApplication = new BotApplication(
             botEntity, botEntityAnimation, tileMapInfo,
             new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")),

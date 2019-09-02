@@ -15,7 +15,7 @@ public class RemoteHostBotController : IBotController
         botEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBot");
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity);
+        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
             new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager,
             meleeAttackApplication);

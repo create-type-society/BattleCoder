@@ -11,6 +11,12 @@ public class ClientMultiPlayGame : IPlayGame
         gameSignalingClient = new GameSignalingClient(multiGameInfo.myTcpClient);
         gameSignalingClient.ReceivedBattleResult += CheckDeath;
 
+        var playerMeleeAttackEntity = Object.Instantiate(playGameInitData.meleeAttackPrefab);
+        playerMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
+
+        var enemyMeleeAttackEntity = Object.Instantiate(playGameInitData.meleeAttackPrefab);
+        enemyMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
+
         playerBotController = new ClientBotController(
             playGameInitData.botEntityPrefab,
             playGameInitData.tileMapInfo,
@@ -22,7 +28,7 @@ public class ClientMultiPlayGame : IPlayGame
             playGameInitData.errorMsg,
             playGameInitData.soundManager,
             gameSignalingClient,
-            Object.Instantiate(playGameInitData.meleeAttackPrefab),
+            playerMeleeAttackEntity,
             playGameInitData.processScrollViewPresenter
         );
         enemyBotController = new RemoteHostBotController(
@@ -31,7 +37,7 @@ public class ClientMultiPlayGame : IPlayGame
             playGameInitData.bulletPrefab,
             playGameInitData.soundManager,
             gameSignalingClient,
-            Object.Instantiate(playGameInitData.meleeAttackPrefab)
+            enemyMeleeAttackEntity
         );
     }
 

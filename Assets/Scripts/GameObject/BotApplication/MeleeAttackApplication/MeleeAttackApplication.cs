@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MeleeAttackApplication
 {
     MeleeAttackEntity meleeAttackEntity;
-    [SerializeField] SoundManager soundManager;
+    SoundManager soundManager;
 
-    public MeleeAttackApplication(MeleeAttackEntity meleeAttackEntity)
+    public MeleeAttackApplication(MeleeAttackEntity meleeAttackEntity, SoundManager soundManager)
     {
         this.meleeAttackEntity = meleeAttackEntity;
+        this.soundManager = soundManager;
     }
 
     public void MeleeAttack(Vector3 position, Direction direction)

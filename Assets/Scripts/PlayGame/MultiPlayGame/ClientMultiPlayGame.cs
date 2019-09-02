@@ -54,5 +54,6 @@ public class ClientMultiPlayGame : IPlayGame
             SceneChangeManager.ChangeResultScene(false);
         else
             SceneChangeManager.ChangeResultScene(true);
+        gameSignalingClient.Dispose();
     }
 }

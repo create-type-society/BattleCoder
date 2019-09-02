@@ -63,5 +63,7 @@ public class HostMultiPlayGame : IPlayGame
             gameSignalingHost.SendBattleResult(BattleResult.YouLose);
             SceneChangeManager.ChangeResultScene(true);
         }
+
+        gameSignalingHost.Dispose();
     }
 }

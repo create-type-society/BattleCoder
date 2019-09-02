@@ -42,6 +42,7 @@ public class MoveCommandObject : BaseCommandObject<Void>
         if (moveCount < 0)
         {
             botEntityAnimation.ResetAnimation();
+            botEntity.PosFix(tileMapInfo);
             Finished();
             return;
         }

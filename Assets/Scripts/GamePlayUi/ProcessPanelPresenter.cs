@@ -11,9 +11,12 @@ public class ProcessPanelPresenter : MonoBehaviour, IDisposable
     public event Action closed;
     bool closedFlag = false;
 
+    public int ProcessId { get; private set; }
+
     void Awake()
     {
         count++;
+        ProcessId = count;
         text.text = "プロセス:" + count;
         closeButton.onClick.AddListener(() => closed?.Invoke());
     }

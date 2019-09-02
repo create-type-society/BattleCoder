@@ -26,9 +26,9 @@ public class JavaScriptEngine
         return temp;
     }
 
-    public Task ExecuteJS(string script, CancellationToken cancellationToken)
+    public Task ExecuteJS(string script, CancellationToken cancellationToken, int processId)
     {
-        var engine = CreateEngine(cancellationToken);
+        var engine = CreateEngine(cancellationToken, processId);
         return Task.Run(() => engine.Execute(script), cancellationToken)
             .ContinueWith(t =>
             {
@@ -38,7 +38,7 @@ public class JavaScriptEngine
             });
     }
 
-    private Engine CreateEngine(CancellationToken cancellationToken)
+    private Engine CreateEngine(CancellationToken cancellationToken, int processId)
     {
         var engine = new Engine(options => { options.DebugMode(); });
 
@@ -103,7 +103,7 @@ public class JavaScriptEngine
             return task.Result;
         }));
         engine.SetValue("Print", new Action<object>(obj =>
-            ConsoleLogger.Log(DateTime.Now, 0, obj)
+            ConsoleLogger.Log(DateTime.Now, processId, obj)
         ));
         engine.SetValue("Wait", new Action<int>((milliSeconds) => Task.Delay(milliSeconds).Wait()));
         return engine;

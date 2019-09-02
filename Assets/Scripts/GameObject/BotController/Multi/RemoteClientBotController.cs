@@ -23,7 +23,7 @@ public class RemoteClientBotController : IBotController
         gameSignalingHost.ReceivedHostReceiveSignalData += data =>
         {
             new BotCommandsTransformerService().FromCommandData(data.clientCommandData, botApplication);
-            gameSignalingHost.SendData(new ClientReceiveSignalData(data.clientCommandData,MatchType.Client));
+            gameSignalingHost.SendData(new ClientReceiveSignalData(data.clientCommandData, MatchType.Client));
         };
     }
 
@@ -35,5 +35,9 @@ public class RemoteClientBotController : IBotController
     public bool IsDeath()
     {
         return botApplication.Hp.IsDeath();
+    }
+
+    public void Dispose()
+    {
     }
 }

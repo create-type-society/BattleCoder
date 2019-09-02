@@ -43,6 +43,12 @@ public class SinglePlayGame : IPlayGame
         CheckDeath();
     }
 
+    public void Dispose()
+    {
+        playerBotController.Dispose();
+        enemyBotController.Dispose();
+    }
+
     void CheckDeath()
     {
         if (playerBotController.IsDeath())

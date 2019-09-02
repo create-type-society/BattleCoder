@@ -32,4 +32,8 @@ public class CpuBotController : IBotController
     {
         return botApplication.Hp.IsDeath();
     }
+
+    public void Dispose()
+    {
+    }
 }

@@ -50,6 +50,12 @@ public class HostMultiPlayGame : IPlayGame
         gameSignalingHost.Update();
     }
 
+    public void Dispose()
+    {
+        playerBotController.Dispose();
+        enemyBotController.Dispose();
+    }
+
     void CheckDeath()
     {
         if (playerBotController.IsDeath())

@@ -1,4 +1,6 @@
-﻿public interface IBotController
+﻿using System;
+
+public interface IBotController : IDisposable
 {
     void Update();
 

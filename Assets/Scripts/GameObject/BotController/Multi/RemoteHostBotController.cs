@@ -36,4 +36,8 @@ public class RemoteHostBotController : IBotController
     {
         return botApplication.Hp.IsDeath();
     }
+
+    public void Dispose()
+    {
+    }
 }

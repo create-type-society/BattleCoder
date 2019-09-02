@@ -1,4 +1,6 @@
-﻿public interface IPlayGame
+﻿using System;
+
+public interface IPlayGame : IDisposable
 {
     void Update();
 }

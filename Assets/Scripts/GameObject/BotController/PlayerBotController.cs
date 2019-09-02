@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 public class PlayerBotController : IBotController
 {
@@ -43,8 +41,8 @@ public class PlayerBotController : IBotController
             var panel =
                 processScrollViewPresenter.AddProcessPanel(
                     () => { tokenSource.Cancel(); });
-            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token,panel.ProcessId);
-           
+            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token, panel.ProcessId);
+
             await task;
             panel.Dispose();
         });
@@ -63,5 +61,10 @@ public class PlayerBotController : IBotController
     public bool IsDeath()
     {
         return botApplication.Hp.IsDeath();
+    }
+
+    public void Dispose()
+    {
+        userInput.Dispose();
     }
 }

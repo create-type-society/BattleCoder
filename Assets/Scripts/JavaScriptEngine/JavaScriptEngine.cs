@@ -17,6 +17,7 @@ public class JavaScriptEngine
 
     public JavaScriptEngine(IBotCommands botCommands)
     {
+        this.botCommands = botCommands;
     }
 
     public string GetErrorText()

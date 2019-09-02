@@ -52,7 +52,7 @@ public class DeviceController : IUserInput
             return;
 
         var deviceVal = br.ReadSingle();
-        if (deviceVal >= 3)
+        if (deviceVal >= 2)
         {
             OnMeleeAttackEvent(this, EventArgs.Empty);
         }

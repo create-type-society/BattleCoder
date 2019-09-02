@@ -7,7 +7,7 @@ public class MatchingUI : MonoBehaviour
 {
     [SerializeField] private Text matchingText;
     MatchingClient matchingClient;
-    readonly MyTcpClient client = new MyTcpClient("localhost", 3000);
+    readonly MyTcpClient client = new MyTcpClient("133.167.115.186", 3000);
     [SerializeField] MatchingCancel cancel;
     string text = "Matching Now...";
 

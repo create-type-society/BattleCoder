@@ -40,7 +40,7 @@ public class HostBotController : IBotController
             var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token);
             var panel =
                 processScrollViewPresenter.AddProcessPanel(
-                    () => tokenSource.Cancel(true));
+                    () => { tokenSource.Cancel(); });
             await task;
             panel.Dispose();
         });

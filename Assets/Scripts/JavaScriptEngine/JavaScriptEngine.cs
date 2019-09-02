@@ -6,19 +6,48 @@ using System.Threading.Tasks;
 using BattleCoder.Map;
 using Jint;
 using Jint.Native;
+using Jint.Runtime.Debugger;
 using Jint.Runtime.Interop;
 using UnityEngine;
 
 public class JavaScriptEngine
 {
     readonly IBotCommands botCommands;
-    readonly Engine engine;
     string errorText = "";
 
     public JavaScriptEngine(IBotCommands botCommands)
     {
-        this.botCommands = botCommands;
-        engine = new Engine();
+    }
+
+    public string GetErrorText()
+    {
+        var temp = errorText;
+        errorText = "";
+        return temp;
+    }
+
+    public Task ExecuteJS(string script, CancellationToken cancellationToken)
+    {
+        var engine = CreateEngine(cancellationToken);
+        return Task.Run(() => engine.Execute(script), cancellationToken)
+            .ContinueWith(t =>
+            {
+                if (t.Exception != null)
+                    if (t.Exception.InnerException.GetType() != typeof(OperationCanceledException))
+                        errorText = t.Exception.InnerException.Message;
+            });
+    }
+
+    private Engine CreateEngine(CancellationToken cancellationToken)
+    {
+        var engine = new Engine(options => { options.DebugMode(); });
+
+        engine.Step += (s, e) =>
+        {
+            if (cancellationToken.IsCancellationRequested)
+                throw new OperationCanceledException();
+            return StepMode.Into;
+        };
         engine.SetValue("KeyCode", TypeReference.CreateTypeReference(engine, typeof(KeyCode)));
         engine.SetValue("GetKey", new Func<KeyCode, bool>(code =>
         {
@@ -73,24 +102,10 @@ public class JavaScriptEngine
             task.Wait();
             return task.Result;
         }));
-        engine.SetValue("Print", new Action<object>(obj => ConsoleLogger.Log(DateTime.Now, 0, obj)));
+        engine.SetValue("Print", new Action<object>(obj =>
+            ConsoleLogger.Log(DateTime.Now, 0, obj)
+        ));
         engine.SetValue("Wait", new Action<int>((milliSeconds) => Task.Delay(milliSeconds).Wait()));
-    }
-
-    public string GetErrorText()
-    {
-        var temp = errorText;
-        errorText = "";
-        return temp;
-    }
-
-    public Task ExecuteJS(string script, CancellationToken cancellationToken)
-    {
-        return Task.Run(() => engine.Execute(script), cancellationToken)
-            .ContinueWith(t =>
-            {
-                if (t.Exception != null)
-                    errorText = t.Exception.InnerException.Message;
-            });
+        return engine;
     }
 }

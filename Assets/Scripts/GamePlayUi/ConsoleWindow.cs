@@ -5,19 +5,24 @@ public class ConsoleWindow : MonoBehaviour
 {
     [SerializeField] private ConsoleText consoleText;
     [SerializeField] private ConsoleClearButton clearButton;
+    [SerializeField] private ConsoleCloseButton closeButton;
 
     public ConcurrentQueue<string> syncedQueue = new ConcurrentQueue<string>();
+
+    public ConsoleWindow()
+    {
+        ConsoleLogger.ConsoleLogEvent += OnConsoleLogEvent;
+    }
 
     private void Start()
     {
         clearButton.AddListener(() => consoleText.ClearText());
-
-        ConsoleLogger.ConsoleLogEvent += OnConsoleLogEvent;
+        closeButton.AddListener(Close);
     }
 
     private void Update()
     {
-        if (!syncedQueue.IsEmpty)
+        if (!syncedQueue.IsEmpty && gameObject.activeSelf)
         {
             syncedQueue.TryDequeue(out string msg);
             consoleText.AppendTextNewLine(msg);

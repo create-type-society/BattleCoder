@@ -18,7 +18,7 @@ public class God : MonoBehaviour
     [SerializeField] ErrorMsg errorMsg;
     [SerializeField] SoundManager soundManager;
     [SerializeField] MeleeAttackEntity meleeAttackPrefab;
-    [SerializeField] private ConsoleWindow consoleWindow;
+    [SerializeField] ConsoleWindow consoleWindow;
 
     IPlayGame playGame;
 
@@ -33,6 +33,12 @@ public class God : MonoBehaviour
     void Update()
     {
         playGame.Update();
+
+        if (Input.GetKeyDown(KeyCode.F5))
+            if (consoleWindow.isActiveAndEnabled)
+                consoleWindow.Close();
+            else
+                consoleWindow.Open();
     }
 
     PlayGameInitData GetPlayGameInitData()

@@ -73,7 +73,7 @@ public class JavaScriptEngine
             task.Wait();
             return task.Result;
         }));
-        engine.SetValue("Print", new Action<object>(Debug.Log));
+        engine.SetValue("Print", new Action<object>(obj => ConsoleLogger.Log(DateTime.Now, 0, obj)));
         engine.SetValue("Wait", new Action<int>((milliSeconds) => Task.Delay(milliSeconds).Wait()));
     }
 

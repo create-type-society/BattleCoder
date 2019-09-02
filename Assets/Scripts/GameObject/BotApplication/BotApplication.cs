@@ -122,6 +122,7 @@ public class BotApplication : IBotCommands
     //毎フレーム1回だけ呼んでください
     public void Update()
     {
+        meleeAttackApplication.Update();
         commandObjectController.RunCommandObjects();
         bulletApplicationList.ForEach(x => x.Update());
         bulletApplicationList = bulletApplicationList.Where(x =>

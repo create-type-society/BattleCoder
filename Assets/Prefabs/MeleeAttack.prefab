@@ -184,6 +184,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8465427933574472802}
     m_Modifications:
+    - target: {fileID: 1406351894592314667, guid: c5a9eeae09a1efd408d3626a7e609c0f,
+        type: 3}
+      propertyPath: m_Name
+      value: MeleeEffect
+      objectReference: {fileID: 0}
     - target: {fileID: 1406351894592314664, guid: c5a9eeae09a1efd408d3626a7e609c0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -248,11 +253,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.39408213
-      objectReference: {fileID: 0}
-    - target: {fileID: 1406351894592314667, guid: c5a9eeae09a1efd408d3626a7e609c0f,
-        type: 3}
-      propertyPath: m_Name
-      value: MeleeEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5a9eeae09a1efd408d3626a7e609c0f, type: 3}

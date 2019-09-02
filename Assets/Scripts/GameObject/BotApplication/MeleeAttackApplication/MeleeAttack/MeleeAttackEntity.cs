@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
- public class MeleeAttackEntity : MonoBehaviour
- {
+public class MeleeAttackEntity : MonoBehaviour
+{
     [SerializeField] private Animator anime;
 
     private float ConvertAngle(Direction direction)
@@ -18,9 +18,9 @@ using UnityEngine;
             case Direction.Down:
                 return 180f;
             case Direction.Left:
-                return 270f;
-            case Direction.Right:
                 return 90f;
+            case Direction.Right:
+                return 270f;
             default:
                 throw new ArgumentOutOfRangeException();
         }

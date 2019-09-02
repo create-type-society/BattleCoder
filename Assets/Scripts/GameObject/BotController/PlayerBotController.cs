@@ -52,8 +52,8 @@ public class PlayerBotController : IBotController
 
     public void Update()
     {
-        botApplication.Update();
         userInput.Update();
+        botApplication.Update();
         playerHpPresenter.RenderHp(botApplication.Hp);
         var errorText = javaScriptEngine.GetErrorText();
         if (errorText != "")

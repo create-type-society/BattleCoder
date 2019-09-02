@@ -134,7 +134,7 @@ public class BotApplication : IBotCommands
     private void CheckHole()
     {
         var tileType = tileMapInfo.GetTileType(botEntity.transform.position);
-        if (tileType == TileType.hole)
+        if (tileType == TileType.Hole)
         {
             Hp = new BotHp(0);
         }

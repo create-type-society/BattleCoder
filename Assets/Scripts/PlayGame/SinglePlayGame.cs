@@ -17,7 +17,8 @@ public class SinglePlayGame : IPlayGame
             playGameInitData.scriptText,
             playGameInitData.errorMsg,
             playGameInitData.soundManager,
-            Object.Instantiate(playGameInitData.meleeAttackPrefab)
+            Object.Instantiate(playGameInitData.meleeAttackPrefab),
+            playGameInitData.processScrollViewPresenter
         );
 
         enemyBotController = new CpuBotController(

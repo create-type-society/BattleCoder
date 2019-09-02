@@ -12,9 +12,9 @@ namespace BattleCoder.Test.Map
             _info = GetComponent<TileMapInfo>();
             GridPosition p1 = _info.GetGridPosition(new Vector3(-208, -160));
             GridPosition p11 = new GridPosition(1, 1);
-            Debug.Assert(_info.GetTileType(p1) == TileType.rock);
-            Debug.Assert(_info.GetTileType(_info.GetGridPosition(_info.GetPlayer1StartPosition())) == TileType.empty);
-            Debug.Assert(_info.GetTileType(_info.GetGridPosition(_info.GetPlayer2StartPosition())) == TileType.empty);
+            Debug.Assert(_info.GetTileType(p1) == TileType.Rock);
+            Debug.Assert(_info.GetTileType(_info.GetGridPosition(_info.GetPlayer1StartPosition())) == TileType.Empty);
+            Debug.Assert(_info.GetTileType(_info.GetGridPosition(_info.GetPlayer2StartPosition())) == TileType.Empty);
             Debug.Log(_info.GetTileType(new GridPosition(0, 0)));
         }
     }

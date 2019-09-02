@@ -32,7 +32,7 @@ public class BotEntity : MonoBehaviour
         x = x > 0 ? x + gridSizeHalf : x < 0 ? x - gridSizeHalf : x;
         y = y > 0 ? y + gridSizeHalf : y < 0 ? y - gridSizeHalf : y;
         var tileType = tileMapInfo.GetTileType(transform.position + new Vector3(x, y, 0));
-        return tileType == TileType.rock;
+        return tileType == TileType.Rock;
     }
     
     bool TancCheck(float x, float y, TileMapInfo tileMapInfo)
@@ -42,7 +42,7 @@ public class BotEntity : MonoBehaviour
         y = y > 0 ? y + gridSizeHalf : y < 0 ? y - gridSizeHalf : y;
         GridPosition movePos = tileMapInfo.GetGridPosition(transform.position + new Vector3(x, y, 0));
         var tileType = tileMapInfo.GetTileType(transform.position + new Vector3(x, y, 0));
-        if (tileType == TileType.tank)
+        if (tileType == TileType.Tank)
         {
             GridPosition myPos = tileMapInfo.GetGridPosition(transform.position);
             return !(movePos.X == myPos.X && movePos.Y == myPos.Y);

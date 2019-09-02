@@ -1,6 +1,7 @@
 ﻿//javaScriptのインタプリタエンジン
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using BattleCoder.Map;
 using Jint;
@@ -83,12 +84,13 @@ public class JavaScriptEngine
         return temp;
     }
 
-    public void ExecuteJS(string script)
+    public Task ExecuteJS(string script, CancellationToken cancellationToken)
     {
-        Task.Run(() => engine.Execute(script)).ContinueWith(t =>
-        {
-            if (t.Exception != null)
-                errorText = t.Exception.InnerException.Message;
-        });
+        return Task.Run(() => engine.Execute(script), cancellationToken)
+            .ContinueWith(t =>
+            {
+                if (t.Exception != null)
+                    errorText = t.Exception.InnerException.Message;
+            });
     }
 }

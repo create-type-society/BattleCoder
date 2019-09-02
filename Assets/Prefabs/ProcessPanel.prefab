@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 2992371149916474893}
   - component: {fileID: 2992371149916474882}
   - component: {fileID: 1267892997433978894}
+  - component: {fileID: 72026641098830901}
   m_Layer: 5
   m_Name: ProcessPanel
   m_TagString: Untagged
@@ -195,8 +196,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.9699707, y: 133.85004}
-  m_SizeDelta: {x: 3.94, y: -270.3}
+  m_AnchoredPosition: {x: 1.9699707, y: 279.4}
+  m_SizeDelta: {x: 3.9, y: -561.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2992371149916474893
 CanvasRenderer:
@@ -249,6 +250,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 2992371150075227460}
+  text: {fileID: 2992371149400271891}
+--- !u!114 &72026641098830901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992371149916474880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 40
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &2992371150075227482
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2992371150075227461
 RectTransform:
   m_ObjectHideFlags: 0

@@ -22,7 +22,8 @@ public class ClientMultiPlayGame : IPlayGame
             playGameInitData.errorMsg,
             playGameInitData.soundManager,
             gameSignalingClient,
-            Object.Instantiate(playGameInitData.meleeAttackPrefab)
+            Object.Instantiate(playGameInitData.meleeAttackPrefab),
+            playGameInitData.processScrollViewPresenter
         );
         enemyBotController = new RemoteHostBotController(
             playGameInitData.botEntityPrefab,

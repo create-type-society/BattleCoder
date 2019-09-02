@@ -3751,15 +3751,15 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 0
+    m_Bottom: 5
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleHeight: 1
 --- !u!222 &1657337266
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4223,5 +4223,10 @@ PrefabInstance:
       propertyPath: soundManager
       value: 
       objectReference: {fileID: 426807985}
+    - target: {fileID: 904407806210637666, guid: d9acd2cfbf0ffe14db9de8142d595d05,
+        type: 3}
+      propertyPath: processScrollViewPresenter
+      value: 
+      objectReference: {fileID: 459759207}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9acd2cfbf0ffe14db9de8142d595d05, type: 3}

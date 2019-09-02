@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ProcessScrollViewPresenter : MonoBehaviour
 {
@@ -6,9 +7,15 @@ public class ProcessScrollViewPresenter : MonoBehaviour
 
     [SerializeField] ProcessPanelPresenter processPanelPrefab;
 
-    void Start()
+
+    public IDisposable AddProcessPanel(Action processClosedCallback)
     {
-        for (var i = 0; i < 10; i++)
-            Instantiate(processPanelPrefab, content.transform);
+        var obj = Instantiate(processPanelPrefab, content.transform);
+        obj.closed += () =>
+        {
+            processClosedCallback();
+            Destroy(obj.gameObject);
+        };
+        return obj;
     }
 }

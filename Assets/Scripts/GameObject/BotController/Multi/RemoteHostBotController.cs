@@ -27,6 +27,18 @@ public class RemoteHostBotController : IBotController
         };
     }
 
+    public Vector2 GetPos()
+    {
+        return botApplication.GetPos();
+    }
+
+    public void SetPos(Vector2 pos)
+    {
+        return;
+        botApplication.SetPos(pos);
+    }
+
+
     public void Update()
     {
         botApplication.Update();

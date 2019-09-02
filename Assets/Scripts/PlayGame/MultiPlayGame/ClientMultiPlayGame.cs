@@ -39,6 +39,8 @@ public class ClientMultiPlayGame : IPlayGame
             gameSignalingClient,
             enemyMeleeAttackEntity
         );
+        gameSignalingClient.ReceivedClientPos += playerBotController.SetPos;
+        gameSignalingClient.ReceivedHostPos += enemyBotController.SetPos;
     }
 
     public void Update()

@@ -23,6 +23,17 @@ public class GameSignalingHost : IDisposable
         myTcpClient.WriteData(battleResult.ToString());
     }
 
+    public void SendClientPos(Vector3 pos)
+    {
+        myTcpClient.WriteData($"client_pos,{pos.x},{pos.y}");
+    }
+
+    public void SendHostPos(Vector3 pos)
+    {
+        myTcpClient.WriteData($"host_pos,{pos.x},{pos.y}");
+    }
+
+
     public void Update()
     {
         while (true)

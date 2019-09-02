@@ -40,6 +40,17 @@ public class BotApplication : IBotCommands
         this.meleeAttackApplication = meleeAttackApplication;
     }
 
+    public void SetPos(Vector2 pos)
+    {
+        botEntity.transform.position = new Vector3(pos.x, pos.y, botEntity.transform.position.z);
+    }
+
+    public Vector2 GetPos()
+    {
+        return botEntity.transform.position;
+    }
+
+
     //移動コマンドの発行
     public Task<Void> Move(Direction direction, uint gridDistance)
     {

@@ -9,6 +9,8 @@ public class GameSignalingClient : IDisposable
     readonly MyTcpClient myTcpClient;
     public event Action<ClientReceiveSignalData> ReceivedClientReceiveSignalData;
     public event Action<BattleResult> ReceivedBattleResult;
+    public event Action<Vector2> ReceivedHostPos;
+    public event Action<Vector2> ReceivedClientPos;
 
     public GameSignalingClient(MyTcpClient myTcpClient)
     {
@@ -37,6 +39,16 @@ public class GameSignalingClient : IDisposable
             ReceivedBattleResult?.Invoke(BattleResult.YouLose);
         else if (s == BattleResult.YouWin.ToString())
             ReceivedBattleResult?.Invoke(BattleResult.YouWin);
+        else if (s.IndexOf("client_pos") == 0)
+        {
+            var ss = s.Split(',');
+            ReceivedClientPos?.Invoke(new Vector2(float.Parse(ss[1]), float.Parse(ss[2])));
+        }
+        else if (s.IndexOf("host_pos") == 0)
+        {
+            var ss = s.Split(',');
+            ReceivedClientPos?.Invoke(new Vector2(float.Parse(ss[1]), float.Parse(ss[2])));
+        }
         else
         {
             try

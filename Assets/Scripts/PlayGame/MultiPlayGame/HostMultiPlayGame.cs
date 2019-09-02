@@ -6,6 +6,8 @@ public class HostMultiPlayGame : IPlayGame
     readonly IBotController enemyBotController;
     readonly GameSignalingHost gameSignalingHost;
 
+    int count = 0;
+
     public HostMultiPlayGame(PlayGameInitData playGameInitData, MultiGameInfo multiGameInfo)
     {
         gameSignalingHost =
@@ -44,9 +46,16 @@ public class HostMultiPlayGame : IPlayGame
 
     public void Update()
     {
+        count++;
         playerBotController.Update();
         enemyBotController.Update();
         CheckDeath();
+        if (count % 30 == 0)
+        {
+            gameSignalingHost.SendClientPos(playerBotController.GetPos());
+            gameSignalingHost.SendClientPos(enemyBotController.GetPos());
+        }
+
         gameSignalingHost.Update();
     }
 

@@ -55,6 +55,18 @@ public class HostBotController : IBotController
         if (errorText != "")
             errorMsg.SetText(errorText);
     }
+    
+    public Vector2 GetPos()
+    {
+        return botApplication.GetPos();
+    }
+
+    public void SetPos(Vector2 pos)
+    {
+        return;
+        botApplication.SetPos(pos);
+    }
+
 
     public bool IsDeath()
     {

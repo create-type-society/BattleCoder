@@ -38,11 +38,7 @@ public class MyTcpClient
     public void DisConnect()
     {
         if (client == null) return;
-        while (writeQueue.Length() != 0)
-        {
-            Thread.Sleep(100);
-        }
-
+        Thread.Sleep(1000);
         networkStream.Close();
         client.Close();
         client = null;

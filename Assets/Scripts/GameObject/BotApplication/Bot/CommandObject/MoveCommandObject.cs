@@ -9,7 +9,7 @@ public class MoveCommandObject : BaseCommandObject<Void>
     int moveCount;
     int dirChenge;
     bool useCallback = true;
-    readonly float speed = 1;
+    readonly float speed = 1.5f;
     readonly Direction direction;
     readonly Action directionChangeCallback;
     readonly TileMapInfo tileMapInfo;

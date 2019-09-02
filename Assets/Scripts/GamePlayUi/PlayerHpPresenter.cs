@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 //プレイヤーHpの描画を制御する
 public class PlayerHpPresenter : MonoBehaviour
@@ -15,8 +14,11 @@ public class PlayerHpPresenter : MonoBehaviour
     {
         if (heartObjects.Count > botHp.hp)
         {
-            GameObject disHeart = heartObjects.Pop();
-            Destroy(disHeart);
+            if (heartObjects.Count > 0)
+            {
+                GameObject disHeart = heartObjects.Pop();
+                Destroy(disHeart);
+            }
         }
         else if (heartObjects.Count < botHp.hp)
         {

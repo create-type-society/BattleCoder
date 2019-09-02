@@ -60,7 +60,7 @@ public class ClientBotController : IBotController
     {
         return botApplication.Hp.IsDeath();
     }
-    
+
     public Vector2 GetPos()
     {
         return botApplication.GetPos();
@@ -68,7 +68,6 @@ public class ClientBotController : IBotController
 
     public void SetPos(Vector2 pos)
     {
-        return;
         botApplication.SetPos(pos);
     }
 

@@ -40,7 +40,6 @@ public class CpuBotController : IBotController
 
     public void SetPos(Vector2 pos)
     {
-        return;
         botApplication.SetPos(pos);
     }
 

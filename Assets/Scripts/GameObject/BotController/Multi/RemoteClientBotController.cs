@@ -31,7 +31,7 @@ public class RemoteClientBotController : IBotController
     {
         botApplication.Update();
     }
-    
+
     public Vector2 GetPos()
     {
         return botApplication.GetPos();
@@ -39,7 +39,6 @@ public class RemoteClientBotController : IBotController
 
     public void SetPos(Vector2 pos)
     {
-        return;
         botApplication.SetPos(pos);
     }
 

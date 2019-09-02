@@ -2,7 +2,7 @@
 
 public static class StartGameInfo
 {
-    public static bool IsSinglePlay { get; private set; }
+    public static bool IsSinglePlay { get; private set; } = true;
 
     static MultiGameInfo? multiGameInfo = null;
 

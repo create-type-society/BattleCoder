@@ -8,7 +8,7 @@ public class ProcessScrollViewPresenter : MonoBehaviour
     [SerializeField] ProcessPanelPresenter processPanelPrefab;
 
 
-    public IDisposable AddProcessPanel(Action processClosedCallback)
+    public ProcessPanelPresenter AddProcessPanel(Action processClosedCallback)
     {
         var obj = Instantiate(processPanelPrefab, content.transform);
         obj.closed += () =>

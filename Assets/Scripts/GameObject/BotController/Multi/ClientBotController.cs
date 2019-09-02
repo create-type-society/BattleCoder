@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ClientBotController : IBotController
 {
-    readonly IUserInput userInput = new KeyController();
+    readonly IUserInput userInput = new DeviceController();
     readonly BotApplication botApplication;
     readonly PlayerHpPresenter playerHpPresenter;
     readonly JavaScriptEngine javaScriptEngine;
@@ -37,10 +37,10 @@ public class ClientBotController : IBotController
         {
             var tokenSource = new CancellationTokenSource();
             var token = tokenSource.Token;
-            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token);
             var panel =
                 processScrollViewPresenter.AddProcessPanel(
-                    () => tokenSource.Cancel(true));
+                    () => { tokenSource.Cancel(); });
+            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token, panel.ProcessId);
             await task;
             panel.Dispose();
         });

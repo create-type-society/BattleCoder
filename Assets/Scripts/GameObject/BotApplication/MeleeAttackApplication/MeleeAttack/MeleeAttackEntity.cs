@@ -28,11 +28,9 @@ using UnityEngine;
 
     public void MeleeAttack(Vector3 position, Direction direction)
     {
-        Debug.Log(direction);
         gameObject.transform.position = position;
         gameObject.transform.rotation = Quaternion.Euler(0, 0, ConvertAngle(direction));
         gameObject.SetActive(true);
-        Debug.Log("近接攻撃しました");
         anime.Play("AttackEffect");
     }
 

@@ -40,10 +40,11 @@ public class PlayerBotController : IBotController
         {
             var tokenSource = new CancellationTokenSource();
             var token = tokenSource.Token;
-            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token);
             var panel =
                 processScrollViewPresenter.AddProcessPanel(
-                    () => tokenSource.Cancel(true));
+                    () => { tokenSource.Cancel(); });
+            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token,panel.ProcessId);
+           
             await task;
             panel.Dispose();
         });

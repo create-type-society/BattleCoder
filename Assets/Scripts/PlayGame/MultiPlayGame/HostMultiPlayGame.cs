@@ -61,15 +61,15 @@ public class HostMultiPlayGame : IPlayGame
         if (playerBotController.IsDeath())
         {
             gameSignalingHost.SendBattleResult(BattleResult.YouWin);
+            gameSignalingHost.Dispose();
             SceneChangeManager.ChangeResultScene(false);
         }
 
         if (enemyBotController.IsDeath())
         {
             gameSignalingHost.SendBattleResult(BattleResult.YouLose);
+            gameSignalingHost.Dispose();
             SceneChangeManager.ChangeResultScene(true);
         }
-
-        gameSignalingHost.Dispose();
     }
 }

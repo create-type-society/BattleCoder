@@ -23,6 +23,13 @@ public class TileMapInfo : MonoBehaviour
         return new GridPosition(tilePos.x, tilePos.y);
     }
 
+    public Vector3 GetWorldPosition(GridPosition gridPosition)
+    {
+        return rockTilemap.CellToWorld(new Vector3Int(gridPosition.X, gridPosition.Y, 0)) +
+               new Vector3(Global.GridSize / 2f, Global.GridSize / 2f, 0f);
+    }
+
+
     public TileType GetTileType(Vector3 worldPos)
     {
         GridPosition tilePos = GetGridPosition(worldPos);

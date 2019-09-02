@@ -18,7 +18,7 @@ public class God : MonoBehaviour
     [SerializeField] ErrorMsg errorMsg;
     [SerializeField] SoundManager soundManager;
     [SerializeField] MeleeAttackEntity meleeAttackPrefab;
-
+    [SerializeField] private ConsoleWindow consoleWindow;
 
     IPlayGame playGame;
 

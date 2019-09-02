@@ -1,17 +1,41 @@
+using System.Collections.Concurrent;
 using UnityEngine;
 
-namespace BattleCoder.GamePlayUi
+public class ConsoleWindow : MonoBehaviour
 {
-    public class ConsoleWindow : MonoBehaviour
-    {
-        public void Open()
-        {
-            gameObject.SetActive(true);
-        }
+    [SerializeField] private ConsoleText consoleText;
+    [SerializeField] private ConsoleClearButton clearButton;
 
-        public void Close()
+    public ConcurrentQueue<string> syncedQueue = new ConcurrentQueue<string>();
+
+    private void Start()
+    {
+        clearButton.AddListener(() => consoleText.ClearText());
+
+        ConsoleLogger.ConsoleLogEvent += OnConsoleLogEvent;
+    }
+
+    private void Update()
+    {
+        if (!syncedQueue.IsEmpty)
         {
-            gameObject.SetActive(false);
+            syncedQueue.TryDequeue(out string msg);
+            consoleText.AppendTextNewLine(msg);
         }
+    }
+
+    public void Open()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnConsoleLogEvent(object sender, ConsoleLogEventArgs e)
+    {
+        syncedQueue.Enqueue($"[{e.Date}][Process {e.ProcessId}] {e.Msg}");
     }
 }

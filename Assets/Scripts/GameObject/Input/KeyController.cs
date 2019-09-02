@@ -32,6 +32,10 @@ public class KeyController : IUserInput
         }
     }
 
+    public void Dispose()
+    {
+    }
+
     private void OnMeleeAttackEvent(object sender, EventArgs args)
     {
         MeleeAttackEvent?.Invoke(sender, args);

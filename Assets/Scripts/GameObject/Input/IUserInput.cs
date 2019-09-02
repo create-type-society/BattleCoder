@@ -1,7 +1,7 @@
 ﻿using System;
 
 // ユーザー入力インタフェース
-public interface IUserInput
+public interface IUserInput : IDisposable
 {
     // 近接攻撃のイベント
     event EventHandler<EventArgs> MeleeAttackEvent;

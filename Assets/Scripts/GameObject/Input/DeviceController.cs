@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using UnityEngine;
 
 public class DeviceController : IUserInput
 {
@@ -12,7 +11,6 @@ public class DeviceController : IUserInput
     public DeviceController()
     {
         _listener.AcceptClient();
-        Application.quitting += () => { _listener.Close(); };
     }
 
     public void Update()
@@ -21,6 +19,11 @@ public class DeviceController : IUserInput
         {
             ListenPacket();
         }
+    }
+
+    public void Dispose()
+    {
+        _listener.Close();
     }
 
     private async void ListenPacket()

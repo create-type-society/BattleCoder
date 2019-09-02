@@ -60,4 +60,9 @@ public class HostBotController : IBotController
     {
         return botApplication.Hp.IsDeath();
     }
+
+    public void Dispose()
+    {
+        userInput.Dispose();
+    }
 }

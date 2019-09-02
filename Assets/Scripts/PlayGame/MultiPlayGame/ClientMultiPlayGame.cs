@@ -48,6 +48,12 @@ public class ClientMultiPlayGame : IPlayGame
         gameSignalingClient.Update();
     }
 
+    public void Dispose()
+    {
+        playerBotController.Dispose();
+        enemyBotController.Dispose();
+    }
+
     void CheckDeath(BattleResult battleResult)
     {
         if (battleResult == BattleResult.YouLose)

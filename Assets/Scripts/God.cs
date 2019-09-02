@@ -43,6 +43,11 @@ public class God : MonoBehaviour
                 consoleWindow.Open();
     }
 
+    private void OnDestroy()
+    {
+        playGame.Dispose();
+    }
+
     PlayGameInitData GetPlayGameInitData()
     {
         var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());

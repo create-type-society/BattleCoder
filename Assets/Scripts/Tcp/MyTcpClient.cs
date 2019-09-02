@@ -2,6 +2,7 @@
 
 using System;
 using System.Net.Sockets;
+using System.Threading;
 using BattleCoder.Tcp;
 
 public class MyTcpClient
@@ -37,6 +38,11 @@ public class MyTcpClient
     public void DisConnect()
     {
         if (client == null) return;
+        while (writeQueue.Length() != 0)
+        {
+            Thread.Sleep(100);
+        }
+
         networkStream.Close();
         client.Close();
         client = null;

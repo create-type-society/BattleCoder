@@ -10,6 +10,11 @@ public class DataQueue
         queue.Enqueue(data);
     }
 
+    public int Length()
+    {
+        return queue.Count;
+    }
+
     public DeQueueResult DeQueue()
     {
         string str;

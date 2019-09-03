@@ -52,7 +52,7 @@ public class HostMultiPlayGame : IPlayGame
         CheckDeath();
         if (count % 4 == 0)
         {
-            gameSignalingHost.SendClientPos(playerBotController.GetPos());
+            gameSignalingHost.SendHostPos(playerBotController.GetPos());
             gameSignalingHost.SendClientPos(enemyBotController.GetPos());
         }
 

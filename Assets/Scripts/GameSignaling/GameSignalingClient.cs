@@ -47,7 +47,7 @@ public class GameSignalingClient : IDisposable
         else if (s.IndexOf("host_pos") == 0)
         {
             var ss = s.Split(',');
-            ReceivedClientPos?.Invoke(new Vector2(float.Parse(ss[1]), float.Parse(ss[2])));
+            ReceivedHostPos?.Invoke(new Vector2(float.Parse(ss[1]), float.Parse(ss[2])));
         }
         else
         {

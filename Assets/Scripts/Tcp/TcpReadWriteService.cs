@@ -39,7 +39,7 @@ namespace BattleCoder.Tcp
                     if (result.isOk == false)
                     {
                         count++;
-                        if (count != 10000) continue;
+                        if (count != 100000000) continue;
                         WriteEmpty(ns);
                         count = 0;
                         continue;

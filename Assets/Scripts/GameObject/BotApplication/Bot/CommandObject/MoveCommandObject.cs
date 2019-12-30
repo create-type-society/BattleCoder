@@ -7,7 +7,7 @@ public class MoveCommandObject : BaseCommandObject<Void>
     readonly BotEntity botEntity;
     private readonly BotEntityAnimation botEntityAnimation;
     int moveCount;
-    int dirChenge;
+    bool dirChenged = false;
     bool useCallback = true;
     readonly float speed = 1.5f;
     readonly Direction direction;
@@ -31,21 +31,13 @@ public class MoveCommandObject : BaseCommandObject<Void>
 
     public override void Run()
     {
-        if (dirChenge <= 5)
+        if (dirChenged == false)
         {
             botEntityAnimation.MoveAnimation(direction, false);
-            dirChenge++;
-            return;
+            dirChenged = true;
         }
 
         moveCount--;
-        if (moveCount < 0)
-        {
-            botEntityAnimation.ResetAnimation();
-            botEntity.PosFix(tileMapInfo);
-            Finished();
-            return;
-        }
 
         if (useCallback)
         {
@@ -71,5 +63,11 @@ public class MoveCommandObject : BaseCommandObject<Void>
         }
 
         movingCallback();
+        if (moveCount == 0)
+        {
+            botEntityAnimation.ResetAnimation();
+            botEntity.PosFix(tileMapInfo);
+            Finished();
+        }
     }
 }

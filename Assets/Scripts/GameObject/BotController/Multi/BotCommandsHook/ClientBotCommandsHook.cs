@@ -25,7 +25,7 @@ public class ClientBotCommandsHook : IBotCommands
 
     public async Task<Void> Move(Direction direction, uint gridDistance)
     {
-        await SendCommandData(CommandKind.Move, new object[] {direction, gridDistance});
+         SendCommandData(CommandKind.Move, new object[] {direction, gridDistance});
         return await botCommands.Move(direction, gridDistance);
     }
 
@@ -36,13 +36,13 @@ public class ClientBotCommandsHook : IBotCommands
 
     public async Task<Void> MoveDirection(Direction direction)
     {
-        await SendCommandData(CommandKind.MoveDirection, new object[] {direction});
+         SendCommandData(CommandKind.MoveDirection, new object[] {direction});
         return await botCommands.MoveDirection(direction);
     }
 
     public async Task<Void> MoveShotRotation(float rotation)
     {
-        await SendCommandData(CommandKind.MoveShotRotation, new object[] {rotation});
+        SendCommandData(CommandKind.MoveShotRotation, new object[] {rotation});
         return await botCommands.MoveShotRotation(rotation);
     }
 

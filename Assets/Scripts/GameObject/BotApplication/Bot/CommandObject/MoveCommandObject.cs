@@ -14,10 +14,11 @@ public class MoveCommandObject : BaseCommandObject<Void>
     readonly Action directionChangeCallback;
     readonly TileMapInfo tileMapInfo;
     readonly Action movingCallback;
+    readonly bool noPosFix;
 
     public MoveCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
         Action directionChangeCallback, uint gridDistance, TileMapInfo tileMapInfo,
-        Action movingCallback)
+        Action movingCallback, bool noPosFix)
     {
         this.botEntity = botEntity;
         this.botEntityAnimation = botEntityAnimation;
@@ -25,6 +26,7 @@ public class MoveCommandObject : BaseCommandObject<Void>
         this.directionChangeCallback = directionChangeCallback;
         this.tileMapInfo = tileMapInfo;
         this.movingCallback = movingCallback;
+        this.noPosFix = noPosFix;
 
         moveCount = (int) (gridDistance * Global.GridSize / speed);
     }
@@ -66,7 +68,8 @@ public class MoveCommandObject : BaseCommandObject<Void>
         if (moveCount == 0)
         {
             botEntityAnimation.ResetAnimation();
-            botEntity.PosFix(tileMapInfo);
+            if (noPosFix == false)
+                botEntity.PosFix(tileMapInfo);
             Finished();
         }
     }

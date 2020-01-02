@@ -27,7 +27,7 @@ public class ClientBotController : IBotController
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
             new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")), soundManager,
-            meleeAttackApplication);
+            meleeAttackApplication, true);
         var hookBotApplication = new ClientBotCommandsHook(botApplication, gameSignalingClient);
         userInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
         userInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };

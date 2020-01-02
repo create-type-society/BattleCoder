@@ -18,7 +18,7 @@ public class RemoteHostBotController : IBotController
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
         botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
             new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager,
-            meleeAttackApplication);
+            meleeAttackApplication, true);
 
         gameSignalingClient.ReceivedClientReceiveSignalData += data =>
         {

@@ -18,6 +18,8 @@ public class BotApplication : IBotCommands
     readonly TileMapInfo tileMapInfo;
     readonly IBulletEntityCreator bulletEntityCreator;
     readonly SoundManager soundManager;
+    readonly bool noPosFix;
+    Vector3? newPosition = null;
 
     List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
 
@@ -28,7 +30,7 @@ public class BotApplication : IBotCommands
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
         IBulletEntityCreator bulletEntityCreator, SoundManager soundManager,
-        MeleeAttackApplication meleeAttackApplication)
+        MeleeAttackApplication meleeAttackApplication, bool noPosFix = false)
     {
         this.soundManager = soundManager;
         this.botEntity = botEntity;
@@ -38,11 +40,12 @@ public class BotApplication : IBotCommands
         this.bulletEntityCreator = bulletEntityCreator;
         Hp = new BotHp(3);
         this.meleeAttackApplication = meleeAttackApplication;
+        this.noPosFix = noPosFix;
     }
 
     public void SetPos(Vector2 pos)
     {
-        botEntity.transform.position = new Vector3(pos.x, pos.y, botEntity.transform.position.z);
+        newPosition = new Vector3(pos.x, pos.y, botEntity.transform.position.z);
     }
 
     public Vector2 GetPos()
@@ -57,7 +60,7 @@ public class BotApplication : IBotCommands
         Action callback = () => { this.direction = direction; };
         var moveCommandObject =
             new MoveCommandObject(botEntity, botEntityAnimation, direction, callback, gridDistance, tileMapInfo,
-                CheckHole);
+                CheckHole, noPosFix);
         return commandObjectController.AddMoveTypeCommandObject(moveCommandObject);
     }
 
@@ -141,6 +144,7 @@ public class BotApplication : IBotCommands
             if (x.DeleteFlag) x.Delete();
             return x.DeleteFlag == false;
         }).ToList();
+        UpdateNewPosition();
     }
 
     private void CheckHole()
@@ -163,5 +167,17 @@ public class BotApplication : IBotCommands
     private float ToRadians(float angle)
     {
         return Mathf.PI / 180f * angle;
+    }
+
+    void UpdateNewPosition()
+    {
+        if (newPosition == null) return;
+        var oldPostiion = botEntity.transform.position;
+        if (Vector3.Distance(newPosition.Value, oldPostiion) < 1)
+        {
+            botEntity.transform.position = newPosition.Value;
+            newPosition = null;
+        }
+        else botEntity.transform.position += (newPosition.Value - oldPostiion) / 20.0f;
     }
 }

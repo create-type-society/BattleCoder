@@ -178,6 +178,6 @@ public class BotApplication : IBotCommands
             botEntity.transform.position = newPosition.Value;
             newPosition = null;
         }
-        else botEntity.transform.position += (newPosition.Value - oldPostiion) / 20.0f;
+        else botEntity.transform.position += (newPosition.Value - oldPostiion) / 15.0f;
     }
 }

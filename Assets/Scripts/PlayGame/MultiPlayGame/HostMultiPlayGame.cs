@@ -50,7 +50,7 @@ public class HostMultiPlayGame : IPlayGame
         playerBotController.Update();
         enemyBotController.Update();
         CheckDeath();
-        if (count % 30 == 0)
+        if (count % 20 == 0)
         {
             gameSignalingHost.SendHostPos(playerBotController.GetPos());
             gameSignalingHost.SendClientPos(enemyBotController.GetPos());

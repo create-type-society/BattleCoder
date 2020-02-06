@@ -3,46 +3,49 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConsoleText : MonoBehaviour
+namespace BattleCoder.GamePlayUi
 {
-    [SerializeField] private Text consoleText;
-    [SerializeField] private ScrollRect scrollRect;
-
-    int lineCount = 0;
-    const int maxLineCount = 200;
-
-
-    public void AppendTextNewLine(string text)
+    public class ConsoleText : MonoBehaviour
     {
-        AppendText(text + Environment.NewLine);
-    }
+        [SerializeField] private Text consoleText;
+        [SerializeField] private ScrollRect scrollRect;
 
-    public void ClearText()
-    {
-        consoleText.text = "";
-    }
+        int lineCount = 0;
+        const int maxLineCount = 200;
 
-    private void AppendText(string text)
-    {
-        consoleText.text += text;
-        lineCount++;
-        if (lineCount > maxLineCount)
+
+        public void AppendTextNewLine(string text)
         {
-            lineCount = maxLineCount/2;
-            consoleText.text = CutText(consoleText.text);
+            AppendText(text + Environment.NewLine);
         }
 
-        scrollRect.verticalNormalizedPosition = 0;
-    }
+        public void ClearText()
+        {
+            consoleText.text = "";
+        }
 
-    private string CutText(string text)
-    {
-        return
-            string.Join(
-                Environment.NewLine,
-                text
-                    .Split(new string[] {Environment.NewLine}, StringSplitOptions.None)
-                    .Skip(maxLineCount / 2)
-            );
+        private void AppendText(string text)
+        {
+            consoleText.text += text;
+            lineCount++;
+            if (lineCount > maxLineCount)
+            {
+                lineCount = maxLineCount/2;
+                consoleText.text = CutText(consoleText.text);
+            }
+
+            scrollRect.verticalNormalizedPosition = 0;
+        }
+
+        private string CutText(string text)
+        {
+            return
+                string.Join(
+                    Environment.NewLine,
+                    text
+                        .Split(new string[] {Environment.NewLine}, StringSplitOptions.None)
+                        .Skip(maxLineCount / 2)
+                );
+        }
     }
 }

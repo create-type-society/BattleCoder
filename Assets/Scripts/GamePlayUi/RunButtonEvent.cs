@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class RunButtonEvent : MonoBehaviour
+namespace BattleCoder.GamePlayUi
 {
-    [SerializeField] Button runButton;
-
-    public void AddClickEvent(UnityAction click)
+    public class RunButtonEvent : MonoBehaviour
     {
-        runButton.onClick.AddListener(click);
+        [SerializeField] Button runButton;
+
+        public void AddClickEvent(UnityAction click)
+        {
+            runButton.onClick.AddListener(click);
+        }
     }
 }

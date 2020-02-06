@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using BattleCoder.Common;
+using BattleCoder.GameSignaling;
+using BattleCoder.Map;
+using BattleCoder.Matching;
+using BattleCoder.Tcp;
 using UnityEngine;
 
 namespace BattleCoder.Test.Tcp

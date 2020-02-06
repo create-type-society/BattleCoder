@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-public class SceneChanger : MonoBehaviour
+namespace BattleCoder.Title
 {
-    // ボタンをクリックするとBattleSceneに移動します
-    public void SingleButtonClicked()
+    public class SceneChanger : MonoBehaviour
     {
-        SceneChangeManager.ChangeSinglePlayStageSelect();
-    }
+        // ボタンをクリックするとBattleSceneに移動します
+        public void SingleButtonClicked()
+        {
+            SceneChangeManager.ChangeSinglePlayStageSelect();
+        }
 
-    public void MultiButtonClicked()
-    {
-        SceneChangeManager.ChangeMatchingScene();
+        public void MultiButtonClicked()
+        {
+            SceneChangeManager.ChangeMatchingScene();
+        }
     }
 }

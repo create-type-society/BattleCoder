@@ -1,21 +1,24 @@
 ﻿using System;
 using UnityEngine;
 
-public class ProcessScrollViewPresenter : MonoBehaviour
+namespace BattleCoder.GamePlayUi
 {
-    [SerializeField] GameObject content;
-
-    [SerializeField] ProcessPanelPresenter processPanelPrefab;
-
-
-    public ProcessPanelPresenter AddProcessPanel(Action processClosedCallback)
+    public class ProcessScrollViewPresenter : MonoBehaviour
     {
-        var obj = Instantiate(processPanelPrefab, content.transform);
-        obj.closed += () =>
+        [SerializeField] GameObject content;
+
+        [SerializeField] ProcessPanelPresenter processPanelPrefab;
+
+
+        public ProcessPanelPresenter AddProcessPanel(Action processClosedCallback)
         {
-            processClosedCallback();
-            Destroy(obj.gameObject);
-        };
-        return obj;
+            var obj = Instantiate(processPanelPrefab, content.transform);
+            obj.closed += () =>
+            {
+                processClosedCallback();
+                Destroy(obj.gameObject);
+            };
+            return obj;
+        }
     }
 }

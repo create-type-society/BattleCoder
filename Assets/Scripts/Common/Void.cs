@@ -1,3 +1,6 @@
-﻿public class Void
+﻿namespace BattleCoder.Common
 {
+    public class Void
+    {
+    }
 }

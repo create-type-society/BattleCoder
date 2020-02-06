@@ -1,16 +1,19 @@
 using System;
 
-public static class ConsoleLogger
+namespace BattleCoder.Console
 {
-    public static event EventHandler<ConsoleLogEventArgs> ConsoleLogEvent;
-
-    public static void Log(DateTime date, int processId, object obj)
+    public static class ConsoleLogger
     {
-        OnConsoleLogEvent(null, new ConsoleLogEventArgs(date, processId, obj.ToString()));
-    }
+        public static event EventHandler<ConsoleLogEventArgs> ConsoleLogEvent;
 
-    private static void OnConsoleLogEvent(object sender, ConsoleLogEventArgs args)
-    {
-        ConsoleLogEvent?.Invoke(sender, args);
+        public static void Log(DateTime date, int processId, object obj)
+        {
+            OnConsoleLogEvent(null, new ConsoleLogEventArgs(date, processId, obj.ToString()));
+        }
+
+        private static void OnConsoleLogEvent(object sender, ConsoleLogEventArgs args)
+        {
+            ConsoleLogEvent?.Invoke(sender, args);
+        }
     }
 }

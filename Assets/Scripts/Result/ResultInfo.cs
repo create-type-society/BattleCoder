@@ -1,17 +1,20 @@
 ﻿using System;
 
-public static class ResultInfo
+namespace BattleCoder.Result
 {
-    private static bool? result = null;
+    public static class ResultInfo
+    {
+        private static bool? result = null;
 
-    public static void SetResult(bool result)
-    {
-        ResultInfo.result = result;
-    }
-    public static bool GetResult()
-    {
-        if (result.HasValue) return result.Value;
-        throw new NullReferenceException("resultがnullなんだよ！！");
-    }    
+        public static void SetResult(bool result)
+        {
+            ResultInfo.result = result;
+        }
+        public static bool GetResult()
+        {
+            if (result.HasValue) return result.Value;
+            throw new NullReferenceException("resultがnullなんだよ！！");
+        }    
     
+    }
 }

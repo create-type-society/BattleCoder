@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BattleCoder.UserInput;
+using UnityEngine;
 
 namespace BattleCoder.Test.Input
 {

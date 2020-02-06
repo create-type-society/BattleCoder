@@ -1,7 +1,10 @@
 ﻿//マッチした時のマッチング情報
 
-public enum MatchType
+namespace BattleCoder.Matching
 {
-    Host,
-    Client
+    public enum MatchType
+    {
+        Host,
+        Client
+    }
 }

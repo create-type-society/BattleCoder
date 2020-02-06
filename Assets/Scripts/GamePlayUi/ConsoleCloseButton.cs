@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ConsoleCloseButton : MonoBehaviour
+namespace BattleCoder.GamePlayUi
 {
-    [SerializeField] private Button button;
-
-    public void AddListener(UnityAction action)
+    public class ConsoleCloseButton : MonoBehaviour
     {
-        button.onClick.AddListener(action);
+        [SerializeField] private Button button;
+
+        public void AddListener(UnityAction action)
+        {
+            button.onClick.AddListener(action);
+        }
     }
 }

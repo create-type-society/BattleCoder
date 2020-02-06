@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class ConsoleClearButton : MonoBehaviour
+namespace BattleCoder.GamePlayUi
 {
-    [SerializeField] private Button button;
-
-    public void AddListener(UnityAction action)
+    public class ConsoleClearButton : MonoBehaviour
     {
-        button.onClick.AddListener(action);
+        [SerializeField] private Button button;
+
+        public void AddListener(UnityAction action)
+        {
+            button.onClick.AddListener(action);
+        }
     }
 }

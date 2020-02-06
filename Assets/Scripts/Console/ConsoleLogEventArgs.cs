@@ -1,15 +1,18 @@
 using System;
 
-public class ConsoleLogEventArgs : EventArgs
+namespace BattleCoder.Console
 {
-    public DateTime Date { get; }
-    public int ProcessId { get; }
-    public string Msg { get; }
-
-    public ConsoleLogEventArgs(DateTime date, int processId, string msg)
+    public class ConsoleLogEventArgs : EventArgs
     {
-        Date = date;
-        ProcessId = processId;
-        Msg = msg;
+        public DateTime Date { get; }
+        public int ProcessId { get; }
+        public string Msg { get; }
+
+        public ConsoleLogEventArgs(DateTime date, int processId, string msg)
+        {
+            Date = date;
+            ProcessId = processId;
+            Msg = msg;
+        }
     }
 }

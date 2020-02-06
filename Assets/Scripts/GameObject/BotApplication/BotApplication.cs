@@ -1,13 +1,11 @@
 ﻿//ボットを外部から簡単に制御できるようにするクラス
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using BattleCoder.GameObject.BotApplication;
 using BattleCoder.GameObject.BotApplication.Bot.CommandObject;
 using BattleCoder.Map;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 public class BotApplication : IBotCommands
 {
@@ -16,12 +14,9 @@ public class BotApplication : IBotCommands
     readonly BotEntityAnimation botEntityAnimation;
     readonly CommandObjectController commandObjectController = new CommandObjectController();
     readonly TileMapInfo tileMapInfo;
-    readonly IBulletEntityCreator bulletEntityCreator;
-    readonly SoundManager soundManager;
+    readonly Gun gun;
     readonly bool noPosFix;
     Vector3? newPosition = null;
-
-    List<BulletApplication> bulletApplicationList = new List<BulletApplication>();
 
     public BotHp Hp { get; private set; }
 
@@ -29,18 +24,17 @@ public class BotApplication : IBotCommands
     private float shotRotation = 180;
 
     public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-        IBulletEntityCreator bulletEntityCreator, SoundManager soundManager,
+        Gun gun,
         MeleeAttackApplication meleeAttackApplication, bool noPosFix = false)
     {
-        this.soundManager = soundManager;
         this.botEntity = botEntity;
         botEntity.HitBulletEvent += (sender, e) => Hp = Hp.DamageHp(1);
         this.botEntityAnimation = botEntityAnimation;
         this.tileMapInfo = tileMapInfo;
-        this.bulletEntityCreator = bulletEntityCreator;
         Hp = new BotHp(3);
         this.meleeAttackApplication = meleeAttackApplication;
         this.noPosFix = noPosFix;
+        this.gun = gun;
     }
 
     public void SetPos(Vector2 pos)
@@ -111,12 +105,7 @@ public class BotApplication : IBotCommands
     //射撃する
     public void Shot()
     {
-        soundManager.MakeFiringSound();
-        var bulletEntity = bulletEntityCreator.Create();
-        bulletEntity.transform.position = botEntity.transform.position;
-        bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
-        var bulletApplication = new BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
-        bulletApplicationList.Add(bulletApplication);
+        gun.Shot(botEntity.transform.position, shotRotation);
     }
 
     //近接攻撃
@@ -138,12 +127,7 @@ public class BotApplication : IBotCommands
     {
         meleeAttackApplication.Update();
         commandObjectController.RunCommandObjects();
-        bulletApplicationList.ForEach(x => x.Update());
-        bulletApplicationList = bulletApplicationList.Where(x =>
-        {
-            if (x.DeleteFlag) x.Delete();
-            return x.DeleteFlag == false;
-        }).ToList();
+        gun.Update();
         UpdateNewPosition();
     }
 
@@ -154,19 +138,6 @@ public class BotApplication : IBotCommands
         {
             Hp = new BotHp(0);
         }
-    }
-
-    private Vector3 CalcRotationVector(BulletEntity bulletEntity, float speed)
-    {
-        var r = bulletEntity.transform.rotation.eulerAngles.z;
-        var x = -Mathf.Sin(ToRadians(r));
-        var y = Mathf.Cos(ToRadians(r));
-        return new Vector3(x, y) * speed;
-    }
-
-    private float ToRadians(float angle)
-    {
-        return Mathf.PI / 180f * angle;
     }
 
     void UpdateNewPosition()

@@ -1,4 +1,5 @@
-﻿using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
+﻿using BattleCoder.GameObject.BotApplication;
+using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -16,9 +17,12 @@ public class RemoteHostBotController : IBotController
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
-        botApplication = new BotApplication(botEntity, botEntityAnimation, tileMapInfo,
-            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")), soundManager,
-            meleeAttackApplication, true);
+        var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")));
+
+        botApplication = new BotApplication(
+            botEntity, botEntityAnimation, tileMapInfo, gun,
+            meleeAttackApplication, true
+        );
 
         gameSignalingClient.ReceivedClientReceiveSignalData += data =>
         {

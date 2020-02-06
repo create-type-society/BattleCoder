@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using BattleCoder.Map;
+using UnityEngine;
 
-public class StageSelectButton : MonoBehaviour
+namespace BattleCoder.StageTransition
 {
-    [SerializeField] StageKind stageKind;
-
-    public void OnClicked()
+    public class StageSelectButton : MonoBehaviour
     {
-        SceneChangeManager.ChangePlayScene(stageKind);
+        [SerializeField] StageKind stageKind;
+
+        public void OnClicked()
+        {
+            SceneChangeManager.ChangePlayScene(stageKind);
+        }
     }
 }

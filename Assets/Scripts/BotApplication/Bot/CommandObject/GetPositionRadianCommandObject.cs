@@ -1,7 +1,7 @@
 ﻿using BattleCoder.Map;
 using UnityEngine;
 
-namespace BattleCoder.GameObject.BotApplication.Bot.CommandObject
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
     public class GetPositionRadianCommandObject : BaseCommandObject<float>
     {

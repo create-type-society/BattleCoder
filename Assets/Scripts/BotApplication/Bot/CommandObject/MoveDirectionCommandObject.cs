@@ -1,27 +1,32 @@
 // 向きの移動
 
 using System;
+using BattleCoder.Common;
+using Void = BattleCoder.Common.Void;
 
-public class MoveDirectionCommandObject : BaseCommandObject<Void>
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
-    readonly BotEntity botEntity;
-    readonly BotEntityAnimation botEntityAnimation;
-    readonly Direction direction;
-    readonly Action directionChangeCallback;
-
-    public MoveDirectionCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
-        Action directionChangeCallback)
+    public class MoveDirectionCommandObject : BaseCommandObject<Void>
     {
-        this.botEntity = botEntity;
-        this.botEntityAnimation = botEntityAnimation;
-        this.direction = direction;
-        this.directionChangeCallback = directionChangeCallback;
-    }
+        readonly BotEntity botEntity;
+        readonly BotEntityAnimation botEntityAnimation;
+        readonly Direction direction;
+        readonly Action directionChangeCallback;
 
-    public override void Run()
-    {
-        directionChangeCallback();
-        botEntityAnimation.MoveAnimation(direction, false);
-        Finished();
+        public MoveDirectionCommandObject(BotEntity botEntity, BotEntityAnimation botEntityAnimation, Direction direction,
+            Action directionChangeCallback)
+        {
+            this.botEntity = botEntity;
+            this.botEntityAnimation = botEntityAnimation;
+            this.direction = direction;
+            this.directionChangeCallback = directionChangeCallback;
+        }
+
+        public override void Run()
+        {
+            directionChangeCallback();
+            botEntityAnimation.MoveAnimation(direction, false);
+            Finished();
+        }
     }
 }

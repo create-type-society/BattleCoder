@@ -1,17 +1,21 @@
 using System;
+using Void = BattleCoder.Common.Void;
 
-public class MoveShotRotationCommandObject : BaseCommandObject<Void>
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
-    readonly Action changeRotationCallback;
-
-    public MoveShotRotationCommandObject(Action changeRotationCallback)
+    public class MoveShotRotationCommandObject : BaseCommandObject<Void>
     {
-        this.changeRotationCallback = changeRotationCallback;
-    }
+        readonly Action changeRotationCallback;
 
-    public override void Run()
-    {
-        changeRotationCallback();
-        Finished();
+        public MoveShotRotationCommandObject(Action changeRotationCallback)
+        {
+            this.changeRotationCallback = changeRotationCallback;
+        }
+
+        public override void Run()
+        {
+            changeRotationCallback();
+            Finished();
+        }
     }
 }

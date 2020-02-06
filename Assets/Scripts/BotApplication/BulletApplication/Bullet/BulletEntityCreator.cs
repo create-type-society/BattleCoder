@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BattleCoder.GameObject.BotApplication.BulletApplication.Bullet
+namespace BattleCoder.BotApplication.BulletApplication.Bullet
 {
     public class BulletEntityCreator : IBulletEntityCreator
     {

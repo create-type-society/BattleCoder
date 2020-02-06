@@ -1,12 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-public interface IBotController : IDisposable
+namespace BattleCoder.BotController
 {
-    void Update();
+    public interface IBotController : IDisposable
+    {
+        void Update();
 
-    bool IsDeath();
+        bool IsDeath();
 
-    Vector2 GetPos();
-    void SetPos(Vector2 pos);
+        Vector2 GetPos();
+        void SetPos(Vector2 pos);
+    }
 }

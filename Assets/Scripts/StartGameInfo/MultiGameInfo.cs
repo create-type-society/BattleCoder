@@ -1,13 +1,19 @@
 ﻿//マルチプレイするために必要な事前情報
 
-public struct MultiGameInfo
-{
-    readonly public MyTcpClient myTcpClient;
-    readonly public MatchType matchType;
+using BattleCoder.Matching;
+using BattleCoder.Tcp;
 
-    public MultiGameInfo(MyTcpClient myTcpClient, MatchType matchType)
+namespace BattleCoder.StartGameInfo
+{
+    public struct MultiGameInfo
     {
-        this.myTcpClient = myTcpClient;
-        this.matchType = matchType;
+        readonly public MyTcpClient myTcpClient;
+        readonly public MatchType matchType;
+
+        public MultiGameInfo(MyTcpClient myTcpClient, MatchType matchType)
+        {
+            this.myTcpClient = myTcpClient;
+            this.matchType = matchType;
+        }
     }
 }

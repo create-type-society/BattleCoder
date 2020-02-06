@@ -1,50 +1,58 @@
-﻿using BattleCoder.GameObject.BotApplication;
-using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
+﻿using BattleCoder.BotApplication;
+using BattleCoder.BotApplication.Bot;
+using BattleCoder.BotApplication.BulletApplication.Bullet;
+using BattleCoder.BotApplication.MeleeAttackApplication;
+using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
+using BattleCoder.Map;
+using BattleCoder.Sound;
 using UnityEngine;
 
-public class CpuBotController : IBotController
+namespace BattleCoder.BotController
 {
-    readonly BotApplication botApplication;
-    readonly CpuAi cpuAi = new CpuAi();
-
-    public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
-        SoundManager soundManager, MeleeAttackEntity meleeAttackEntity)
+    public class CpuBotController : IBotController
     {
-        var botEntity = Object.Instantiate(botEntityPrefab);
-        tileMapInfo.EnemyTankTransform = botEntity.transform;
-        botEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBot");
-        botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
-        var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
-        var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")));
+        readonly BotApplication.BotApplication botApplication;
+        readonly CpuAi cpuAi = new CpuAi();
 
-        botApplication = new BotApplication(
-            botEntity, botEntityAnimation, tileMapInfo, gun, meleeAttackApplication
-        );
-        cpuAi.Start(botApplication);
-    }
+        public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
+            SoundManager soundManager, MeleeAttackEntity meleeAttackEntity)
+        {
+            var botEntity = Object.Instantiate(botEntityPrefab);
+            tileMapInfo.EnemyTankTransform = botEntity.transform;
+            botEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBot");
+            botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
+            var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
+            MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
+            var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")));
 
-    public void Update()
-    {
-        botApplication.Update();
-    }
+            botApplication = new BotApplication.BotApplication(
+                botEntity, botEntityAnimation, tileMapInfo, gun, meleeAttackApplication
+            );
+            cpuAi.Start(botApplication);
+        }
 
-    public bool IsDeath()
-    {
-        return botApplication.Hp.IsDeath();
-    }
+        public void Update()
+        {
+            botApplication.Update();
+        }
 
-    public Vector2 GetPos()
-    {
-        return botApplication.GetPos();
-    }
+        public bool IsDeath()
+        {
+            return botApplication.Hp.IsDeath();
+        }
 
-    public void SetPos(Vector2 pos)
-    {
-        botApplication.SetPos(pos);
-    }
+        public Vector2 GetPos()
+        {
+            return botApplication.GetPos();
+        }
 
-    public void Dispose()
-    {
+        public void SetPos(Vector2 pos)
+        {
+            botApplication.SetPos(pos);
+        }
+
+        public void Dispose()
+        {
+        }
     }
 }

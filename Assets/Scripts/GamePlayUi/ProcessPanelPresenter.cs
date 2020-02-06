@@ -2,37 +2,40 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProcessPanelPresenter : MonoBehaviour, IDisposable
+namespace BattleCoder.GamePlayUi
 {
-    [SerializeField] Button closeButton;
-    [SerializeField] Text text;
-
-    static int count = 0;
-    public event Action closed;
-    bool closedFlag = false;
-
-    public int ProcessId { get; private set; }
-
-    void Awake()
+    public class ProcessPanelPresenter : MonoBehaviour, IDisposable
     {
-        count++;
-        ProcessId = count;
-        text.text = "プロセス:" + count;
-        closeButton.onClick.AddListener(() => closed?.Invoke());
-    }
+        [SerializeField] Button closeButton;
+        [SerializeField] Text text;
 
-    void Update()
-    {
-        if (closedFlag)
+        static int count = 0;
+        public event Action closed;
+        bool closedFlag = false;
+
+        public int ProcessId { get; private set; }
+
+        void Awake()
         {
-            closed = null;
-            Destroy(gameObject);
+            count++;
+            ProcessId = count;
+            text.text = "プロセス:" + count;
+            closeButton.onClick.AddListener(() => closed?.Invoke());
         }
-    }
+
+        void Update()
+        {
+            if (closedFlag)
+            {
+                closed = null;
+                Destroy(gameObject);
+            }
+        }
 
 
-    public void Dispose()
-    {
-        closedFlag = true;
+        public void Dispose()
+        {
+            closedFlag = true;
+        }
     }
 }

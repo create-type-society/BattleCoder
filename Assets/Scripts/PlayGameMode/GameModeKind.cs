@@ -1,5 +1,8 @@
-﻿public enum GameModeKind
+﻿namespace BattleCoder.PlayGameMode
 {
-    Single,
-    Multi
+    public enum GameModeKind
+    {
+        Single,
+        Multi
+    }
 }

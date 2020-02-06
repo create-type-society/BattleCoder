@@ -1,6 +1,9 @@
 ﻿using System;
+using BattleCoder.BotApplication;
+using BattleCoder.Common;
+using BattleCoder.GameSignaling;
 
-namespace DefaultNamespace
+namespace BattleCoder.BotController.Multi.BotCommandsTransformer
 {
     public class BotCommandsTransformerService
     {

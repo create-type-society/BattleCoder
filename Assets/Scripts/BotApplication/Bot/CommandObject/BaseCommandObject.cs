@@ -1,24 +1,27 @@
 ﻿using System.Threading;
 
-public abstract class BaseCommandObject<T> : ICommandObject<T>
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
-    SemaphoreSlim finisheSemaphore = new SemaphoreSlim(0, 1);
-
-    protected T result;
-
-    public bool IsFinished { get; private set; }
-
-    public abstract void Run();
-
-    public void Finished()
+    public abstract class BaseCommandObject<T> : ICommandObject<T>
     {
-        IsFinished = true;
-        finisheSemaphore.Release();
-    }
+        SemaphoreSlim finisheSemaphore = new SemaphoreSlim(0, 1);
 
-    public T WaitFinished()
-    {
-        finisheSemaphore.Wait();
-        return result;
+        protected T result;
+
+        public bool IsFinished { get; private set; }
+
+        public abstract void Run();
+
+        public void Finished()
+        {
+            IsFinished = true;
+            finisheSemaphore.Release();
+        }
+
+        public T WaitFinished()
+        {
+            finisheSemaphore.Wait();
+            return result;
+        }
     }
 }

@@ -1,67 +1,74 @@
-﻿using UnityEngine;
+﻿using BattleCoder.BotController;
+using BattleCoder.BotController.Multi;
+using BattleCoder.GameSignaling;
+using BattleCoder.StartGameInfo;
+using UnityEngine;
 
-public class ClientMultiPlayGame : IPlayGame
+namespace BattleCoder.PlayGame.MultiPlayGame
 {
-    readonly IBotController playerBotController;
-    readonly IBotController enemyBotController;
-    readonly GameSignalingClient gameSignalingClient;
-
-    public ClientMultiPlayGame(PlayGameInitData playGameInitData, MultiGameInfo multiGameInfo)
+    public class ClientMultiPlayGame : IPlayGame
     {
-        gameSignalingClient = new GameSignalingClient(multiGameInfo.myTcpClient);
-        gameSignalingClient.ReceivedBattleResult += CheckDeath;
+        readonly IBotController playerBotController;
+        readonly IBotController enemyBotController;
+        readonly GameSignalingClient gameSignalingClient;
 
-        var playerMeleeAttackEntity = Object.Instantiate(playGameInitData.meleeAttackPrefab);
-        playerMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
+        public ClientMultiPlayGame(PlayGameInitData playGameInitData, MultiGameInfo multiGameInfo)
+        {
+            gameSignalingClient = new GameSignalingClient(multiGameInfo.myTcpClient);
+            gameSignalingClient.ReceivedBattleResult += CheckDeath;
 
-        var enemyMeleeAttackEntity = Object.Instantiate(playGameInitData.meleeAttackPrefab);
-        enemyMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
+            var playerMeleeAttackEntity = Object.Instantiate(playGameInitData.meleeAttackPrefab);
+            playerMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
 
-        playerBotController = new ClientBotController(
-            playGameInitData.botEntityPrefab,
-            playGameInitData.tileMapInfo,
-            playGameInitData.bulletPrefab,
-            playGameInitData.cameraFollower,
-            playGameInitData.playerHpPresenter,
-            playGameInitData.runButtonEvent,
-            playGameInitData.scriptText,
-            playGameInitData.errorMsg,
-            playGameInitData.soundManager,
-            gameSignalingClient,
-            playerMeleeAttackEntity,
-            playGameInitData.processScrollViewPresenter
-        );
-        enemyBotController = new RemoteHostBotController(
-            playGameInitData.botEntityPrefab,
-            playGameInitData.tileMapInfo,
-            playGameInitData.bulletPrefab,
-            playGameInitData.soundManager,
-            gameSignalingClient,
-            enemyMeleeAttackEntity
-        );
-        gameSignalingClient.ReceivedClientPos += playerBotController.SetPos;
-        gameSignalingClient.ReceivedHostPos += enemyBotController.SetPos;
-    }
+            var enemyMeleeAttackEntity = Object.Instantiate(playGameInitData.meleeAttackPrefab);
+            enemyMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
 
-    public void Update()
-    {
-        playerBotController.Update();
-        enemyBotController.Update();
-        gameSignalingClient.Update();
-    }
+            playerBotController = new ClientBotController(
+                playGameInitData.botEntityPrefab,
+                playGameInitData.tileMapInfo,
+                playGameInitData.bulletPrefab,
+                playGameInitData.cameraFollower,
+                playGameInitData.playerHpPresenter,
+                playGameInitData.runButtonEvent,
+                playGameInitData.scriptText,
+                playGameInitData.errorMsg,
+                playGameInitData.soundManager,
+                gameSignalingClient,
+                playerMeleeAttackEntity,
+                playGameInitData.processScrollViewPresenter
+            );
+            enemyBotController = new RemoteHostBotController(
+                playGameInitData.botEntityPrefab,
+                playGameInitData.tileMapInfo,
+                playGameInitData.bulletPrefab,
+                playGameInitData.soundManager,
+                gameSignalingClient,
+                enemyMeleeAttackEntity
+            );
+            gameSignalingClient.ReceivedClientPos += playerBotController.SetPos;
+            gameSignalingClient.ReceivedHostPos += enemyBotController.SetPos;
+        }
 
-    public void Dispose()
-    {
-        playerBotController.Dispose();
-        enemyBotController.Dispose();
-    }
+        public void Update()
+        {
+            playerBotController.Update();
+            enemyBotController.Update();
+            gameSignalingClient.Update();
+        }
 
-    void CheckDeath(BattleResult battleResult)
-    {
-        if (battleResult == BattleResult.YouLose)
-            SceneChangeManager.ChangeResultScene(false);
-        else
-            SceneChangeManager.ChangeResultScene(true);
-        gameSignalingClient.Dispose();
+        public void Dispose()
+        {
+            playerBotController.Dispose();
+            enemyBotController.Dispose();
+        }
+
+        void CheckDeath(BattleResult battleResult)
+        {
+            if (battleResult == BattleResult.YouLose)
+                SceneChangeManager.ChangeResultScene(false);
+            else
+                SceneChangeManager.ChangeResultScene(true);
+            gameSignalingClient.Dispose();
+        }
     }
 }

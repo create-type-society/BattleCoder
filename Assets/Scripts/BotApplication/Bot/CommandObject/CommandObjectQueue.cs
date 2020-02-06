@@ -1,32 +1,35 @@
 ﻿using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-public class CommandObjectQueue<T>
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
-    readonly ConcurrentQueue<ICommandObject<T>> commandObjectQueue = new ConcurrentQueue<ICommandObject<T>>();
-
-    ICommandObject<T> runningCommandObject;
-
-    //コマンドを登録する
-    public Task<T> Run(ICommandObject<T> commandObject)
+    public class CommandObjectQueue<T>
     {
-        commandObjectQueue.Enqueue(commandObject);
-        return Task.Run(commandObject.WaitFinished);
-    }
+        readonly ConcurrentQueue<ICommandObject<T>> commandObjectQueue = new ConcurrentQueue<ICommandObject<T>>();
 
-    //コマンドオブジェクトを実行する
-    public void Update()
-    {
-        while (true)
+        ICommandObject<T> runningCommandObject;
+
+        //コマンドを登録する
+        public Task<T> Run(ICommandObject<T> commandObject)
         {
-            if (runningCommandObject != null)
-                runningCommandObject.Run();
-            else if (runningCommandObject == null)
-                if (commandObjectQueue.TryDequeue(out runningCommandObject))
+            commandObjectQueue.Enqueue(commandObject);
+            return Task.Run(commandObject.WaitFinished);
+        }
+
+        //コマンドオブジェクトを実行する
+        public void Update()
+        {
+            while (true)
+            {
+                if (runningCommandObject != null)
                     runningCommandObject.Run();
-            if (runningCommandObject == null || runningCommandObject.IsFinished == false)
-                return;
-            runningCommandObject = null;
+                else if (runningCommandObject == null)
+                    if (commandObjectQueue.TryDequeue(out runningCommandObject))
+                        runningCommandObject.Run();
+                if (runningCommandObject == null || runningCommandObject.IsFinished == false)
+                    return;
+                runningCommandObject = null;
+            }
         }
     }
 }

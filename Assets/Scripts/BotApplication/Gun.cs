@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BattleCoder.BotApplication.BulletApplication.Bullet;
+using BattleCoder.Sound;
 using UnityEngine;
 
-namespace BattleCoder.GameObject.BotApplication
+namespace BattleCoder.BotApplication
 {
     //砲台を表すクラス
     public class Gun
     {
         readonly SoundManager soundManager;
         readonly IBulletEntityCreator bulletEntityCreator;
-        List<global::BulletApplication> bulletApplicationList = new List<global::BulletApplication>();
+        List<global::BattleCoder.BotApplication.BulletApplication.BulletApplication> bulletApplicationList = new List<global::BattleCoder.BotApplication.BulletApplication.BulletApplication>();
 
 
         public Gun(SoundManager soundManager, IBulletEntityCreator bulletEntityCreator)
@@ -24,7 +26,7 @@ namespace BattleCoder.GameObject.BotApplication
             var bulletEntity = bulletEntityCreator.Create();
             bulletEntity.transform.position = shotPosition;
             bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
-            var bulletApplication = new global::BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
+            var bulletApplication = new global::BattleCoder.BotApplication.BulletApplication.BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
             bulletApplicationList.Add(bulletApplication);
         }
 

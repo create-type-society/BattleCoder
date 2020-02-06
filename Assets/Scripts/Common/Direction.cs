@@ -1,9 +1,12 @@
 ﻿//方向を表す
 
-public enum Direction
+namespace BattleCoder.Common
 {
-    Up,
-    Down,
-    Left,
-    Right
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
 }

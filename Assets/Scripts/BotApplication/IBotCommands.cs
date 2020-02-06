@@ -1,28 +1,33 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BattleCoder.Common;
 using BattleCoder.Map;
+using Void = BattleCoder.Common.Void;
 
-public interface IBotCommands
+namespace BattleCoder.BotApplication
 {
-    //移動コマンド
-    Task<Void> Move(Direction direction, uint gridDistance);
+    public interface IBotCommands
+    {
+        //移動コマンド
+        Task<Void> Move(Direction direction, uint gridDistance);
 
-    //コルーチン生成実行コマンド
-    void Coroutine(uint frameTime, Action action);
+        //コルーチン生成実行コマンド
+        void Coroutine(uint frameTime, Action action);
 
-    Task<Void> MoveDirection(Direction direction);
+        Task<Void> MoveDirection(Direction direction);
 
-    Task<Void> MoveShotRotation(float rotation);
+        Task<Void> MoveShotRotation(float rotation);
 
-    Task<GridPosition> GetMyPosition();
+        Task<GridPosition> GetMyPosition();
 
-    Task<float> GetPositionRadian(GridPosition position);
+        Task<float> GetPositionRadian(GridPosition position);
 
-    Task<TileType> GetTileType(GridPosition position);
+        Task<TileType> GetTileType(GridPosition position);
 
-    void Shot();
+        void Shot();
 
-    void MeleeAttack();
+        void MeleeAttack();
 
-    Task<bool> BoolUnityFunc(Func<bool> f);
+        Task<bool> BoolUnityFunc(Func<bool> f);
+    }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 
-public interface IPlayGame : IDisposable
+namespace BattleCoder.PlayGame
 {
-    void Update();
+    public interface IPlayGame : IDisposable
+    {
+        void Update();
+    }
 }

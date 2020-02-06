@@ -1,27 +1,33 @@
-﻿using UnityEngine;
+﻿using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
+using BattleCoder.Common;
+using BattleCoder.Sound;
+using UnityEngine;
 
-public class MeleeAttackApplication
+namespace BattleCoder.BotApplication.MeleeAttackApplication
 {
-    MeleeAttackEntity meleeAttackEntity;
-    SoundManager soundManager;
-    int coolTime = 0;
-
-    public MeleeAttackApplication(MeleeAttackEntity meleeAttackEntity, SoundManager soundManager)
+    public class MeleeAttackApplication
     {
-        this.meleeAttackEntity = meleeAttackEntity;
-        this.soundManager = soundManager;
-    }
+        MeleeAttackEntity meleeAttackEntity;
+        SoundManager soundManager;
+        int coolTime = 0;
 
-    public void MeleeAttack(Vector3 position, Direction direction)
-    {
-        if (coolTime > 0) return;
-        meleeAttackEntity.MeleeAttack(position, direction);
-        soundManager.MakeMeleeSound();
-        coolTime = 30;
-    }
+        public MeleeAttackApplication(MeleeAttackEntity meleeAttackEntity, SoundManager soundManager)
+        {
+            this.meleeAttackEntity = meleeAttackEntity;
+            this.soundManager = soundManager;
+        }
 
-    public void Update()
-    {
-        coolTime--;
+        public void MeleeAttack(Vector3 position, Direction direction)
+        {
+            if (coolTime > 0) return;
+            meleeAttackEntity.MeleeAttack(position, direction);
+            soundManager.MakeMeleeSound();
+            coolTime = 30;
+        }
+
+        public void Update()
+        {
+            coolTime--;
+        }
     }
 }

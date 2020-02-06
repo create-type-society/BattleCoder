@@ -1,6 +1,9 @@
 ﻿//BulletEntityを生成するインターフェイス
 
-public interface IBulletEntityCreator
+namespace BattleCoder.BotApplication.BulletApplication.Bullet
 {
-    BulletEntity Create();
+    public interface IBulletEntityCreator
+    {
+        BulletEntity Create();
+    }
 }

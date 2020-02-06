@@ -1,63 +1,75 @@
-﻿using BattleCoder.GamePlayUi;
+﻿using BattleCoder.BotApplication.Bot;
+using BattleCoder.BotApplication.BulletApplication.Bullet;
+using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
+using BattleCoder.Common;
+using BattleCoder.GamePlayUi;
+using BattleCoder.Map;
+using BattleCoder.PlayGame;
+using BattleCoder.PlayGame.MultiPlayGame;
+using BattleCoder.Sound;
+using BattleCoder.StageTransition;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 //天地創造をする全てを支配する全知全能の神
-public class God : MonoBehaviour
+namespace BattleCoder
 {
-    [FormerlySerializedAs("botPrefab")] [SerializeField]
-    BotEntity botEntityPrefab;
-
-    [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
-    [SerializeField] CameraFollower cameraFollower;
-    [SerializeField] PlayerHpPresenter playerHpPresenter;
-
-    [SerializeField] RunButtonEvent runButtonEvent;
-    [SerializeField] ScriptText scriptText;
-    [SerializeField] BulletEntity bulletPrefab;
-    [SerializeField] ErrorMsg errorMsg;
-    [SerializeField] SoundManager soundManager;
-    [SerializeField] MeleeAttackEntity meleeAttackPrefab;
-    [SerializeField] ConsoleWindow consoleWindow;
-    [SerializeField] ProcessScrollViewPresenter processScrollViewPresenter;
-
-
-    IPlayGame playGame;
-
-    void Awake()
+    public class God : MonoBehaviour
     {
-        if (StartGameInfo.IsSinglePlay == false)
-            playGame = MultiPlayGameFactory.CreateMultiPlayGame(GetPlayGameInitData());
-        else
-            playGame = new SinglePlayGame(GetPlayGameInitData());
-    }
+        [FormerlySerializedAs("botPrefab")] [SerializeField]
+        BotEntity botEntityPrefab;
 
-    void Update()
-    {
-        playGame.Update();
+        [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
+        [SerializeField] CameraFollower cameraFollower;
+        [SerializeField] PlayerHpPresenter playerHpPresenter;
 
-        if (Input.GetKeyDown(KeyCode.F5))
-            if (consoleWindow.isActiveAndEnabled)
-                consoleWindow.Close();
+        [SerializeField] RunButtonEvent runButtonEvent;
+        [SerializeField] ScriptText scriptText;
+        [SerializeField] BulletEntity bulletPrefab;
+        [SerializeField] ErrorMsg errorMsg;
+        [SerializeField] SoundManager soundManager;
+        [SerializeField] MeleeAttackEntity meleeAttackPrefab;
+        [SerializeField] ConsoleWindow consoleWindow;
+        [SerializeField] ProcessScrollViewPresenter processScrollViewPresenter;
+
+
+        IPlayGame playGame;
+
+        void Awake()
+        {
+            if (StartGameInfo.StartGameInfo.IsSinglePlay == false)
+                playGame = MultiPlayGameFactory.CreateMultiPlayGame(GetPlayGameInitData());
             else
-                consoleWindow.Open();
-    }
+                playGame = new SinglePlayGame(GetPlayGameInitData());
+        }
 
-    private void OnDestroy()
-    {
-        playGame.Dispose();
-    }
+        void Update()
+        {
+            playGame.Update();
 
-    PlayGameInitData GetPlayGameInitData()
-    {
-        var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
+                if (consoleWindow.isActiveAndEnabled)
+                    consoleWindow.Close();
+                else
+                    consoleWindow.Open();
+        }
 
-        return new PlayGameInitData(
-            botEntityPrefab, cameraFollower,
-            playerHpPresenter, tileMapInfo,
-            runButtonEvent, scriptText, bulletPrefab,
-            errorMsg, soundManager, meleeAttackPrefab,
-            processScrollViewPresenter
-        );
+        private void OnDestroy()
+        {
+            playGame.Dispose();
+        }
+
+        PlayGameInitData GetPlayGameInitData()
+        {
+            var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
+
+            return new PlayGameInitData(
+                botEntityPrefab, cameraFollower,
+                playerHpPresenter, tileMapInfo,
+                runButtonEvent, scriptText, bulletPrefab,
+                errorMsg, soundManager, meleeAttackPrefab,
+                processScrollViewPresenter
+            );
+        }
     }
 }

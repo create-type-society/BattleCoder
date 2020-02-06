@@ -1,23 +1,26 @@
-﻿using System;
+﻿using BattleCoder.Map;
 using UnityEngine;
 
 //選択したステージの種別を保存する
-public static class SelectedStageData
+namespace BattleCoder.StageTransition
 {
-    static StageKind? selectedStageKind = null;
-
-    //選択ステージ種別をセットする
-    public static void SetSelectedStageKind(StageKind stageKind)
+    public static class SelectedStageData
     {
-        selectedStageKind = stageKind;
-    }
+        static StageKind? selectedStageKind = null;
 
-    //選択ステージ種別を取得する
-    public static StageKind GetSelectedStageKind()
-    {
-        if (selectedStageKind.HasValue)
-            return selectedStageKind.Value;
-        Debug.Log("Stageが設定されませんでしたので、TestStageを設定します");
-        return StageKind.TestStage;
+        //選択ステージ種別をセットする
+        public static void SetSelectedStageKind(StageKind stageKind)
+        {
+            selectedStageKind = stageKind;
+        }
+
+        //選択ステージ種別を取得する
+        public static StageKind GetSelectedStageKind()
+        {
+            if (selectedStageKind.HasValue)
+                return selectedStageKind.Value;
+            Debug.Log("Stageが設定されませんでしたので、TestStageを設定します");
+            return StageKind.TestStage;
+        }
     }
 }

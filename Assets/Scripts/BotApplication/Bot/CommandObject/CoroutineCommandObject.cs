@@ -1,26 +1,30 @@
 ﻿using System;
+using Void = BattleCoder.Common.Void;
 
 
 //毎フレーム任意の関数を呼び出すコマンドオブジェクト
-public class CoroutineCommandObject : BaseCommandObject<Void>
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
-    readonly Action action;
-    readonly uint frameTime;
-    uint count = 0;
-
-    public CoroutineCommandObject(uint frameTime, Action action)
+    public class CoroutineCommandObject : BaseCommandObject<Void>
     {
-        this.action = action;
-        this.frameTime = frameTime;
-    }
+        readonly Action action;
+        readonly uint frameTime;
+        uint count = 0;
 
-    public override void Run()
-    {
-        count++;
-        if (frameTime == count)
+        public CoroutineCommandObject(uint frameTime, Action action)
         {
-            action();
-            count = 0;
+            this.action = action;
+            this.frameTime = frameTime;
+        }
+
+        public override void Run()
+        {
+            count++;
+            if (frameTime == count)
+            {
+                action();
+                count = 0;
+            }
         }
     }
 }

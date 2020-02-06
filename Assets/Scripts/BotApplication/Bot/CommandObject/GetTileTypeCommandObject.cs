@@ -1,6 +1,6 @@
 ﻿using BattleCoder.Map;
 
-namespace BattleCoder.GameObject.BotApplication.Bot.CommandObject
+namespace BattleCoder.BotApplication.Bot.CommandObject
 {
     public class GetTileTypeCommandObject : BaseCommandObject<TileType>
     {

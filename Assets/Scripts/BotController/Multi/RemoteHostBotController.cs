@@ -1,58 +1,68 @@
-﻿using BattleCoder.GameObject.BotApplication;
-using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
-using DefaultNamespace;
+﻿using BattleCoder.BotApplication;
+using BattleCoder.BotApplication.Bot;
+using BattleCoder.BotApplication.BulletApplication.Bullet;
+using BattleCoder.BotApplication.MeleeAttackApplication;
+using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
+using BattleCoder.BotController.Multi.BotCommandsTransformer;
+using BattleCoder.GameSignaling;
+using BattleCoder.Map;
+using BattleCoder.Matching;
+using BattleCoder.Sound;
 using UnityEngine;
 
-public class RemoteHostBotController : IBotController
+namespace BattleCoder.BotController.Multi
 {
-    readonly BotApplication botApplication;
-
-    public RemoteHostBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
-        SoundManager soundManager, GameSignalingClient gameSignalingClient,
-        MeleeAttackEntity meleeAttackEntity)
+    public class RemoteHostBotController : IBotController
     {
-        var botEntity = Object.Instantiate(botEntityPrefab);
-        tileMapInfo.EnemyTankTransform = botEntity.transform;
-        botEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBot");
-        botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
-        var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
-        MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
-        var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")));
+        readonly BotApplication.BotApplication botApplication;
 
-        botApplication = new BotApplication(
-            botEntity, botEntityAnimation, tileMapInfo, gun,
-            meleeAttackApplication, true
-        );
-
-        gameSignalingClient.ReceivedClientReceiveSignalData += data =>
+        public RemoteHostBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
+            SoundManager soundManager, GameSignalingClient gameSignalingClient,
+            MeleeAttackEntity meleeAttackEntity)
         {
-            if (data.commandApplyTarget == MatchType.Host)
-                new BotCommandsTransformerService().FromCommandData(data.commandData, botApplication);
-        };
-    }
+            var botEntity = Object.Instantiate(botEntityPrefab);
+            tileMapInfo.EnemyTankTransform = botEntity.transform;
+            botEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBot");
+            botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
+            var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
+            MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
+            var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")));
 
-    public Vector2 GetPos()
-    {
-        return botApplication.GetPos();
-    }
+            botApplication = new BotApplication.BotApplication(
+                botEntity, botEntityAnimation, tileMapInfo, gun,
+                meleeAttackApplication, true
+            );
 
-    public void SetPos(Vector2 pos)
-    {
-        botApplication.SetPos(pos);
-    }
+            gameSignalingClient.ReceivedClientReceiveSignalData += data =>
+            {
+                if (data.commandApplyTarget == MatchType.Host)
+                    new BotCommandsTransformerService().FromCommandData(data.commandData, botApplication);
+            };
+        }
+
+        public Vector2 GetPos()
+        {
+            return botApplication.GetPos();
+        }
+
+        public void SetPos(Vector2 pos)
+        {
+            botApplication.SetPos(pos);
+        }
 
 
-    public void Update()
-    {
-        botApplication.Update();
-    }
+        public void Update()
+        {
+            botApplication.Update();
+        }
 
-    public bool IsDeath()
-    {
-        return botApplication.Hp.IsDeath();
-    }
+        public bool IsDeath()
+        {
+            return botApplication.Hp.IsDeath();
+        }
 
-    public void Dispose()
-    {
+        public void Dispose()
+        {
+        }
     }
 }

@@ -1,22 +1,25 @@
 ﻿//BotのHpを表す
 
-public struct BotHp
+namespace BattleCoder.BotApplication.Bot
 {
-    public readonly int hp;
-
-    public BotHp(int hp)
+    public struct BotHp
     {
-        this.hp = hp;
-    }
+        public readonly int hp;
 
-    //Hpをダメージ分だけ減らしたBotHpを新たに生成する
-    public BotHp DamageHp(int damage)
-    {
-        return new BotHp(hp - damage);
-    }
+        public BotHp(int hp)
+        {
+            this.hp = hp;
+        }
 
-    public bool IsDeath()
-    {
-        return hp <= 0;
+        //Hpをダメージ分だけ減らしたBotHpを新たに生成する
+        public BotHp DamageHp(int damage)
+        {
+            return new BotHp(hp - damage);
+        }
+
+        public bool IsDeath()
+        {
+            return hp <= 0;
+        }
     }
 }

@@ -1,33 +1,36 @@
 ﻿using System.Collections.Concurrent;
 
+namespace BattleCoder.Tcp
+{
 //Tcpでやりとりするデータのキュー
-public class DataQueue
-{
-    ConcurrentQueue<string> queue = new ConcurrentQueue<string>();
-
-    public void EnQueue(string data)
+    public class DataQueue
     {
-        queue.Enqueue(data);
-    }
+        ConcurrentQueue<string> queue = new ConcurrentQueue<string>();
 
-    public int Length()
-    {
-        return queue.Count;
-    }
-
-    public DeQueueResult DeQueue()
-    {
-        string str;
-        return new DeQueueResult
+        public void EnQueue(string data)
         {
-            isOk = queue.TryDequeue(out str),
-            data = str
-        };
-    }
-}
+            queue.Enqueue(data);
+        }
 
-public struct DeQueueResult
-{
-    public string data;
-    public bool isOk;
+        public int Length()
+        {
+            return queue.Count;
+        }
+
+        public DeQueueResult DeQueue()
+        {
+            string str;
+            return new DeQueueResult
+            {
+                isOk = queue.TryDequeue(out str),
+                data = str
+            };
+        }
+    }
+
+    public struct DeQueueResult
+    {
+        public string data;
+        public bool isOk;
+    }
 }

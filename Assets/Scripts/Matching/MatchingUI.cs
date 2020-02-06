@@ -1,4 +1,5 @@
-﻿using BattleCoder.Map;
+﻿using System;
+using BattleCoder.Map;
 using BattleCoder.StartGameInfo;
 using BattleCoder.Tcp;
 using UniRx.Async;
@@ -17,40 +18,51 @@ namespace BattleCoder.Matching
 
         void Start()
         {
+            Application.quitting += client.DisConnect;
+
+            matchingText.text = text;
+            try
+            {
+                client.Connect();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+                SceneChangeManager.ChangeTitleScene();
+                return;
+            }
+
+            matchingClient = new MatchingClient(client, async data =>
+            {
+                if (data.MatchingDataType == MatchingDataType.MatchedData)
+                {
+                    matchingText.text = "マッチしました。";
+                    if (data.MatchType == MatchType.Host) await WaitStageSelect(data.MatchType);
+                    else
+                    {
+                        matchingText.text = "Hostがステージを選択中です。";
+                    }
+                }
+                else
+                {
+                    if (data.MatchType != MatchType.Client) return;
+                    await WaitGamePlay(data.StageKind, data.MatchType);
+                    matchingText.text = "ステージが決定されました。ゲームを開始します。";
+                }
+            });
+
             cancel.MatchingCancelEvent += (sender, args) =>
             {
                 client.DisConnect();
                 SceneChangeManager.ChangeTitleScene();
-            };
 
-            Application.quitting += client.DisConnect;
-
-            matchingText.text = text;
-            client.Connect();
-
-            MatchType? type = null;
-            matchingClient = new MatchingClient(client);
-            matchingClient.Matched += async matchType =>
-            {
-                type = matchType;
-                matchingText.text = "マッチしました。";
-                if (type == MatchType.Host) await WaitStageSelect(type.Value);
-                else
-                {
-                    matchingText.text = "Hostがステージを選択中です。";
-                }
-            };
-            matchingClient.StageDetermined += async stageKind =>
-            {
-                if (type != MatchType.Client) return;
-                await WaitGamePlay(stageKind, type.Value);
-                matchingText.text = "ステージが決定されました。ゲームを開始します。";
+                matchingClient.MatchingDataObserver.OnError(new OperationCanceledException());
             };
         }
 
         void Update()
         {
-            matchingClient.Update();
+            matchingClient?.Update();
         }
 
         async UniTask WaitStageSelect(MatchType matchType)

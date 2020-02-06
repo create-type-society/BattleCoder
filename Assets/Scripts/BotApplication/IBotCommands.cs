@@ -24,7 +24,7 @@ namespace BattleCoder.BotApplication
 
         Task<TileType> GetTileType(GridPosition position);
 
-        void Shot();
+        bool Shot();
 
         void MeleeAttack();
 

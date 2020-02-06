@@ -107,9 +107,9 @@ namespace BattleCoder.BotApplication
         }
 
         //射撃する
-        public void Shot()
+        public bool Shot()
         {
-            gun.Shot(botEntity.transform.position, shotRotation);
+            return gun.Shot(botEntity.transform.position, shotRotation);
         }
 
         //近接攻撃

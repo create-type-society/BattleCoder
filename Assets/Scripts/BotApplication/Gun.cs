@@ -11,27 +11,39 @@ namespace BattleCoder.BotApplication
     {
         readonly SoundManager soundManager;
         readonly IBulletEntityCreator bulletEntityCreator;
-        List<global::BattleCoder.BotApplication.BulletApplication.BulletApplication> bulletApplicationList = new List<global::BattleCoder.BotApplication.BulletApplication.BulletApplication>();
 
+        List<BattleCoder.BotApplication.BulletApplication.BulletApplication> bulletApplicationList =
+            new List<BattleCoder.BotApplication.BulletApplication.BulletApplication>();
 
-        public Gun(SoundManager soundManager, IBulletEntityCreator bulletEntityCreator)
+        const int maxCoolDownTime = 20;
+        int coolDownTime = 0;
+        readonly bool isNonCoolDownTime;
+
+        public Gun(SoundManager soundManager, IBulletEntityCreator bulletEntityCreator, bool isNonCoolDownTime)
         {
             this.soundManager = soundManager;
             this.bulletEntityCreator = bulletEntityCreator;
+            this.isNonCoolDownTime = isNonCoolDownTime;
         }
 
-        public void Shot(Vector3 shotPosition, float shotRotation)
+        public bool Shot(Vector3 shotPosition, float shotRotation)
         {
+            if (isNonCoolDownTime == false && coolDownTime != 0) return false;
+            coolDownTime = maxCoolDownTime;
             soundManager.MakeFiringSound();
             var bulletEntity = bulletEntityCreator.Create();
             bulletEntity.transform.position = shotPosition;
             bulletEntity.transform.rotation = Quaternion.Euler(0, 0, shotRotation);
-            var bulletApplication = new global::BattleCoder.BotApplication.BulletApplication.BulletApplication(bulletEntity, CalcRotationVector(bulletEntity, 2f));
+            var bulletApplication =
+                new BattleCoder.BotApplication.BulletApplication.BulletApplication(bulletEntity,
+                    CalcRotationVector(bulletEntity, 2f));
             bulletApplicationList.Add(bulletApplication);
+            return true;
         }
 
         public void Update()
         {
+            if (coolDownTime > 0) coolDownTime--;
             bulletApplicationList.ForEach(x => x.Update());
             bulletApplicationList = bulletApplicationList.Where(x =>
             {

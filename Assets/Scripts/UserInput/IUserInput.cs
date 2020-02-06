@@ -1,7 +1,7 @@
 ﻿using System;
 
 // ユーザー入力インタフェース
-namespace BattleCoder.Input
+namespace BattleCoder.UserInput
 {
     public interface IUserInput : IDisposable
     {

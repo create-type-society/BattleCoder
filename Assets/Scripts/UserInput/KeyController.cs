@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // ユーザーからのキー入力
-namespace BattleCoder.Input
+namespace BattleCoder.UserInput
 {
     public class KeyController : IUserInput
     {

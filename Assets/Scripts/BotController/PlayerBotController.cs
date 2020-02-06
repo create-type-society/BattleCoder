@@ -6,9 +6,9 @@ using BattleCoder.BotApplication.MeleeAttackApplication;
 using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
 using BattleCoder.Common;
 using BattleCoder.GamePlayUi;
-using BattleCoder.Input;
 using BattleCoder.Map;
 using BattleCoder.Sound;
+using BattleCoder.UserInput;
 using UnityEngine;
 
 namespace BattleCoder.BotController

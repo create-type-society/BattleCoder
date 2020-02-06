@@ -8,9 +8,9 @@ using BattleCoder.BotController.Multi.BotCommandsHook;
 using BattleCoder.Common;
 using BattleCoder.GamePlayUi;
 using BattleCoder.GameSignaling;
-using BattleCoder.Input;
 using BattleCoder.Map;
 using BattleCoder.Sound;
+using BattleCoder.UserInput;
 using UnityEngine;
 
 namespace BattleCoder.BotController.Multi

@@ -26,7 +26,11 @@ namespace BattleCoder.BotController.Multi
             botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
             var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
             MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
-            var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")));
+            var gun = new Gun(
+                soundManager,
+                new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("EnemyBullet")),
+                true
+            );
 
             botApplication = new BotApplication.BotApplication(
                 botEntity, botEntityAnimation, tileMapInfo, gun,

@@ -25,7 +25,8 @@ namespace BattleCoder.BotController.Multi
 
         public ClientBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
             CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
-            ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager, GameSignalingClient gameSignalingClient,
+            ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager,
+            GameSignalingClient gameSignalingClient,
             MeleeAttackEntity meleeAttackEntity, ProcessScrollViewPresenter processScrollViewPresenter)
         {
             this.errorMsg = errorMsg;
@@ -37,7 +38,11 @@ namespace BattleCoder.BotController.Multi
             var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
             botEntity.transform.position = tileMapInfo.GetPlayer2StartPosition();
             MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
-            var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")));
+            var gun = new Gun(
+                soundManager,
+                new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")),
+                false
+            );
 
             botApplication = new BotApplication.BotApplication(
                 botEntity, botEntityAnimation, tileMapInfo, gun,

@@ -1,6 +1,7 @@
 ﻿using System;
 using BattleCoder.Map;
 using BattleCoder.Tcp;
+using UniRx;
 
 namespace BattleCoder.Matching
 {
@@ -8,15 +9,12 @@ namespace BattleCoder.Matching
     {
         MyTcpClient myTcpClient;
 
-        //マッチ成功した時に呼ばれる時に呼ばれる処理
-        public event Action<MatchType> Matched;
+        public IObserver<MatchingData> MatchingDataObserver { get; }
 
-        //ステージ決定した時に呼ばれる処理
-        public event Action<StageKind> StageDetermined;
-
-        public MatchingClient(MyTcpClient myTcpClient)
+        public MatchingClient(MyTcpClient myTcpClient, Action<MatchingData> callback)
         {
             this.myTcpClient = myTcpClient;
+            MatchingDataObserver = Observer.Create(callback);
         }
 
         public void Update()
@@ -27,19 +25,20 @@ namespace BattleCoder.Matching
                 if (result.isOk == false) return;
                 if (result.data == "match_host")
                 {
-                    Matched?.Invoke(MatchType.Host);
+                    MatchingDataObserver.OnNext(new MatchingData(MatchType.Host));
                     return;
                 }
                 else if (result.data == "match_client")
                 {
-                    Matched?.Invoke(MatchType.Client);
+                    MatchingDataObserver.OnNext(new MatchingData(MatchType.Client));
                     return;
                 }
                 else if (result.data.IndexOf("stage_kind:") == 0)
                 {
-                    StageDetermined?.Invoke(
+                    MatchingDataObserver.OnNext(new MatchingData(
                         (StageKind) int.Parse(result.data.Split(':')[1])
-                    );
+                    ));
+                    MatchingDataObserver.OnCompleted();
                 }
             }
         }

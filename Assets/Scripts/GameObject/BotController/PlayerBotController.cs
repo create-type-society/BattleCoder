@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using BattleCoder.GameObject.BotApplication;
 using BattleCoder.GameObject.BotApplication.BulletApplication.Bullet;
 using BattleCoder.GamePlayUi;
 using UnityEngine;
@@ -25,10 +26,9 @@ public class PlayerBotController : IBotController
         var botEntityAnimation = botEntity.GetComponent<BotEntityAnimation>();
         botEntity.transform.position = tileMapInfo.GetPlayer1StartPosition();
         MeleeAttackApplication meleeAttackApplication = new MeleeAttackApplication(meleeAttackEntity, soundManager);
+        var gun = new Gun(soundManager, new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")));
         botApplication = new BotApplication(
-            botEntity, botEntityAnimation, tileMapInfo,
-            new BulletEntityCreator(bulletPrefab, LayerMask.NameToLayer("PlayerBullet")),
-            soundManager, meleeAttackApplication
+            botEntity, botEntityAnimation, tileMapInfo, gun, meleeAttackApplication
         );
         userInput.ShootingAttackEvent += (sender, e) => { botApplication.Shot(); };
         userInput.MeleeAttackEvent += (sender, e) => { botApplication.MeleeAttack(); };

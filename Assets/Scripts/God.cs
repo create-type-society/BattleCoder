@@ -19,6 +19,8 @@ namespace BattleCoder
         [FormerlySerializedAs("botPrefab")] [SerializeField]
         BotEntity botEntityPrefab;
 
+        [SerializeField] BotEntity botEntityPrefab2P;
+
         [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
         [SerializeField] CameraFollower cameraFollower;
         [SerializeField] PlayerHpPresenter playerHpPresenter;

@@ -16,8 +16,7 @@ namespace BattleCoder
 {
     public class God : MonoBehaviour
     {
-        [FormerlySerializedAs("botPrefab")] [SerializeField]
-        BotEntity botEntityPrefab;
+        [SerializeField] BotEntity botEntityPrefab;
 
         [SerializeField] BotEntity botEntityPrefab2P;
 

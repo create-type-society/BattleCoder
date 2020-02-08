@@ -65,7 +65,8 @@ namespace BattleCoder
             var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
 
             return new PlayGameInitData(
-                botEntityPrefab, cameraFollower,
+                botEntityPrefab, botEntityPrefab2P,
+                cameraFollower,
                 playerHpPresenter, tileMapInfo,
                 runButtonEvent, scriptText, bulletPrefab,
                 errorMsg, soundManager, meleeAttackPrefab,

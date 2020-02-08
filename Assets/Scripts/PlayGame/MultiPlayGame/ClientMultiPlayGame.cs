@@ -24,7 +24,7 @@ namespace BattleCoder.PlayGame.MultiPlayGame
             enemyMeleeAttackEntity.gameObject.layer = LayerMask.NameToLayer("EnemyBullet");
 
             playerBotController = new ClientBotController(
-                playGameInitData.botEntityPrefab,
+                playGameInitData.botEntityPrefab2P,
                 playGameInitData.tileMapInfo,
                 playGameInitData.bulletPrefab,
                 playGameInitData.cameraFollower,

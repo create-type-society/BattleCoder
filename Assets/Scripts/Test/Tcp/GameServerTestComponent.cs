@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using BattleCoder.Common;
+﻿using BattleCoder.Common;
 using BattleCoder.GameSignaling;
 using BattleCoder.Map;
 using BattleCoder.Matching;
@@ -27,19 +24,26 @@ namespace BattleCoder.Test.Tcp
             myTcpClient1.Connect();
             myTcpClient2.Connect();
 
-            matchingServer1 = new MatchingClient(myTcpClient1);
-            matchingServer2 = new MatchingClient(myTcpClient2);
-
-            matchingServer1.Matched += (matchType) =>
+            matchingServer1 = new MatchingClient(myTcpClient1, data =>
             {
-                if (matchType == MatchType.Host) CreateGameSignaling(myTcpClient1, matchType);
-            };
-            matchingServer2.Matched += (matchType) =>
+                if (data.MatchingDataType == MatchingDataType.MatchedData)
+                {
+                    if (data.MatchType == MatchType.Host)
+                        CreateGameSignaling(myTcpClient1, data.MatchType);
+                }
+                else if (data.MatchingDataType == MatchingDataType.StageDeterminedData)
+                    CreateGameSignaling(myTcpClient1, MatchType.Client);
+            });
+            matchingServer2 = new MatchingClient(myTcpClient2, data =>
             {
-                if (matchType == MatchType.Host) CreateGameSignaling(myTcpClient2, matchType);
-            };
-            matchingServer1.StageDetermined += (_) => { CreateGameSignaling(myTcpClient1, MatchType.Client); };
-            matchingServer2.StageDetermined += (_) => { CreateGameSignaling(myTcpClient2, MatchType.Client); };
+                if (data.MatchingDataType == MatchingDataType.MatchedData)
+                {
+                    if (data.MatchType == MatchType.Host)
+                        CreateGameSignaling(myTcpClient2, data.MatchType);
+                }
+                else if (data.MatchingDataType == MatchingDataType.StageDeterminedData)
+                    CreateGameSignaling(myTcpClient2, MatchType.Client);
+            });
         }
 
         void CreateGameSignaling(MyTcpClient myTcpClient, MatchType matchType)

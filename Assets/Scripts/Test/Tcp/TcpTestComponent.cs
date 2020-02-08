@@ -15,12 +15,14 @@ namespace BattleCoder.Test.Tcp
         {
             client.Connect();
             client.DisConnected += () => Debug.Log("TCP切断");
-            matchingClient = new MatchingClient(client);
-            matchingClient.Matched += (matchType) =>
+            matchingClient = new MatchingClient(client, data =>
             {
-                Debug.Log("マッチ");
-                Debug.Log(matchType);
-            };
+                if (data.MatchingDataType == MatchingDataType.MatchedData)
+                {
+                    Debug.Log("マッチ");
+                    Debug.Log(data.MatchType);
+                }
+            });
         }
 
         void Update()

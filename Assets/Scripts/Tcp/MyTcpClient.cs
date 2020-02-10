@@ -32,7 +32,7 @@ namespace BattleCoder.Tcp
             networkStream = client.GetStream();
             networkStream.WriteTimeout = 10000;
             new TcpReadWriteService().CreateReadWriteTask(networkStream, readQueue, writeQueue)
-                .ContinueWith((_) => DisConnect());
+                .ContinueWith(_ => DisConnect());
         }
 
         //切断する

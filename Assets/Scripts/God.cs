@@ -16,8 +16,9 @@ namespace BattleCoder
 {
     public class God : MonoBehaviour
     {
-        [FormerlySerializedAs("botPrefab")] [SerializeField]
-        BotEntity botEntityPrefab;
+        [SerializeField] BotEntity botEntityPrefab;
+
+        [SerializeField] BotEntity botEntityPrefab2P;
 
         [SerializeField] TileMapInfoManager tileMapInfoManagerPrefab;
         [SerializeField] CameraFollower cameraFollower;
@@ -64,7 +65,8 @@ namespace BattleCoder
             var tileMapInfo = Instantiate(tileMapInfoManagerPrefab).Create(SelectedStageData.GetSelectedStageKind());
 
             return new PlayGameInitData(
-                botEntityPrefab, cameraFollower,
+                botEntityPrefab, botEntityPrefab2P,
+                cameraFollower,
                 playerHpPresenter, tileMapInfo,
                 runButtonEvent, scriptText, bulletPrefab,
                 errorMsg, soundManager, meleeAttackPrefab,

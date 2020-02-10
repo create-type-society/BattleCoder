@@ -42,7 +42,7 @@ namespace BattleCoder.PlayGame.MultiPlayGame
                 playGameInitData.processScrollViewPresenter
             );
             enemyBotController = new RemoteClientBotController(
-                playGameInitData.botEntityPrefab,
+                playGameInitData.botEntityPrefab2P,
                 playGameInitData.tileMapInfo,
                 playGameInitData.bulletPrefab,
                 playGameInitData.soundManager,

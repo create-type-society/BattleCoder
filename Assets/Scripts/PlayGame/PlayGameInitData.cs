@@ -11,6 +11,7 @@ namespace BattleCoder.PlayGame
     public struct PlayGameInitData
     {
         public readonly BotEntity botEntityPrefab;
+        public readonly BotEntity botEntityPrefab2P;
         public readonly CameraFollower cameraFollower;
         public readonly PlayerHpPresenter playerHpPresenter;
         public readonly TileMapInfo tileMapInfo;
@@ -24,6 +25,7 @@ namespace BattleCoder.PlayGame
 
         public PlayGameInitData(
             BotEntity botEntityPrefab,
+            BotEntity botEntityPrefab2P,
             CameraFollower cameraFollower,
             PlayerHpPresenter playerHpPresenter,
             TileMapInfo tileMapInfo,
@@ -36,6 +38,7 @@ namespace BattleCoder.PlayGame
             ProcessScrollViewPresenter processScrollViewPresenter)
         {
             this.botEntityPrefab = botEntityPrefab;
+            this.botEntityPrefab2P = botEntityPrefab2P;
             this.cameraFollower = cameraFollower;
             this.playerHpPresenter = playerHpPresenter;
             this.tileMapInfo = tileMapInfo;

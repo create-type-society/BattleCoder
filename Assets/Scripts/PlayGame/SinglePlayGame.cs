@@ -31,7 +31,7 @@ namespace BattleCoder.PlayGame
             );
 
             enemyBotController = new CpuBotController(
-                playGameInitData.botEntityPrefab,
+                playGameInitData.botEntityPrefab2P,
                 playGameInitData.tileMapInfo,
                 playGameInitData.bulletPrefab,
                 playGameInitData.soundManager,

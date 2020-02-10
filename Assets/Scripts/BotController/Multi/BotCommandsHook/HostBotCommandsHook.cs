@@ -64,10 +64,11 @@ namespace BattleCoder.BotController.Multi.BotCommandsHook
             return botCommands.GetTileType(position);
         }
 
-        public void Shot()
+        public bool Shot()
         {
+            if (botCommands.Shot() == false) return false;
             SendCommandData(new CommandData(0, CommandKind.Shot, 0, new object[] { }));
-            botCommands.Shot();
+            return true;
         }
 
         public void MeleeAttack()

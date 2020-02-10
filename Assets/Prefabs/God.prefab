@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   botEntityPrefab: {fileID: -4956061481051820413, guid: feb02c4feed8f9a49864599684f6e751,
     type: 3}
+  botEntityPrefab2P: {fileID: 1176272245333910962, guid: b40c307ce2af04d4eac15742b3a2b5f5,
+    type: 3}
   tileMapInfoManagerPrefab: {fileID: 742703707148701537, guid: 04b2a665a96da2349b862a695320f3f9,
     type: 3}
   cameraFollower: {fileID: 0}
@@ -56,3 +58,5 @@ MonoBehaviour:
   soundManager: {fileID: 0}
   meleeAttackPrefab: {fileID: -2338550708994733017, guid: 00e81f663f06fd54abf83afd60c347e1,
     type: 3}
+  consoleWindow: {fileID: 0}
+  processScrollViewPresenter: {fileID: 0}

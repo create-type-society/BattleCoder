@@ -47,7 +47,7 @@ namespace BattleCoder
         {
             playGame.Update();
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.F5))
+            if (Input.GetKeyDown(KeyCode.F5))
                 if (consoleWindow.isActiveAndEnabled)
                     consoleWindow.Close();
                 else

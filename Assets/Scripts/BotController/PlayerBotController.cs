@@ -47,18 +47,7 @@ namespace BattleCoder.BotController
             userInput.MeleeAttackEvent += (sender, e) => { botApplication.MeleeAttack(); };
 
             javaScriptEngine = new JavaScriptEngine.JavaScriptEngine(botApplication);
-            runButtonEvent.AddClickEvent(async () =>
-            {
-                var tokenSource = new CancellationTokenSource();
-                var token = tokenSource.Token;
-                var panel =
-                    processScrollViewPresenter.AddProcessPanel(
-                        () => { tokenSource.Cancel(); });
-                var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token, panel.ProcessId);
-
-                await task;
-                panel.Dispose();
-            });
+            runButtonEvent.AddClickEvent(() => OnRunButtonClick(processScrollViewPresenter, scriptText));
         }
 
         public void Update()
@@ -90,6 +79,18 @@ namespace BattleCoder.BotController
         public void Dispose()
         {
             userInput.Dispose();
+        }
+
+        private async void OnRunButtonClick(ProcessScrollViewPresenter processScrollViewPresenter,
+            ScriptText scriptText)
+        {
+            var tokenSource = new CancellationTokenSource();
+            var token = tokenSource.Token;
+            var panel = processScrollViewPresenter.AddProcessPanel(tokenSource.Cancel);
+            var task = javaScriptEngine.ExecuteJS(scriptText.GetScriptText(), token, panel.ProcessId);
+
+            await task;
+            panel.Dispose();
         }
     }
 }

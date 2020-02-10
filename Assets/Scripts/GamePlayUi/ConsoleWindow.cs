@@ -19,7 +19,7 @@ namespace BattleCoder.GamePlayUi
 
         private void Start()
         {
-            clearButton.AddListener(() => consoleText.ClearText());
+            clearButton.AddListener(consoleText.ClearText);
             closeButton.AddListener(Close);
         }
 

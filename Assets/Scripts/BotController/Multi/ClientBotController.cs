@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using BattleCoder.AttackInput;
 using BattleCoder.BotApplication;
 using BattleCoder.BotApplication.Bot;
 using BattleCoder.BotApplication.BulletApplication.Bullet;
@@ -10,14 +11,13 @@ using BattleCoder.GamePlayUi;
 using BattleCoder.GameSignaling;
 using BattleCoder.Map;
 using BattleCoder.Sound;
-using BattleCoder.UserInput;
 using UnityEngine;
 
 namespace BattleCoder.BotController.Multi
 {
     public class ClientBotController : IBotController
     {
-        readonly IUserInput userInput = new KeyController();
+        readonly IAttackInput attackInput = new KeyAttackInput();
         readonly BotApplication.BotApplication botApplication;
         readonly PlayerHpPresenter playerHpPresenter;
         readonly JavaScriptEngine.JavaScriptEngine javaScriptEngine;
@@ -49,8 +49,8 @@ namespace BattleCoder.BotController.Multi
                 meleeAttackApplication, true
             );
             var hookBotApplication = new ClientBotCommandsHook(botApplication, gameSignalingClient);
-            userInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
-            userInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };
+            attackInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
+            attackInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };
 
             javaScriptEngine = new JavaScriptEngine.JavaScriptEngine(hookBotApplication);
             runButtonEvent.AddClickEvent(async () =>
@@ -69,7 +69,7 @@ namespace BattleCoder.BotController.Multi
         public void Update()
         {
             botApplication.Update();
-            userInput.Update();
+            attackInput.Update();
             playerHpPresenter.RenderHp(botApplication.Hp);
             var errorText = javaScriptEngine.GetErrorText();
             if (errorText != "")
@@ -94,7 +94,7 @@ namespace BattleCoder.BotController.Multi
 
         public void Dispose()
         {
-            userInput.Dispose();
+            attackInput.Dispose();
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-// ユーザーからのキー入力
-namespace BattleCoder.UserInput
+// ユーザーからのキー入力で攻撃指令を受け取る
+namespace BattleCoder.AttackInput
 {
-    public class KeyController : IUserInput
+    public class KeyAttackInput : IAttackInput
     {
         // 近接攻撃のイベント
         public event EventHandler<EventArgs> MeleeAttackEvent;

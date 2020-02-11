@@ -1,9 +1,9 @@
 ﻿using System;
 
-// ユーザー入力インタフェース
-namespace BattleCoder.UserInput
+// 入力された攻撃命令を受け取るインタフェース
+namespace BattleCoder.AttackInput
 {
-    public interface IUserInput : IDisposable
+    public interface IAttackInput : IDisposable
     {
         // 近接攻撃のイベント
         event EventHandler<EventArgs> MeleeAttackEvent;

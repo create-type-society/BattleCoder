@@ -22,7 +22,7 @@ namespace BattleCoder.BotController
         public PlayerBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
             CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
             ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager, MeleeAttackEntity meleeAttackEntity,
-            ProcessScrollViewPresenter processScrollViewPresenter)
+            ProcessScrollViewPresenter processScrollViewPresenter, EventSystemWatcher eventSystemWatcher)
         {
             this.errorMsg = errorMsg;
             this.playerHpPresenter = playerHpPresenter;
@@ -39,7 +39,7 @@ namespace BattleCoder.BotController
                 false
             );
             botApplication = new BotApplication.BotApplication(
-                botEntity, botEntityAnimation, tileMapInfo, gun, meleeAttackApplication
+                botEntity, botEntityAnimation, tileMapInfo, eventSystemWatcher, gun, meleeAttackApplication
             );
 
             javaScriptEngine = new JavaScriptEngine.JavaScriptEngine(botApplication);

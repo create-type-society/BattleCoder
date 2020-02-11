@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BattleCoder.Common;
 using BattleCoder.Map;
+using UnityEngine;
 using Void = BattleCoder.Common.Void;
 
 namespace BattleCoder.BotApplication
@@ -23,6 +24,12 @@ namespace BattleCoder.BotApplication
         Task<float> GetPositionRadian(GridPosition position);
 
         Task<TileType> GetTileType(GridPosition position);
+
+        Task<bool> GetKey(KeyCode keyCode);
+
+        Task<bool> GetKeyUp(KeyCode keyCode);
+
+        Task<bool> GetKeyDown(KeyCode keyCode);
 
         Task<bool> Shot();
 

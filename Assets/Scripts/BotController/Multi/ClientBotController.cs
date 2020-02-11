@@ -25,7 +25,8 @@ namespace BattleCoder.BotController.Multi
             CameraFollower cameraFollower, PlayerHpPresenter playerHpPresenter, RunButtonEvent runButtonEvent,
             ScriptText scriptText, ErrorMsg errorMsg, SoundManager soundManager,
             GameSignalingClient gameSignalingClient,
-            MeleeAttackEntity meleeAttackEntity, ProcessScrollViewPresenter processScrollViewPresenter)
+            MeleeAttackEntity meleeAttackEntity, ProcessScrollViewPresenter processScrollViewPresenter,
+            EventSystemWatcher eventSystemWatcher)
         {
             this.errorMsg = errorMsg;
             this.playerHpPresenter = playerHpPresenter;
@@ -43,7 +44,7 @@ namespace BattleCoder.BotController.Multi
             );
 
             botApplication = new BotApplication.BotApplication(
-                botEntity, botEntityAnimation, tileMapInfo, gun,
+                botEntity, botEntityAnimation, tileMapInfo, eventSystemWatcher, gun,
                 meleeAttackApplication, true
             );
             var hookBotApplication = new ClientBotCommandsHook(botApplication, gameSignalingClient);

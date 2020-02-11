@@ -9,7 +9,6 @@ using BattleCoder.PlayGame.MultiPlayGame;
 using BattleCoder.Sound;
 using BattleCoder.StageTransition;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 //天地創造をする全てを支配する全知全能の神
 namespace BattleCoder
@@ -32,6 +31,8 @@ namespace BattleCoder
         [SerializeField] MeleeAttackEntity meleeAttackPrefab;
         [SerializeField] ConsoleWindow consoleWindow;
         [SerializeField] ProcessScrollViewPresenter processScrollViewPresenter;
+
+        [SerializeField] EventSystemWatcher eventSystemWatcher;
 
 
         IPlayGame playGame;
@@ -70,7 +71,8 @@ namespace BattleCoder
                 playerHpPresenter, tileMapInfo,
                 runButtonEvent, scriptText, bulletPrefab,
                 errorMsg, soundManager, meleeAttackPrefab,
-                processScrollViewPresenter
+                processScrollViewPresenter,
+                eventSystemWatcher
             );
         }
     }

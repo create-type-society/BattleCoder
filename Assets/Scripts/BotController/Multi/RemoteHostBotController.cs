@@ -4,6 +4,7 @@ using BattleCoder.BotApplication.BulletApplication.Bullet;
 using BattleCoder.BotApplication.MeleeAttackApplication;
 using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
 using BattleCoder.BotController.Multi.BotCommandsTransformer;
+using BattleCoder.GamePlayUi;
 using BattleCoder.GameSignaling;
 using BattleCoder.Map;
 using BattleCoder.Matching;
@@ -18,7 +19,7 @@ namespace BattleCoder.BotController.Multi
 
         public RemoteHostBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
             SoundManager soundManager, GameSignalingClient gameSignalingClient,
-            MeleeAttackEntity meleeAttackEntity)
+            MeleeAttackEntity meleeAttackEntity, EventSystemWatcher eventSystemWatcher)
         {
             var botEntity = Object.Instantiate(botEntityPrefab);
             tileMapInfo.EnemyTankTransform = botEntity.transform;
@@ -33,7 +34,7 @@ namespace BattleCoder.BotController.Multi
             );
 
             botApplication = new BotApplication.BotApplication(
-                botEntity, botEntityAnimation, tileMapInfo, gun,
+                botEntity, botEntityAnimation, tileMapInfo, eventSystemWatcher, gun,
                 meleeAttackApplication, true
             );
 

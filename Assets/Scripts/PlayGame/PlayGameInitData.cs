@@ -22,6 +22,7 @@ namespace BattleCoder.PlayGame
         public readonly SoundManager soundManager;
         public readonly MeleeAttackEntity meleeAttackPrefab;
         public readonly ProcessScrollViewPresenter processScrollViewPresenter;
+        public readonly EventSystemWatcher eventSystemWatcher;
 
         public PlayGameInitData(
             BotEntity botEntityPrefab,
@@ -35,7 +36,8 @@ namespace BattleCoder.PlayGame
             ErrorMsg errorMsg,
             SoundManager soundManager,
             MeleeAttackEntity meleeAttackPrefab,
-            ProcessScrollViewPresenter processScrollViewPresenter)
+            ProcessScrollViewPresenter processScrollViewPresenter,
+            EventSystemWatcher eventSystemWatcher)
         {
             this.botEntityPrefab = botEntityPrefab;
             this.botEntityPrefab2P = botEntityPrefab2P;
@@ -49,6 +51,7 @@ namespace BattleCoder.PlayGame
             this.soundManager = soundManager;
             this.meleeAttackPrefab = meleeAttackPrefab;
             this.processScrollViewPresenter = processScrollViewPresenter;
+            this.eventSystemWatcher = eventSystemWatcher;
         }
     }
 }

@@ -42,6 +42,9 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
         public Task<bool> AddUnityFuncCommandObject(UnityFunctionCommandObject<bool> commandObject)
             => boolUnityFuncCommandObjectQueue.Run(commandObject);
 
+        public Task<bool> AddGetKeyCommandObject(GetKeyCommandObject commandObject)
+            => boolUnityFuncCommandObjectQueue.Run(commandObject);
+
         //コルーチンコマンドを登録する
         public void AddCoroutineCommandObject(CoroutineCommandObject commandObject)
         {

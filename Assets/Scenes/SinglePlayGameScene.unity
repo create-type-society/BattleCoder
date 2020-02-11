@@ -5537,6 +5537,7 @@ GameObject:
   - component: {fileID: 1907013705}
   - component: {fileID: 1907013707}
   - component: {fileID: 1907013706}
+  - component: {fileID: 1907013708}
   m_Layer: 5
   m_Name: CommandPallet
   m_TagString: Untagged
@@ -5600,6 +5601,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1907013704}
   m_CullTransparentMesh: 0
+--- !u!114 &1907013708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907013704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0c4d6036cdfd047b82f72507c4f661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 984667032}
 --- !u!1 &2034926144
 GameObject:
   m_ObjectHideFlags: 0

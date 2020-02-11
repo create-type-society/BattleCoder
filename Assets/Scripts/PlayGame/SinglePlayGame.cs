@@ -27,7 +27,8 @@ namespace BattleCoder.PlayGame
                 playGameInitData.errorMsg,
                 playGameInitData.soundManager,
                 playerMeleeAttackEntity,
-                playGameInitData.processScrollViewPresenter
+                playGameInitData.processScrollViewPresenter,
+                playGameInitData.eventSystemWatcher
             );
 
             enemyBotController = new CpuBotController(
@@ -35,7 +36,8 @@ namespace BattleCoder.PlayGame
                 playGameInitData.tileMapInfo,
                 playGameInitData.bulletPrefab,
                 playGameInitData.soundManager,
-                enemyMeleeAttackEntity
+                enemyMeleeAttackEntity,
+                playGameInitData.eventSystemWatcher
             );
         }
 

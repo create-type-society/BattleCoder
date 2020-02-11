@@ -81,6 +81,9 @@ namespace BattleCoder.JavaScriptEngine
                 {
                     botCommands.Coroutine(frameTime, () => jsfunc.Invoke());
                 }));
+            engine.SetValue("Shot", new Action(() => botCommands.Shot()));
+            engine.SetValue("Attack", new Action(() => botCommands.MeleeAttack()));
+
             engine.SetValue("Move", new Action<Direction, uint>((dir, mass) =>
                 botCommands.Move(dir, mass).Wait()
             ));

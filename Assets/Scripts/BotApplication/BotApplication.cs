@@ -107,15 +107,21 @@ namespace BattleCoder.BotApplication
         }
 
         //射撃する
-        public bool Shot()
+        public Task<bool> Shot()
         {
-            return gun.Shot(botEntity.transform.position, shotRotation);
+            return commandObjectController.AddUnityFuncCommandObject(new UnityFunctionCommandObject<bool>(() =>
+                gun.Shot(botEntity.transform.position, shotRotation)
+            ));
         }
 
         //近接攻撃
-        public void MeleeAttack()
+        public Task<Void> MeleeAttack()
         {
-            meleeAttackApplication.MeleeAttack(botEntity.transform.position, direction);
+            return commandObjectController.AddActionCommandObject(new UnityFunctionCommandObject<Void>(() =>
+            {
+                meleeAttackApplication.MeleeAttack(botEntity.transform.position, direction);
+                return new Void();
+            }));
         }
 
 

@@ -10,14 +10,12 @@ using BattleCoder.GamePlayUi;
 using BattleCoder.GameSignaling;
 using BattleCoder.Map;
 using BattleCoder.Sound;
-using BattleCoder.UserInput;
 using UnityEngine;
 
 namespace BattleCoder.BotController.Multi
 {
     public class ClientBotController : IBotController
     {
-        readonly IUserInput userInput = new KeyController();
         readonly BotApplication.BotApplication botApplication;
         readonly PlayerHpPresenter playerHpPresenter;
         readonly JavaScriptEngine.JavaScriptEngine javaScriptEngine;
@@ -49,8 +47,6 @@ namespace BattleCoder.BotController.Multi
                 meleeAttackApplication, true
             );
             var hookBotApplication = new ClientBotCommandsHook(botApplication, gameSignalingClient);
-            userInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
-            userInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };
 
             javaScriptEngine = new JavaScriptEngine.JavaScriptEngine(hookBotApplication);
             runButtonEvent.AddClickEvent(async () =>
@@ -69,7 +65,6 @@ namespace BattleCoder.BotController.Multi
         public void Update()
         {
             botApplication.Update();
-            userInput.Update();
             playerHpPresenter.RenderHp(botApplication.Hp);
             var errorText = javaScriptEngine.GetErrorText();
             if (errorText != "")
@@ -94,7 +89,6 @@ namespace BattleCoder.BotController.Multi
 
         public void Dispose()
         {
-            userInput.Dispose();
         }
     }
 }

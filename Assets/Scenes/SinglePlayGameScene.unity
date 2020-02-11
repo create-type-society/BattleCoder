@@ -1054,6 +1054,7 @@ GameObject:
   - component: {fileID: 355237872}
   - component: {fileID: 355237871}
   - component: {fileID: 355237870}
+  - component: {fileID: 355237873}
   m_Layer: 5
   m_Name: PalletButton
   m_TagString: Untagged
@@ -1123,7 +1124,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 355237871}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355237873}
+        m_MethodName: PalletShowOrHide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &355237871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,6 +1172,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355237868}
   m_CullTransparentMesh: 0
+--- !u!114 &355237873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355237868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa0d3635431e3e41910d2c95ab0d0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pallet: {fileID: 1907013704}
 --- !u!1 &359317221
 GameObject:
   m_ObjectHideFlags: 0
@@ -5518,7 +5543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1907013705
 RectTransform:
   m_ObjectHideFlags: 0

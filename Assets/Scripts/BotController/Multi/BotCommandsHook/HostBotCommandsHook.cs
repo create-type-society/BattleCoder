@@ -64,17 +64,17 @@ namespace BattleCoder.BotController.Multi.BotCommandsHook
             return botCommands.GetTileType(position);
         }
 
-        public bool Shot()
+        public async Task<bool> Shot()
         {
-            if (botCommands.Shot() == false) return false;
+            if (await botCommands.Shot() == false) return false;
             SendCommandData(new CommandData(0, CommandKind.Shot, 0, new object[] { }));
             return true;
         }
 
-        public void MeleeAttack()
+        public async Task<Void> MeleeAttack()
         {
             SendCommandData(new CommandData(0, CommandKind.MeleeAttack, 0, new object[] { }));
-            botCommands.MeleeAttack();
+            return await botCommands.MeleeAttack();
         }
 
         public Task<bool> BoolUnityFunc(Func<bool> f)

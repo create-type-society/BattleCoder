@@ -12,6 +12,7 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
         readonly CommandObjectQueue<bool> boolUnityFuncCommandObjectQueue = new CommandObjectQueue<bool>();
         readonly CommandObjectQueue<Void> moveTypeCommandObjectQueue = new CommandObjectQueue<Void>();
         readonly CommandObjectQueue<Void> moveShotRotationCommandObjectQueue = new CommandObjectQueue<Void>();
+        readonly CommandObjectQueue<Void> actionCommandObjectQueue = new CommandObjectQueue<Void>();
         readonly CommandObjectQueue<GridPosition> posGetCommandObjectQueue = new CommandObjectQueue<GridPosition>();
         readonly CommandObjectQueue<float> radGetCommandObjectQueue = new CommandObjectQueue<float>();
         readonly CommandObjectQueue<TileType> tileTypeGetCommandObjectQueue = new CommandObjectQueue<TileType>();
@@ -47,6 +48,11 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
             coroutineCommandObjects.Add(commandObject);
         }
 
+        public Task<Void> AddActionCommandObject(ICommandObject<Void> commandObject)
+        {
+            return actionCommandObjectQueue.Run(commandObject);
+        }
+
 
         //持っているコマンドオブジェクトを全部実行する
         public void RunCommandObjects()
@@ -58,6 +64,7 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
             posGetCommandObjectQueue.Update();
             radGetCommandObjectQueue.Update();
             tileTypeGetCommandObjectQueue.Update();
+            actionCommandObjectQueue.Update();
         }
     }
 }

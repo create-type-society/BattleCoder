@@ -12,7 +12,7 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
 
         protected override bool GetKeyFunc()
         {
-            return Input.GetKeyUp(keyCode);
+            return Input.GetKeyDown(keyCode);
         }
     }
 }

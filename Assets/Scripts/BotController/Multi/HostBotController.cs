@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using BattleCoder.AttackInput;
 using BattleCoder.BotApplication;
 using BattleCoder.BotApplication.Bot;
 using BattleCoder.BotApplication.BulletApplication.Bullet;
@@ -17,7 +16,6 @@ namespace BattleCoder.BotController.Multi
 {
     public class HostBotController : IBotController
     {
-        readonly IAttackInput attackInput = new KeyAttackInput();
         readonly BotApplication.BotApplication botApplication;
         readonly PlayerHpPresenter playerHpPresenter;
         readonly JavaScriptEngine.JavaScriptEngine javaScriptEngine;
@@ -47,8 +45,6 @@ namespace BattleCoder.BotController.Multi
                 meleeAttackApplication
             );
             var hookBotApplication = new HostBotCommandsHook(botApplication, gameSignalingHost);
-            attackInput.ShootingAttackEvent += (sender, e) => { hookBotApplication.Shot(); };
-            attackInput.MeleeAttackEvent += (sender, e) => { hookBotApplication.MeleeAttack(); };
 
             javaScriptEngine = new JavaScriptEngine.JavaScriptEngine(hookBotApplication);
             runButtonEvent.AddClickEvent(async () =>
@@ -67,7 +63,6 @@ namespace BattleCoder.BotController.Multi
         public void Update()
         {
             botApplication.Update();
-            attackInput.Update();
             playerHpPresenter.RenderHp(botApplication.Hp);
             var errorText = javaScriptEngine.GetErrorText();
             if (errorText != "")
@@ -92,7 +87,6 @@ namespace BattleCoder.BotController.Multi
 
         public void Dispose()
         {
-            attackInput.Dispose();
         }
     }
 }

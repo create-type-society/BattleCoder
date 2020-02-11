@@ -137,6 +137,16 @@ PrefabInstance:
       propertyPath: stageKind
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7424929254633171400, guid: 13e04c85df3becc478227162b33effc9,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1525371481}
+    - target: {fileID: 7424929254633171400, guid: 13e04c85df3becc478227162b33effc9,
+        type: 3}
+      propertyPath: bgm
+      value: 
+      objectReference: {fileID: 1272160886}
     - target: {fileID: 7424929254633171404, guid: 13e04c85df3becc478227162b33effc9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -385,6 +395,16 @@ PrefabInstance:
       propertyPath: stageKind
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7424929254633171400, guid: 13e04c85df3becc478227162b33effc9,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1525371481}
+    - target: {fileID: 7424929254633171400, guid: 13e04c85df3becc478227162b33effc9,
+        type: 3}
+      propertyPath: bgm
+      value: 
+      objectReference: {fileID: 1272160886}
     - target: {fileID: 7424929254633171404, guid: 13e04c85df3becc478227162b33effc9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -842,6 +862,16 @@ PrefabInstance:
       propertyPath: stageKind
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7424929254633171400, guid: 13e04c85df3becc478227162b33effc9,
+        type: 3}
+      propertyPath: soundManager
+      value: 
+      objectReference: {fileID: 1525371481}
+    - target: {fileID: 7424929254633171400, guid: 13e04c85df3becc478227162b33effc9,
+        type: 3}
+      propertyPath: bgm
+      value: 
+      objectReference: {fileID: 1272160886}
     - target: {fileID: 7424929254633171404, guid: 13e04c85df3becc478227162b33effc9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1405,6 +1435,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1525371481 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8920065729783698172, guid: 62b1cdac412378c479ce6c47ea765cb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1714741655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae0f8af1e8e45f4ca885cb9b2897b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1560014482
 GameObject:
   m_ObjectHideFlags: 0

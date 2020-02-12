@@ -3491,7 +3491,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 16
+  m_Text: 18
 --- !u!222 &1080050054
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5606,12 +5606,14 @@ MonoBehaviour:
   m_CaptionImage: {fileID: 0}
   m_ItemText: {fileID: 1177082629}
   m_ItemImage: {fileID: 0}
-  m_Value: 1
+  m_Value: 2
   m_Options:
     m_Options:
     - m_Text: 12
       m_Image: {fileID: 0}
     - m_Text: 16
+      m_Image: {fileID: 0}
+    - m_Text: 18
       m_Image: {fileID: 0}
     - m_Text: 24
       m_Image: {fileID: 0}

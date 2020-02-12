@@ -47,7 +47,7 @@ namespace BattleCoder.GamePlayUi
                 new Command("岩の場所", "TileType.Rock"),
                 new Command("穴の場所", "TileType.Hole"),
                 new Command("何もない場所", "TileType.Empty"),
-                new Command("指定座標への角度", "GetPosRad()"),
+                new Command("指定座標への角度", "GetPosAngle()"),
                 new Command("自分の座標取得", "GetMyPos()"),
                 new Command("1秒待機", "Wait(1000)"),
                 new Command("無限ループ", "while(true){}"),

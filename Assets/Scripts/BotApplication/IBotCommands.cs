@@ -21,7 +21,7 @@ namespace BattleCoder.BotApplication
 
         Task<GridPosition> GetMyPosition();
 
-        Task<float> GetPositionRadian(GridPosition position);
+        Task<float> GetPositionAngle(GridPosition position);
 
         Task<TileType> GetTileType(GridPosition position);
 

@@ -95,7 +95,7 @@ namespace BattleCoder.BotApplication
             );
         }
 
-        public Task<float> GetPositionRadian(GridPosition position)
+        public Task<float> GetPositionAngle(GridPosition position)
         {
             return commandObjectController.AddRadGetCommandObject(
                 new GetPositionRadianCommandObject(tileMapInfo, botEntity, position)

@@ -99,9 +99,9 @@ namespace BattleCoder.JavaScriptEngine
                 task.Wait();
                 return task.Result;
             }));
-            engine.SetValue("GetPosRad", new Func<GridPosition, float>(pos =>
+            engine.SetValue("GetPosAngle", new Func<GridPosition, float>(pos =>
             {
-                var task = botCommands.GetPositionRadian(pos);
+                var task = botCommands.GetPositionAngle(pos);
                 task.Wait();
                 return task.Result;
             }));

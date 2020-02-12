@@ -20,7 +20,7 @@ namespace BattleCoder.GamePlayUi
         [SerializeField] GameObject buttonBase;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             int offsetX = 0;
             int offsetY = 20;

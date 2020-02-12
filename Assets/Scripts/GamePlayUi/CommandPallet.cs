@@ -29,6 +29,7 @@ namespace BattleCoder.GamePlayUi
         async void AddText(string newText)
         {
             var text = inputField.text;
+            if (text.Length < caretPosition) caretPosition = inputField.caretPosition;
             inputField.text = text.Insert(caretPosition, newText);
             var tmpCaretPosition = caretPosition + newText.Length;
             inputField.Select();

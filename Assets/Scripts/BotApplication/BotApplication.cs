@@ -178,12 +178,12 @@ namespace BattleCoder.BotApplication
         {
             if (newPosition == null) return;
             var oldPostiion = botEntity.transform.position;
-            if (Vector3.Distance(newPosition.Value, oldPostiion) < 1)
+            if (Vector3.Distance(newPosition.Value, oldPostiion) < 3)
             {
                 botEntity.transform.position = newPosition.Value;
                 newPosition = null;
             }
-            else botEntity.transform.position += (newPosition.Value - oldPostiion) / 15.0f;
+            else botEntity.transform.position += (newPosition.Value - oldPostiion) / 10.0f;
         }
     }
 }

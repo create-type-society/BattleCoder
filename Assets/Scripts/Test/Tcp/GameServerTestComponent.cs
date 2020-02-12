@@ -29,7 +29,7 @@ namespace BattleCoder.Test.Tcp
                 if (data.MatchingDataType == MatchingDataType.MatchedData)
                 {
                     if (data.MatchType == MatchType.Host)
-                        CreateGameSignaling(myTcpClient1, data.MatchType);
+                        CreateGameSignaling(myTcpClient1, data.MatchType.Value);
                 }
                 else if (data.MatchingDataType == MatchingDataType.StageDeterminedData)
                     CreateGameSignaling(myTcpClient1, MatchType.Client);
@@ -39,7 +39,7 @@ namespace BattleCoder.Test.Tcp
                 if (data.MatchingDataType == MatchingDataType.MatchedData)
                 {
                     if (data.MatchType == MatchType.Host)
-                        CreateGameSignaling(myTcpClient2, data.MatchType);
+                        CreateGameSignaling(myTcpClient2, data.MatchType.Value);
                 }
                 else if (data.MatchingDataType == MatchingDataType.StageDeterminedData)
                     CreateGameSignaling(myTcpClient2, MatchType.Client);

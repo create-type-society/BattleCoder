@@ -3,6 +3,7 @@ using BattleCoder.BotApplication.Bot;
 using BattleCoder.BotApplication.BulletApplication.Bullet;
 using BattleCoder.BotApplication.MeleeAttackApplication;
 using BattleCoder.BotApplication.MeleeAttackApplication.MeleeAttack;
+using BattleCoder.GamePlayUi;
 using BattleCoder.Map;
 using BattleCoder.Sound;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace BattleCoder.BotController
         readonly CpuAi cpuAi = new CpuAi();
 
         public CpuBotController(BotEntity botEntityPrefab, TileMapInfo tileMapInfo, BulletEntity bulletPrefab,
-            SoundManager soundManager, MeleeAttackEntity meleeAttackEntity)
+            SoundManager soundManager, MeleeAttackEntity meleeAttackEntity, EventSystemWatcher eventSystemWatcher)
         {
             var botEntity = Object.Instantiate(botEntityPrefab);
             tileMapInfo.EnemyTankTransform = botEntity.transform;
@@ -30,7 +31,7 @@ namespace BattleCoder.BotController
             );
 
             botApplication = new BotApplication.BotApplication(
-                botEntity, botEntityAnimation, tileMapInfo, gun, meleeAttackApplication
+                botEntity, botEntityAnimation, tileMapInfo, eventSystemWatcher, gun, meleeAttackApplication
             );
             cpuAi.Start(botApplication);
         }

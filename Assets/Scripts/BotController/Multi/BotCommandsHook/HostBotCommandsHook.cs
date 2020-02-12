@@ -5,6 +5,7 @@ using BattleCoder.Common;
 using BattleCoder.GameSignaling;
 using BattleCoder.Map;
 using BattleCoder.Matching;
+using UnityEngine;
 using Void = BattleCoder.Common.Void;
 
 namespace BattleCoder.BotController.Multi.BotCommandsHook
@@ -62,6 +63,21 @@ namespace BattleCoder.BotController.Multi.BotCommandsHook
         public Task<TileType> GetTileType(GridPosition position)
         {
             return botCommands.GetTileType(position);
+        }
+
+        public Task<bool> GetKey(KeyCode keyCode)
+        {
+            return botCommands.GetKey(keyCode);
+        }
+
+        public Task<bool> GetKeyUp(KeyCode keyCode)
+        {
+            return botCommands.GetKeyUp(keyCode);
+        }
+
+        public Task<bool> GetKeyDown(KeyCode keyCode)
+        {
+            return botCommands.GetKeyDown(keyCode);
         }
 
         public async Task<bool> Shot()

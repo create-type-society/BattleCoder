@@ -35,7 +35,8 @@ namespace BattleCoder.PlayGame.MultiPlayGame
                 playGameInitData.soundManager,
                 gameSignalingClient,
                 playerMeleeAttackEntity,
-                playGameInitData.processScrollViewPresenter
+                playGameInitData.processScrollViewPresenter,
+                playGameInitData.eventSystemWatcher
             );
             enemyBotController = new RemoteHostBotController(
                 playGameInitData.botEntityPrefab,
@@ -43,7 +44,8 @@ namespace BattleCoder.PlayGame.MultiPlayGame
                 playGameInitData.bulletPrefab,
                 playGameInitData.soundManager,
                 gameSignalingClient,
-                enemyMeleeAttackEntity
+                enemyMeleeAttackEntity,
+                playGameInitData.eventSystemWatcher
             );
             gameSignalingClient.ReceivedClientPos += playerBotController.SetPos;
             gameSignalingClient.ReceivedHostPos += enemyBotController.SetPos;

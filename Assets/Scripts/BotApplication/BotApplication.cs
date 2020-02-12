@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BattleCoder.BotApplication.Bot;
 using BattleCoder.BotApplication.Bot.CommandObject;
 using BattleCoder.Common;
+using BattleCoder.GamePlayUi;
 using BattleCoder.Map;
 using UnityEngine;
 using Void = BattleCoder.Common.Void;
@@ -18,6 +19,7 @@ namespace BattleCoder.BotApplication
         readonly BotEntityAnimation botEntityAnimation;
         readonly CommandObjectController commandObjectController = new CommandObjectController();
         readonly TileMapInfo tileMapInfo;
+        readonly EventSystemWatcher eventSystemWatcher;
         readonly Gun gun;
         readonly bool noPosFix;
         Vector3? newPosition = null;
@@ -28,7 +30,7 @@ namespace BattleCoder.BotApplication
         private float shotRotation = 180;
 
         public BotApplication(BotEntity botEntity, BotEntityAnimation botEntityAnimation, TileMapInfo tileMapInfo,
-            Gun gun,
+            EventSystemWatcher eventSystemWatcher, Gun gun,
             MeleeAttackApplication.MeleeAttackApplication meleeAttackApplication, bool noPosFix = false)
         {
             this.botEntity = botEntity;
@@ -38,6 +40,7 @@ namespace BattleCoder.BotApplication
             Hp = new BotHp(3);
             this.meleeAttackApplication = meleeAttackApplication;
             this.noPosFix = noPosFix;
+            this.eventSystemWatcher = eventSystemWatcher;
             this.gun = gun;
         }
 
@@ -103,6 +106,27 @@ namespace BattleCoder.BotApplication
         {
             return commandObjectController.AddTileTypeGetCommandObject(
                 new GetTileTypeCommandObject(tileMapInfo, position)
+            );
+        }
+
+        public Task<bool> GetKey(KeyCode keyCode)
+        {
+            return commandObjectController.AddGetKeyCommandObject(
+                new GetKeyCommandObject(eventSystemWatcher, keyCode)
+            );
+        }
+
+        public Task<bool> GetKeyUp(KeyCode keyCode)
+        {
+            return commandObjectController.AddGetKeyCommandObject(
+                new GetKeyUpCommandObject(eventSystemWatcher, keyCode)
+            );
+        }
+
+        public Task<bool> GetKeyDown(KeyCode keyCode)
+        {
+            return commandObjectController.AddGetKeyCommandObject(
+                new GetKeyDownCommandObject(eventSystemWatcher, keyCode)
             );
         }
 

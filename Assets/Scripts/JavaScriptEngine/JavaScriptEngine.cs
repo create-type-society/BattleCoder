@@ -57,19 +57,19 @@ namespace BattleCoder.JavaScriptEngine
             engine.SetValue("KeyCode", TypeReference.CreateTypeReference(engine, typeof(KeyCode)));
             engine.SetValue("GetKey", new Func<KeyCode, bool>(code =>
             {
-                var task = botCommands.BoolUnityFunc(() => UnityEngine.Input.GetKey(code));
+                var task = botCommands.GetKey(code);
                 task.Wait();
                 return task.Result;
             }));
             engine.SetValue("GetKeyDown", new Func<KeyCode, bool>(code =>
             {
-                var task = botCommands.BoolUnityFunc(() => UnityEngine.Input.GetKeyDown(code));
+                var task = botCommands.GetKeyDown(code);
                 task.Wait();
                 return task.Result;
             }));
             engine.SetValue("GetKeyUp", new Func<KeyCode, bool>(code =>
             {
-                var task = botCommands.BoolUnityFunc(() => UnityEngine.Input.GetKeyUp(code));
+                var task = botCommands.GetKeyUp(code);
                 task.Wait();
                 return task.Result;
             }));

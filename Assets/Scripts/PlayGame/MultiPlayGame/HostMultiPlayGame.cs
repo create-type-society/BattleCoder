@@ -39,7 +39,8 @@ namespace BattleCoder.PlayGame.MultiPlayGame
                 playGameInitData.soundManager,
                 gameSignalingHost,
                 playerMeleeAttackEntity,
-                playGameInitData.processScrollViewPresenter
+                playGameInitData.processScrollViewPresenter,
+                playGameInitData.eventSystemWatcher
             );
             enemyBotController = new RemoteClientBotController(
                 playGameInitData.botEntityPrefab2P,
@@ -47,7 +48,8 @@ namespace BattleCoder.PlayGame.MultiPlayGame
                 playGameInitData.bulletPrefab,
                 playGameInitData.soundManager,
                 gameSignalingHost,
-                enemyMeleeAttackEntity
+                enemyMeleeAttackEntity,
+                playGameInitData.eventSystemWatcher
             );
         }
 

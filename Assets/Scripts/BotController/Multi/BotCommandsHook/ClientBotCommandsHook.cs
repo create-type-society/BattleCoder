@@ -59,9 +59,9 @@ namespace BattleCoder.BotController.Multi.BotCommandsHook
             return botCommands.GetMyPosition();
         }
 
-        public Task<float> GetPositionRadian(GridPosition position)
+        public Task<float> GetPositionAngle(GridPosition position)
         {
-            return botCommands.GetPositionRadian(position);
+            return botCommands.GetPositionAngle(position);
         }
 
         public Task<TileType> GetTileType(GridPosition position)

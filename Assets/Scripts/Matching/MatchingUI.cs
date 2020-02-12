@@ -32,21 +32,24 @@ namespace BattleCoder.Matching
                 return;
             }
 
+            MatchType? matchType = null;
             matchingClient = new MatchingClient(client, async data =>
             {
                 if (data.MatchingDataType == MatchingDataType.MatchedData)
                 {
                     matchingText.text = "マッチしました。";
-                    if (data.MatchType == MatchType.Host) await WaitStageSelect(data.MatchType);
+                    if (data.MatchType == MatchType.Host) await WaitStageSelect(data.MatchType.Value);
                     else
                     {
                         matchingText.text = "Hostがステージを選択中です。";
                     }
+
+                    matchType = data.MatchType;
                 }
                 else
                 {
-                    if (data.MatchType != MatchType.Client) return;
-                    await WaitGamePlay(data.StageKind, data.MatchType);
+                    if (data.StageKind == null) return;
+                    await WaitGamePlay(data.StageKind.Value, matchType.Value);
                     matchingText.text = "ステージが決定されました。ゲームを開始します。";
                 }
             });

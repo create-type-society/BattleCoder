@@ -9,8 +9,8 @@ namespace BattleCoder.Matching
 
         public MatchingDataType MatchingDataType { get; }
 
-        public MatchType MatchType => _matchType.Value;
-        public StageKind StageKind => _stageKind.Value;
+        public MatchType? MatchType => _matchType;
+        public StageKind? StageKind => _stageKind;
 
         public MatchingData(MatchType matchType)
         {

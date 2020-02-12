@@ -9,7 +9,7 @@ namespace BattleCoder.GamePlayUi
     {
         Action<string> callback;
 
-        [SerializeField] string text;
+        public string text;
 
         void Start()
         {

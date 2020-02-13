@@ -35,7 +35,8 @@ namespace BattleCoder.JavaScriptEngine
         public Task ExecuteJS(string script, CancellationToken cancellationToken, int processId)
         {
             var engine = CreateEngine(cancellationToken, processId);
-            return Task.Run(() => engine.Execute(script), cancellationToken)
+            return Task.Factory.StartNew(() => engine.Execute(script), cancellationToken,
+                    TaskCreationOptions.LongRunning, TaskScheduler.Default)
                 .ContinueWith(t =>
                 {
                     if (t.Exception != null)

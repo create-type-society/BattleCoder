@@ -60,14 +60,19 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
         //持っているコマンドオブジェクトを全部実行する
         public void RunCommandObjects()
         {
-            coroutineCommandObjects.ForEach(x => x.Run());
-            boolUnityFuncCommandObjectQueue.Update();
+            for (int i = 0; i <15000; i++)
+            {
+                coroutineCommandObjects.ForEach(x => x.Run());
+                boolUnityFuncCommandObjectQueue.Update();
+                moveShotRotationCommandObjectQueue.Update();
+                posGetCommandObjectQueue.Update();
+                radGetCommandObjectQueue.Update();
+                tileTypeGetCommandObjectQueue.Update();
+                actionCommandObjectQueue.Update();
+            }
+            
             moveTypeCommandObjectQueue.Update();
-            moveShotRotationCommandObjectQueue.Update();
-            posGetCommandObjectQueue.Update();
-            radGetCommandObjectQueue.Update();
-            tileTypeGetCommandObjectQueue.Update();
-            actionCommandObjectQueue.Update();
+
         }
     }
 }

@@ -9,9 +9,12 @@ namespace BattleCoder.StageTransition
         [SerializeField] StageKind stageKind;
         [SerializeField] SoundManager soundManager;
         [SerializeField] AudioSource bgm;
+        bool isClicked = false;
 
         public async void OnClicked()
         {
+            if (isClicked) return;
+            isClicked = true;
             bgm.Stop();
             soundManager.MakeDecisionSound();
             await UniRx.Async.UniTask.Delay(500);

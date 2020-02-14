@@ -70,7 +70,7 @@ namespace BattleCoder.BotApplication.Bot.CommandObject
             }
 
             movingCallback();
-            if (moveCount == 0)
+            if (moveCount <= 0)
             {
                 botEntityAnimation.ResetAnimation();
                 if (noPosFix == false)
